@@ -1,0 +1,27 @@
+<h1>Stats</h1>
+
+<table class="table table-hover table-striped table-sm">
+    <thead class="thead-dark">
+        <tr>
+          <th scope="col" class="th-large-width">Name</th>
+          <th scope="col" class="th-medium-width">Short Name</th>
+          <th scope="col" class="th-small-width">Code</th>
+          <th scope="col" class="th-small-width">Multiplier</th>
+          <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let stat of stats" [routerLink]="[stat.id]">
+            <td>{{stat.name}}</td>
+            <td>{{stat.shortName}}</td>
+            <td>{{stat.code}}</td>
+            <td class="text-right">{{stat.multiplier}}</td>
+          <td>
+            <i class="material-icons" (click)="updateStat(stat)" ngbTooltip="Update {{stat.shortName}}">description</i>
+            <i class="material-icons"(click)="deleteStat(stat.id)" ngbTooltip="Delete {{stat.shortName}}">delete</i></td>
+        </tr>
+    </tbody>
+</table>
+<div>
+  <button type="button" class="btn btn-secondary" ngbTooltip="Create a New Stat" placement="top" (click)="addStat()"><i class="material-icons">add_box</i>New Stat</button>
+</div>

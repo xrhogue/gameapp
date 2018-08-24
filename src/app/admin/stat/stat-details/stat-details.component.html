@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <h1>Stat</h1>
+  </div>
+</div>
+
+<form #form="ngForm">
+  <input type="hidden" class="form-control" [(ngModel)]="stat.id" name="id"  #id="ngModel">
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <label class="control-label" for="name">Name
+        <div class="input-group">
+          <input type="text" class="form-control" id="name" oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())" [(ngModel)]="stat.name" name="name" required [appUniqueStat]="{stat: this.stat, fieldName: 'name'}" #name="ngModel">
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">Required</div>
+            <div *ngIf="name.errors['uniqueStat']">{{name.errors['uniqueStat'].description}}</div>
+          </div>
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <label class="control-label" for="shortName">Short Name
+        <div class="input-group">
+          <input type="text" class="form-control" id="shortName" oninput="this.value = this.value.toUpperCase()" [(ngModel)]="stat.shortName" name="shortName" required [appUniqueStat]="{stat: this.stat, fieldName: 'shortName'}" minlength="3" maxlength="3" pattern="[A-Z]{3}" #shortName="ngModel">
+          <div *ngIf="shortName.invalid && (shortName.dirty || shortName.touched)" class="alert alert-danger">
+            <div *ngIf="shortName.errors.required">Required</div>
+            <div *ngIf="shortName.errors.minlength">Short Name must be 3 characters in length</div>
+            <div *ngIf="shortName.errors['uniqueStat']">{{shortName.errors['uniqueStat'].description}}</div>
+          </div>
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <label class="control-label" for="code">Code
+        <select id="code" class="form-control" [(ngModel)]="stat.code" name="code" required #code="ngModel">
+          <option *ngFor="let statCode of statCodes" [value]="statCode">{{statCode}}</option>
+        </select>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <label class="control-label" for="multiplier">Multiplier
+        <div class="input-group">
+          <input type="text" class="form-control" id="multiplier" oninput="this.value = this.value.replace(/\D/g, '')" [(ngModel)]="stat.multiplier" name="multiplier" required min="1" pattern="[1-9]+[0-9]*" #multiplier="ngModel">
+          <div *ngIf="multiplier.invalid && (multiplier.dirty || multiplier.touched)" class="alert alert-danger">
+            <div *ngIf="multiplier.errors.required">Required</div>
+            <div *ngIf="multiplier.errors.pattern && isInteger(multiplier.errors.pattern.actualValue)">Value must be greater than '0'</div>
+            <div *ngIf="multiplier.errors.pattern && !isInteger(multiplier.errors.pattern.actualValue)">Value is not an integer</div>
+          </div>
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="row align-center">
+    <div class="small-12 columns">
+      <div class="expanded button-group">
+        <button class="success btn btn-secondary" type="button"
+                [disabled]="name.invalid || shortName.invalid || multiplier.invalid || code.invalid"
+                (click)="update()">
+          {{stat.id > 0 ? 'Update' : 'Add'}}
+        </button>
+        <button class="cancel btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>
