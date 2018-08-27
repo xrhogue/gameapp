@@ -1,12 +1,17 @@
 <nav>
   <ul>
     <li>
-      <a routerLink="" [class.activated]="currentUrl == '/characters' || currentUrl == '/'">
+      <a routerLink="" [class.activated]="currentUrl == '/characters' || currentUrl == '/'" ngbTooltip="Characters" placement="right">
         <i class="material-icons">people</i>
       </a>
     </li>
     <li>
-      <a routerLink="stats" [class.activated]="currentUrl == '/stats'">
+      <a routerLink="stats" [class.activated]="currentUrl == '/stats'" ngbTooltip="Stats" placement="right">
+        <i class="material-icons">list</i>
+      </a>
+    </li>
+    <li>
+      <a routerLink="skills" [class.activated]="currentUrl == '/skills'" ngbTooltip="Skills" placement="right">
         <i class="material-icons">list</i>
       </a>
     </li>

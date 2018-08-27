@@ -17,9 +17,7 @@ export class StatService {
   }
 
   getStat(statId: number) {
-    let statKey;
-
-    for (statKey in this.stats) {
+    for (let statKey in this.stats) {
       if (this.stats[statKey].id == statId) {
         return new Stat(
           this.stats[statKey].id,

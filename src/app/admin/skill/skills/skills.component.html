@@ -1,0 +1,95 @@
+<h1>Skills</h1>
+
+<p-contextMenu #cm [model]="items"></p-contextMenu>
+
+<p-treeTable [value]="skillTreeNodes" [columns]="cols" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" selectionMode="checkbox" [(selection)]="selectedSkillTreeNodes" [contextMenu]="cm" [(contextMenuSelection)]="selectedSkillTreeNode">
+  <ng-template pTemplate="caption">
+    <div style="text-align:left">
+      <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+      <span style="margin-left: .25em; vertical-align: middle">Toggle All</span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of cols">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <tr [ttContextMenuRow]="rowNode">
+      <td *ngFor="let col of cols; let i = index" ttEditableColumn [ngClass]="{'number-cell': col.field == 'baseCost' || col.field == 'levelCost', 'center-cell' : col.field == 'selectable'}">
+        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+        <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+        <p-treeTableCellEditor *ngIf="col.field == 'baseCost' || col.field == 'levelCost'">
+          <ng-template pTemplate="input">
+            <input type="text" oninput="this.value = this.value.replace(/\D/g, '')" required min="1" pattern="[1-9]+[0-9]*" [(ngModel)]="rowData[col.field]">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{rowData[col.field]}}
+          </ng-template>
+        </p-treeTableCellEditor>
+        <p-treeTableCellEditor *ngIf="col.field == 'selectable'">
+          <ng-template pTemplate="input">
+            <input type="checkbox" [(ngModel)]="rowData[col.field]">
+          </ng-template>
+          <ng-template pTemplate="output">
+            <input type="checkbox" [(ngModel)]="rowData[col.field]">
+          </ng-template>
+        </p-treeTableCellEditor>
+        <span *ngIf="col.field == 'primaryStat'">
+          {{getPrimaryStat(rowData)}}
+        </span>
+        <span *ngIf="col.field == 'secondaryStats'">
+          {{getSecondaryStats(rowData)}}
+        </span>
+        <span *ngIf="col.field == 'actions'">
+          <i class="material-icons" (click)="updateSkill(rowData)" ngbTooltip="Update {{rowData.name}}">description</i>
+          <i class="material-icons"(click)="deleteSkill(rowData.id)" ngbTooltip="Delete {{rowData.name}}">delete</i>
+        </span>
+        <span *ngIf="col.field != 'baseCost' && col.field != 'levelCost' && col.field != 'primaryStat' && col.field != 'secondaryStats' && col.field != 'selectable' && col.field != 'actions'">
+          {{rowData[col.field]}}
+        </span>
+
+      </td>
+    </tr>
+  </ng-template>
+</p-treeTable>
+
+<div>
+  <button type="button" class="btn btn-secondary" ngbTooltip="Create a New Skill" placement="top" (click)="addSkill()"><i class="material-icons">add_box</i>New Skill</button>
+</div>
+
+<!--
+<table class="table table-hover table-striped table-sm">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col" class="th-large-width">Name</th>
+    <th scope="col" class="th-medium-width">Short Name</th>
+    <th scope="col" class="th-small-width">Base Cost</th>
+    <th scope="col" class="th-small-width">Level Cost</th>
+    <th scope="col" class="th-small-width">Primary Stat</th>
+    <th scope="col" class="th-small-width">Secondary Stats</th>
+    <th scope="col" class="th-small-width">Selectable</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let skill of skills" [routerLink]="[skill.id]">
+    <td>{{skill.name}}</td>
+    <td>{{skill.shortName}}</td>
+    <td class="text-right">{{skill.baseCost}}</td>
+    <td class="text-right">{{skill.levelCost}}</td>
+    <td>{{skill.primaryStatId}}</td>
+    <td>{{skill.secondaryStatIds}}</td>
+    <td>{{skill.selectable}}</td>
+    <td>
+      <i class="material-icons" (click)="updateSkill(skill)" ngbTooltip="Update {{skill.shortName}}">description</i>
+      <i class="material-icons"(click)="deleteSkill(skill.id)" ngbTooltip="Delete {{skill.shortName}}">delete</i></td>
+  </tr>
+  </tbody>
+</table>
+<div>
+  <button type="button" class="btn btn-secondary" ngbTooltip="Create a New Skill" placement="top" (click)="addSkill()"><i class="material-icons">add_box</i>New Skill</button>
+</div>
+-->
