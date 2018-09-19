@@ -1,5 +1,3 @@
-import {Stat} from "./stat";
-
 export class Skill {
   constructor(
     public id: number,

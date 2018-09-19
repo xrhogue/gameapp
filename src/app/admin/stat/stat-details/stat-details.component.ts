@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StatService } from '../../../service/stat/stat.service';
 import { Stat } from '../../shared/stat';
 import {NgForm} from "@angular/forms";

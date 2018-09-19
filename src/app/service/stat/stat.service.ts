@@ -7,7 +7,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StatService {
 
-  stats: Array<Stat> = [{id: 1, name: 'Strength', shortName: 'STR', code: 'S', multiplier: 1}];
+  stats: Array<Stat> = [
+    {id: 1, name: 'Strength', shortName: 'STR', code: 'S', multiplier: 1},
+    {id: 2, name: 'Intelligence', shortName: 'INT', code: 'I', multiplier: 1}
+    ];
 
   constructor(private http: HttpClient) {}
 

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Stat} from "../../admin/shared/stat";
 import {HttpClient} from "@angular/common/http";
 import {Skill} from "../../admin/shared/skill";
 
@@ -60,7 +59,7 @@ export class SkillService {
       }
     }
 
-    return {id: 0, name: 'Unknown', shortName: 'UNK', code: 'U', multiplier: 0};
+    return {id: 1, name: 'Hunting', shortName: 'Hunting', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1], prerequisiteSkillIds: null};
     // return this.http.put('http://localhost:9090/skills/' + skill.id);
   }
 
@@ -75,7 +74,7 @@ export class SkillService {
     // return this.http.delete('http://localhost:9090/skills/' + skill.id);
   }
 
-  isUnique(skill: Stat, fieldName: String, value: String) {
+  isUnique(skill: Skill, fieldName: String, value: String) {
     for (let skillKey in this.skills) {
       if (this.skills[skillKey].id != skill.id &&
         ((fieldName === "name" && this.skills[skillKey].name === value) ||

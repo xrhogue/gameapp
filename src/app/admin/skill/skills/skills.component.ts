@@ -19,7 +19,7 @@ export class SkillsComponent implements OnInit {
   selectedSkillTreeNode: SkillTreeNode;
   selectedSkillTreeNodes: Array<SkillTreeNode>;
   cols: Array<Column>;
-  items: Array<MenuItem> = [{label: 'Test'}];
+  items: Array<MenuItem>;
 
   constructor(private data: SkillService, private statService: StatService, private router: Router) { }
 
@@ -37,6 +37,9 @@ export class SkillsComponent implements OnInit {
       { field: 'actions', header: '' }
     ];
 
+    this.items = [
+      {label: 'Update', command: (event: any) => {this.updateSkill(this.selectedSkillTreeNode.data)}},
+      {label: 'Delete', command: (event: any) => {this.deleteSkill(this.selectedSkillTreeNode.data)}}];
     // this.data.getSkills().subscribe(data => this.skills = data);
   }
 
@@ -45,11 +48,13 @@ export class SkillsComponent implements OnInit {
   }
 
   updateSkill(skill: Skill) {
-    return this.data.updateSkill(skill);
+    //this.router.navigateByUrl('/skills/' + skill.id);
+    this.router.navigate(['skills', skill.id])
+    //return this.data.updateSkill(skill);
   }
 
-  deleteSkill(skillId: number) {
-    this.data.deleteSkill(skillId);
+  deleteSkill(skill: Skill) {
+    this.data.deleteSkill(skill.id);
   }
 
   buildSkillTreeNodes(parentId: number) {
@@ -59,8 +64,6 @@ export class SkillsComponent implements OnInit {
       skillTreeNode.children = this.buildSkillTreeNodes(skillTreeNode.data.id);
 
       skillTreeNode.leaf = (skillTreeNode.children == undefined || skillTreeNode.children == null || skillTreeNode.children.length == 0);
-
-      skillTreeNode.expanded = true;
     });
 
     return skillTreeNodes;
@@ -80,5 +83,13 @@ export class SkillsComponent implements OnInit {
     }
 
     return skill.secondaryStatIds.map(statId => this.statService.getStat(statId).shortName).join("/");
+  }
+
+  getSelectedSkillTreeNodeDataId(selectedSkillTreeNode: SkillTreeNode) {
+    if (selectedSkillTreeNode != undefined) {
+      return selectedSkillTreeNode.data.id;
+    }
+
+    return 0;
   }
 }

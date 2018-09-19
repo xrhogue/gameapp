@@ -1,7 +1,5 @@
 <h1>Skills</h1>
 
-<p-contextMenu #cm [model]="items"></p-contextMenu>
-
 <p-treeTable [value]="skillTreeNodes" [columns]="cols" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" selectionMode="checkbox" [(selection)]="selectedSkillTreeNodes" [contextMenu]="cm" [(contextMenuSelection)]="selectedSkillTreeNode">
   <ng-template pTemplate="caption">
     <div style="text-align:left">
@@ -11,7 +9,7 @@
   </ng-template>
   <ng-template pTemplate="header" let-columns>
     <tr>
-      <th *ngFor="let col of cols">
+      <th *ngFor="let col of cols" [ngClass]="{'center-cell' : col.field == 'selectable'}">
         {{col.header}}
       </th>
     </tr>
@@ -59,6 +57,8 @@
 <div>
   <button type="button" class="btn btn-secondary" ngbTooltip="Create a New Skill" placement="top" (click)="addSkill()"><i class="material-icons">add_box</i>New Skill</button>
 </div>
+
+<p-contextMenu #cm [model]="items"></p-contextMenu>
 
 <!--
 <table class="table table-hover table-striped table-sm">
