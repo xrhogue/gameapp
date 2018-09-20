@@ -1,16 +1,18 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, CanDeactivate, Router} from '@angular/router';
 import { StatService } from '../../../service/stat/stat.service';
 import { Stat } from '../../shared/stat';
 import {NgForm} from "@angular/forms";
 import {Subscription} from "rxjs/internal/Subscription";
+import {Observable} from "rxjs/internal/Observable";
+import {DialogService} from "../../../shared/services/dialog/dialog.service";
 
 @Component({
   selector: 'app-stat-details',
   templateUrl: './stat-details.component.html',
   styleUrls: ['./stat-details.component.scss']
 })
-export class StatDetailsComponent implements OnInit {
+export class StatDetailsComponent implements OnInit, CanDeactivate<Observable<boolean>> {
 
   id: number;
   stat: Stat;
@@ -20,7 +22,7 @@ export class StatDetailsComponent implements OnInit {
 
   @ViewChild('form') ngForm: NgForm;
 
-  constructor(private route: ActivatedRoute, private router: Router, private data: StatService) {
+  constructor(private route: ActivatedRoute, private router: Router, private data: StatService, private dialogService: DialogService) {
       this.route.params.subscribe( params => this.id = params.id );
       this.JSON = JSON;
    }
@@ -60,6 +62,7 @@ export class StatDetailsComponent implements OnInit {
     }
     // this.data.getStat(id).subscribe(data => this.stat = data);
   }
+
   ngOnDestroy() {
     this.formChangesSubscription.unsubscribe();
   }
@@ -72,11 +75,11 @@ export class StatDetailsComponent implements OnInit {
       this.stat = this.data.updateStat(this.stat);
     }
     // this.data.updateStat(this.stat).subscribe(data => this.stat = data);
-    this.router.navigate(['/stats']);
+    this.router.navigate(['/admin/stats']);
   }
 
   cancel() {
-    this.router.navigate(['/stats']);
+    this.router.navigate(['/admin/stats']);
   }
 
   isInteger(number: string) {
@@ -86,4 +89,13 @@ export class StatDetailsComponent implements OnInit {
 
     return Number.isInteger(Number.parseInt(number))
   }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.ngForm.dirty == false) {
+      return true;
+    }
+
+    return this.dialogService.confirm('Discard changes?');
+  }
+
 }

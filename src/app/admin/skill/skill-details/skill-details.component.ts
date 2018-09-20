@@ -58,11 +58,11 @@ export class SkillDetailsComponent implements OnInit {
       this.skill = this.data.updateSkill(this.skill);
     }
     // this.data.updateSkill(this.skill).subscribe(data => this.skill = data);
-    this.router.navigate(['/skills']);
+    this.router.navigate(['/admin/skills']);
   }
 
   cancel() {
-    this.router.navigate(['/skills']);
+    this.router.navigate(['/admin/skills']);
   }
 
   isInteger(number: string) {
