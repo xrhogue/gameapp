@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {FormsModule} from "@angular/forms";
 
-import {ContextMenuModule, MultiSelectModule, TreeTableModule} from "primeng/primeng";
+import {ContextMenuModule, DragDropModule, MultiSelectModule, TreeTableModule} from "primeng/primeng";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 import {SharedModule} from "../shared/shared.module";
@@ -13,6 +13,11 @@ import {SkillDetailsComponent} from "./skill/skill-details/skill-details.compone
 import {AdminRoutingModule} from "./admin-routing.module";
 
 @NgModule({
+  declarations: [
+    StatDetailsComponent,
+    SkillsComponent,
+    SkillDetailsComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -21,12 +26,9 @@ import {AdminRoutingModule} from "./admin-routing.module";
     ContextMenuModule,
     MultiSelectModule,
     TreeTableModule,
+    DragDropModule,
     AdminRoutingModule
-  ],
-  declarations: [
-    StatDetailsComponent,
-    SkillsComponent,
-    SkillDetailsComponent
   ]
 })
-export class AdminModule { }
+export class AdminModule {
+}

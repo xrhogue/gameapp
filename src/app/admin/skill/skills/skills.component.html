@@ -15,7 +15,13 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-    <tr [ttContextMenuRow]="rowNode">
+    <tr pDraggable="treeTable" pDroppable="treeTable" [pDroppableDisabled]="disableDroppable(rowNode)"
+        [ttContextMenuRow]="rowNode"
+        (onDragStart)="dragStart($event, rowNode)"
+        (onDragEnd)="dragEnd($event)"
+        (onDragEnter)="dragEnter($event, rowNode)"
+        (onDragLeave)="dragLeave($event)"
+        (onDrop)="drop($event, rowNode)">
       <td *ngFor="let col of cols; let i = index" ttEditableColumn [ngClass]="{'number-cell': col.field == 'baseCost' || col.field == 'levelCost', 'center-cell' : col.field == 'selectable'}">
         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
         <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>

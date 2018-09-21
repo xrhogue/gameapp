@@ -20,6 +20,7 @@ export class SkillsComponent implements OnInit {
   selectedSkillTreeNodes: Array<SkillTreeNode>;
   cols: Array<Column>;
   items: Array<MenuItem>;
+  draggedSkillTreeNode: SkillTreeNode;
 
   constructor(private data: SkillService, private statService: StatService, private router: Router) { }
 
@@ -91,5 +92,39 @@ export class SkillsComponent implements OnInit {
     }
 
     return 0;
+  }
+
+  disableDroppable(object: {node: SkillTreeNode, parent: SkillTreeNode}) {
+    if (this.draggedSkillTreeNode == null) {
+      return false;
+    }
+
+    return true;
+  }
+  dragStart(event: DragEvent, object: {node: SkillTreeNode, parent: SkillTreeNode}) {
+    console.log("starting drag. event: " + event + ", object: " + object + ", skill name: " + (object.node != undefined ? object.node.data.name : "undefined"))
+    this.draggedSkillTreeNode = object.node;
+    event.dataTransfer.effectAllowed = "move";
+  }
+
+  dragEnter(event: DragEvent, object: {node: SkillTreeNode, parent: SkillTreeNode}) {
+    console.log("entering drag. event: " + event)
+
+    // this currently DOES NOT WORK!!!
+    event.dataTransfer.dropEffect = (this.draggedSkillTreeNode.data.id == object.node.data.id) ? "none" : "move";
+    event.dataTransfer.effectAllowed = event.dataTransfer.dropEffect;
+  }
+
+  dragLeave(event: DragEvent) {
+    console.log("leaving drag. event: " + event)
+  }
+
+  dragEnd(event: DragEvent) {
+    console.log("ending drag. event: " + event)
+    this.draggedSkillTreeNode = null;
+  }
+
+  drop(event: DragEvent, object: {node: SkillTreeNode, parent: SkillTreeNode}) {
+    console.log("dropping. event: " + event)
   }
 }
