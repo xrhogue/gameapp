@@ -9,7 +9,9 @@ export class SkillService {
 
   skills: Array<Skill> = [
     {id: 1, name: 'Hunting', shortName: 'Hunting', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1], prerequisiteSkillIds: null},
-    {id: 2, name: 'Targeting', shortName: 'Targeting', baseCost: 3, levelCost: 3, selectable: true, parentId: 1, primaryStatId: 1, secondaryStatIds: [1,2], prerequisiteSkillIds: null}];
+    {id: 2, name: 'Targeting', shortName: 'Targeting', baseCost: 3, levelCost: 3, selectable: true, parentId: 1, primaryStatId: 1, secondaryStatIds: [1,2], prerequisiteSkillIds: null},
+    {id: 3, name: 'Partying', shortName: 'Partying', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1], prerequisiteSkillIds: null}
+    ];
 
   constructor(private http: HttpClient) {}
 

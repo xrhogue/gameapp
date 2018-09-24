@@ -1,0 +1,28 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-3">
+    <h4>Available Skills</h4>
+    <p-tree [value]="skillTreeNodes" draggableNodes="true" droppableNodes="true">
+      <ng-template let-node  pTemplate="default">
+        {{node.data.name}}
+      </ng-template>
+    </p-tree>
+  </div>
+
+  <div class="ui-g-12 ui-md-3">
+    <h4>Prerequisites (Required)</h4>
+    <p-tree [value]="andPrerequisiteTreeNodes" draggableNodes="true" droppableNodes="true">
+      <ng-template let-node  pTemplate="default">
+        {{node.data.name}}
+      </ng-template>
+    </p-tree>
+  </div>
+
+  <div class="ui-g-12 ui-md-3">
+    <h4>Prerequisites (At Least One Of)</h4>
+    <p-tree [value]="orPrerequisiteTreeNodes" draggableNodes="true" droppableNodes="true">
+      <ng-template let-node  pTemplate="default">
+        {{node.data.name}}
+      </ng-template>
+    </p-tree>
+  </div>
+</div>

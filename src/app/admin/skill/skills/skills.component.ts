@@ -22,10 +22,10 @@ export class SkillsComponent implements OnInit {
   items: Array<MenuItem>;
   draggedSkillTreeNode: SkillTreeNode;
 
-  constructor(private data: SkillService, private statService: StatService, private router: Router) { }
+  constructor(private skillService: SkillService, private statService: StatService, private router: Router) { }
 
   ngOnInit() {
-    this.skills = this.data.getSkills();
+    this.skills = this.skillService.getSkills();
     this.skillTreeNodes = this.buildSkillTreeNodes(null);
 
     this.cols = [
@@ -45,17 +45,17 @@ export class SkillsComponent implements OnInit {
   }
 
   addSkill() {
-    this.router.navigateByUrl('/skills/0');
+    this.router.navigateByUrl('/admin/skills/0');
   }
 
   updateSkill(skill: Skill) {
     //this.router.navigateByUrl('/skills/' + skill.id);
-    this.router.navigate(['skills', skill.id])
-    //return this.data.updateSkill(skill);
+    this.router.navigate(['admin/skills', skill.id])
+    //return this.skillService.updateSkill(skill);
   }
 
   deleteSkill(skill: Skill) {
-    this.data.deleteSkill(skill.id);
+    this.skillService.deleteSkill(skill.id);
   }
 
   buildSkillTreeNodes(parentId: number) {
@@ -126,5 +126,20 @@ export class SkillsComponent implements OnInit {
 
   drop(event: DragEvent, object: {node: SkillTreeNode, parent: SkillTreeNode}) {
     console.log("dropping. event: " + event)
+
+    if (object.node.leaf) {
+      console.log("cannot drop on a leaf!")
+    }
+    else {
+      let draggedSkill: Skill = this.draggedSkillTreeNode.data;
+
+      draggedSkill.parentId = object.node.data.id;
+
+      this.skillService.updateSkill(draggedSkill);
+      this.skillTreeNodes = this.buildSkillTreeNodes(null);
+      this.skillTreeNodes.filter((skillTreeNode) => skillTreeNode.data.id == object.node.data.id)
+        .forEach(skillTreeNode => skillTreeNode.expanded = object.node.expanded);
+      // TODO: don't forget to remove from previous parent node (if necessary)
+    }
   }
 }
