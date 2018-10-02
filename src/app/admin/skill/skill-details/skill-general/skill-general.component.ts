@@ -1,30 +1,30 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {SkillService} from "../../../service/skill/skill.service";
+import {SkillService} from "../../../../service/skill/skill.service";
 import {NgForm} from "@angular/forms";
-import {Skill} from "../../shared/skill";
+import {Skill} from "../../../shared/skill";
 import {Subscription} from "rxjs/internal/Subscription";
-import {StatService} from "../../../service/stat/stat.service";
-import {Stat} from "../../shared/stat";
-import {SkillGeneralComponent} from "./skill-general/skill-general.component";
+import {StatService} from "../../../../service/stat/stat.service";
+import {Stat} from "../../../shared/stat";
+import {interceptingHandler} from "@angular/common/http/src/module";
 
 @Component({
-  selector: 'app-skill-details',
-  templateUrl: './skill-details.component.html',
-  styleUrls: ['./skill-details.component.scss']
+  selector: 'app-skill-general',
+  templateUrl: './skill-general.component.html',
+  styleUrls: ['./skill-general.component.scss']
 })
-export class SkillDetailsComponent implements OnInit {
+export class SkillGeneralComponent implements OnInit {
 
   id: number;
-  skill: Skill;
+  @Input() skill: Skill;
   stats: Array<Stat>;
   skillSecondaryStats: Array<Stat> = [];
   JSON: JSON;
   formChangesSubscription: Subscription;
-  invalid: boolean = true;
+  fieldStates: {name: boolean, shortName: boolean, baseCost: boolean, levelCost: boolean} = {name: false, shortName: false, baseCost: false, levelCost: false};
 
-  @ViewChild('form') ngForm: NgForm;
-  @ViewChild(SkillGeneralComponent) private skillGeneralComponent: SkillGeneralComponent;
+  @Input() ngForm: NgForm;
+  //@ViewChild('form') ngForm: NgForm;
 
   constructor(private route: ActivatedRoute, private router: Router, private data: SkillService, private statService: StatService) {
     this.route.params.subscribe( params => this.id = params.id );
@@ -53,7 +53,6 @@ export class SkillDetailsComponent implements OnInit {
     let skills = this.data.getSkills();
     // this.data.getSkill(id).subscribe(data => this.skill = data);
   }
-
   ngOnDestroy() {
     this.formChangesSubscription.unsubscribe();
   }
@@ -73,12 +72,12 @@ export class SkillDetailsComponent implements OnInit {
     this.router.navigate(['/admin/skills']);
   }
 
-  isInvalid() {
-    if (this.skillGeneralComponent !== undefined) {
-      this.invalid = this.skillGeneralComponent.invalid();
-    }
+  invalid() {
+    return this.fieldStates.name || this.fieldStates.shortName || this.fieldStates.baseCost || this.fieldStates.levelCost;
+  }
 
-    return this.invalid;
+  updateInvalid(field: string, invalid: boolean) {
+    this.fieldStates[field] = invalid;
   }
 
   isInteger(number: string) {

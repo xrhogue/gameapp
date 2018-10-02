@@ -1,0 +1,136 @@
+<input type="hidden" class="form-control" [(ngModel)]="skill.id" name="id" #id="ngModel">
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="name">Name
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               id="name"
+               oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())"
+               (input)="updateInvalid('name', name.invalid && (name.dirty || name.touched))"
+               [(ngModel)]="skill.name"
+               name="name"
+               required
+               [appUniqueSkill]="{skill: this.skill, fieldName: 'name'}"
+               #name="ngModel">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+          <div *ngIf="name.errors.required">Required</div>
+          <div *ngIf="name.errors['uniqueSkill']">{{name.errors['uniqueSkill'].description}}</div>
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="shortName">Short Name
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               id="shortName"
+               oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())"
+               (input)="updateInvalid('shortName', shortName.invalid && (shortName.dirty || shortName.touched))"
+               [(ngModel)]="skill.shortName"
+               name="shortName"
+               required
+               [appUniqueSkill]="{skill: this.skill, fieldName: 'shortName'}"
+               #shortName="ngModel">
+        <div *ngIf="shortName.invalid && (shortName.dirty || shortName.touched)" class="alert alert-danger">
+          <div *ngIf="shortName.errors.required">Required</div>
+          <div *ngIf="shortName.errors['uniqueSkill']">{{shortName.errors['uniqueSkill'].description}}</div>
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="primaryStat">Primary Stat
+      <div class="input-group">
+        <select id="primaryStat" class="form-control" [(ngModel)]="skill.primaryStatId" name="primaryStat" required #primaryStat="ngModel">
+          <option *ngFor="let primaryStat of stats" [value]="primaryStat.id">{{primaryStat.name}}</option>
+        </select>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="secondaryStats">Secondary Stats
+      <div class="input-group">
+        <p-multiSelect id="secondaryStats"
+                       [inputId]="secondaryStats"
+                       [options]="stats"
+                       optionLabel="shortName"
+                       dataKey="id"
+                       [showToggleAll]="false"
+                       [showHeader]="false"
+                       [filter]="false"
+                       defaultLabel="Choose Stats"
+                       [(ngModel)]="skillSecondaryStats"
+                       name="secondaryStats"
+                       required
+                       #secondaryStats="ngModel">
+        </p-multiSelect>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="baseCost">Base Cost
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               id="baseCost"
+               oninput="this.value = this.value.replace(/\D/g, '')"
+               (input)="updateInvalid('baseCost', baseCost.invalid && (baseCost.dirty || baseCost.touched))"
+               [(ngModel)]="skill.baseCost"
+               name="baseCost"
+               required
+               min="1"
+               pattern="[1-9]+[0-9]*"
+               #baseCost="ngModel">
+        <div *ngIf="baseCost.invalid && (baseCost.dirty || baseCost.touched)" class="alert alert-danger">
+          <div *ngIf="baseCost.errors.required">Required</div>
+          <div *ngIf="baseCost.errors.pattern && isInteger(baseCost.errors.pattern.actualValue)">Value must be greater than '0'</div>
+          <div *ngIf="baseCost.errors.pattern && !isInteger(baseCost.errors.pattern.actualValue)">Value is not an integer</div>
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="levelCost">Level Cost
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               id="levelCost"
+               oninput="this.value = this.value.replace(/\D/g, '')"
+               (input)="updateInvalid('levelCost', levelCost.invalid && (levelCost.dirty || levelCost.touched))"
+               [(ngModel)]="skill.levelCost"
+               name="levelCost"
+               required
+               min="1"
+               pattern="[1-9]+[0-9]*"
+               #levelCost="ngModel">
+        <div *ngIf="levelCost.invalid && (levelCost.dirty || levelCost.touched)" class="alert alert-danger">
+          <div *ngIf="levelCost.errors.required">Required</div>
+          <div *ngIf="levelCost.errors.pattern && isInteger(levelCost.errors.pattern.actualValue)">Value must be greater than '0'</div>
+          <div *ngIf="levelCost.errors.pattern && !isInteger(levelCost.errors.pattern.actualValue)">Value is not an integer</div>
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="selectable">Selectable
+      <div class="input-group">
+        <input type="checkbox" class="form-control" id="selectable" oninput="this.value = this.value.replace(/\D/g, '')" [(ngModel)]="skill.selectable" name="selectable" #selectable="ngModel">
+      </div>
+    </label>
+  </div>
+</div>
+

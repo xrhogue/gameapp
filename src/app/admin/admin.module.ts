@@ -12,13 +12,15 @@ import {SkillsComponent} from "./skill/skills/skills.component";
 import {SkillDetailsComponent} from "./skill/skill-details/skill-details.component";
 import {AdminRoutingModule} from "./admin-routing.module";
 import { SkillPrerequisitesComponent } from './skill/skill-details/skill-prerequisites/skill-prerequisites.component';
+import { SkillGeneralComponent } from './skill/skill-details/skill-general/skill-general.component';
 
 @NgModule({
   declarations: [
     StatDetailsComponent,
     SkillsComponent,
     SkillDetailsComponent,
-    SkillPrerequisitesComponent
+    SkillPrerequisitesComponent,
+    SkillGeneralComponent
   ],
   imports: [
     CommonModule,

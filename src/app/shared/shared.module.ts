@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import {SharedRoutingModule} from "./shared-routing.module";
 import {DialogService} from "./services/dialog/dialog.service";
 import {DeactivateGuard} from "./guards/deactivate-guard/deactivate-guard.service";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {DeactivateGuard} from "./guards/deactivate-guard/deactivate-guard.servic
   ],
   imports: [
     CommonModule,
-    SharedRoutingModule
+    SharedRoutingModule,
+    FontAwesomeModule
   ],
   exports: [
     PageNotFoundComponent,

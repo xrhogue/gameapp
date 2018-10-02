@@ -92,6 +92,9 @@
               "**/node_modules/**"
             ]
           }
+        },
+        "defaults": {
+          "styleExt": "scss"
         }
       }
     },

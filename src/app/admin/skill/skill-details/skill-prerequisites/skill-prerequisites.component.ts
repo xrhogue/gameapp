@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {SkillService} from "../../../../service/skill/skill.service";
 import {Skill} from "../../../shared/skill";
@@ -11,8 +11,10 @@ import {SkillTreeNode} from "../../../shared/skill-tree-node";
 })
 export class SkillPrerequisitesComponent implements OnInit {
 
+  @Input() skill: Skill;
   skills: Array<Skill>;
   skillTreeNodes: Array<SkillTreeNode>;
+  selectedSkillTreeNodes: Array<SkillTreeNode>;
   andPrerequisiteTreeNodes: Array<SkillTreeNode>;
   orPrerequisiteTreeNodes: Array<SkillTreeNode>;
 
