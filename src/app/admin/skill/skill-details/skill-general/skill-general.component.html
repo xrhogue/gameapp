@@ -7,13 +7,14 @@
                class="form-control"
                id="name"
                oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())"
-               (input)="updateInvalid('name', name.invalid && (name.dirty || name.touched))"
+               (input)="updateInvalid('name', name.invalid)"
                [(ngModel)]="skill.name"
+               (ngModelChange)="skillChange.emit(skill)"
                name="name"
                required
                [appUniqueSkill]="{skill: this.skill, fieldName: 'name'}"
                #name="ngModel">
-        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div *ngIf="name.invalid" class="alert alert-danger">
           <div *ngIf="name.errors.required">Required</div>
           <div *ngIf="name.errors['uniqueSkill']">{{name.errors['uniqueSkill'].description}}</div>
         </div>
@@ -29,13 +30,14 @@
                class="form-control"
                id="shortName"
                oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())"
-               (input)="updateInvalid('shortName', shortName.invalid && (shortName.dirty || shortName.touched))"
+               (input)="updateInvalid('shortName', shortName.invalid)"
                [(ngModel)]="skill.shortName"
+               (ngModelChange)="skillChange.emit(skill)"
                name="shortName"
                required
                [appUniqueSkill]="{skill: this.skill, fieldName: 'shortName'}"
                #shortName="ngModel">
-        <div *ngIf="shortName.invalid && (shortName.dirty || shortName.touched)" class="alert alert-danger">
+        <div *ngIf="shortName.invalid" class="alert alert-danger">
           <div *ngIf="shortName.errors.required">Required</div>
           <div *ngIf="shortName.errors['uniqueSkill']">{{shortName.errors['uniqueSkill'].description}}</div>
         </div>
@@ -68,6 +70,7 @@
                        [filter]="false"
                        defaultLabel="Choose Stats"
                        [(ngModel)]="skillSecondaryStats"
+                       (ngModelChange)="updateSecondaryStats();skillChange.emit(skill);updateInvalid('secondaryStats', secondaryStats.invalid)"
                        name="secondaryStats"
                        required
                        #secondaryStats="ngModel">
@@ -84,14 +87,15 @@
                class="form-control"
                id="baseCost"
                oninput="this.value = this.value.replace(/\D/g, '')"
-               (input)="updateInvalid('baseCost', baseCost.invalid && (baseCost.dirty || baseCost.touched))"
+               (input)="updateInvalid('baseCost', baseCost.invalid)"
                [(ngModel)]="skill.baseCost"
+               (ngModelChange)="skillChange.emit(skill)"
                name="baseCost"
                required
                min="1"
                pattern="[1-9]+[0-9]*"
                #baseCost="ngModel">
-        <div *ngIf="baseCost.invalid && (baseCost.dirty || baseCost.touched)" class="alert alert-danger">
+        <div *ngIf="baseCost.invalid" class="alert alert-danger">
           <div *ngIf="baseCost.errors.required">Required</div>
           <div *ngIf="baseCost.errors.pattern && isInteger(baseCost.errors.pattern.actualValue)">Value must be greater than '0'</div>
           <div *ngIf="baseCost.errors.pattern && !isInteger(baseCost.errors.pattern.actualValue)">Value is not an integer</div>
@@ -108,14 +112,15 @@
                class="form-control"
                id="levelCost"
                oninput="this.value = this.value.replace(/\D/g, '')"
-               (input)="updateInvalid('levelCost', levelCost.invalid && (levelCost.dirty || levelCost.touched))"
+               (input)="updateInvalid('levelCost', levelCost.invalid)"
                [(ngModel)]="skill.levelCost"
+               (ngModelChange)="skillChange.emit(skill)"
                name="levelCost"
                required
                min="1"
                pattern="[1-9]+[0-9]*"
                #levelCost="ngModel">
-        <div *ngIf="levelCost.invalid && (levelCost.dirty || levelCost.touched)" class="alert alert-danger">
+        <div *ngIf="levelCost.invalid" class="alert alert-danger">
           <div *ngIf="levelCost.errors.required">Required</div>
           <div *ngIf="levelCost.errors.pattern && isInteger(levelCost.errors.pattern.actualValue)">Value must be greater than '0'</div>
           <div *ngIf="levelCost.errors.pattern && !isInteger(levelCost.errors.pattern.actualValue)">Value is not an integer</div>

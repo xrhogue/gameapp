@@ -10,6 +10,7 @@ import {SharedRoutingModule} from "./shared-routing.module";
 import {DialogService} from "./services/dialog/dialog.service";
 import {DeactivateGuard} from "./guards/deactivate-guard/deactivate-guard.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {UtilService} from "./services/util/util.service";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AuthGuard,
     DeactivateGuard,
     AuthService,
-    DialogService
+    DialogService,
+    UtilService
   ]
 })
 export class SharedModule { }

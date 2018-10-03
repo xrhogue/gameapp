@@ -36,5 +36,4 @@ export class SkillPrerequisitesComponent implements OnInit {
 
     return skillTreeNodes;
   }
-
 }
