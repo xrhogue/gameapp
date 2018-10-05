@@ -6,6 +6,8 @@ import {SkillDetailsComponent} from "./skill/skill-details/skill-details.compone
 import {SkillsComponent} from "./skill/skills/skills.component";
 import {AuthGuard} from "../shared/guards/auth-guard/auth-guard.service";
 import {DeactivateGuard} from "../shared/guards/deactivate-guard/deactivate-guard.service";
+import {RacesComponent} from "./race/races/races.component";
+import {RaceDetailsComponent} from "./race/race-details/race-details.component";
 
 const adminRoutes: Routes = [
   {
@@ -29,6 +31,18 @@ const adminRoutes: Routes = [
             path: 'stats/:id',
             component: StatDetailsComponent,
             canDeactivate: [DeactivateGuard]
+          },
+          {
+            path: 'races',
+            component: RacesComponent
+          },
+          {
+            path: 'races/0',
+            component: RaceDetailsComponent
+          },
+          {
+            path: 'races/:id',
+            component: RaceDetailsComponent
           },
           {
             path: 'skills',

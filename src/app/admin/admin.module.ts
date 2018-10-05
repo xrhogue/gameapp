@@ -13,6 +13,8 @@ import {SkillDetailsComponent} from "./skill/skill-details/skill-details.compone
 import {AdminRoutingModule} from "./admin-routing.module";
 import { SkillPrerequisitesComponent } from './skill/skill-details/skill-prerequisites/skill-prerequisites.component';
 import { SkillGeneralComponent } from './skill/skill-details/skill-general/skill-general.component';
+import { RacesComponent } from './race/races/races.component';
+import { RaceDetailsComponent } from './race/race-details/race-details.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { SkillGeneralComponent } from './skill/skill-details/skill-general/skill
     SkillsComponent,
     SkillDetailsComponent,
     SkillPrerequisitesComponent,
-    SkillGeneralComponent
+    SkillGeneralComponent,
+    RacesComponent,
+    RaceDetailsComponent
   ],
   imports: [
     CommonModule,
