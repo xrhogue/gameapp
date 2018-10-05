@@ -18,8 +18,8 @@ export class SkillPrerequisitesComponent implements OnInit {
   selectedOrPrerequisiteSkills: String;
   andPrerequisiteTreeNodes: Array<SkillTreeNode>;
   orPrerequisiteTreeNodes: Array<SkillTreeNode>;
-  selectedAndPrerequisiteTreeNodes: Array<SkillTreeNode>;
-  selectedOrPrerequisiteTreeNodes: Array<SkillTreeNode>;
+  selectedAndPrerequisiteTreeNodes: Array<SkillTreeNode> = [];
+  selectedOrPrerequisiteTreeNodes: Array<SkillTreeNode> = [];
 
   constructor(private skillService: SkillService, private router: Router) { }
 
@@ -27,6 +27,10 @@ export class SkillPrerequisitesComponent implements OnInit {
     this.skills = this.skillService.getSkills();
     this.andPrerequisiteTreeNodes = this.buildSkillTreeNodes(null);
     this.orPrerequisiteTreeNodes = this.buildSkillTreeNodes(null);
+
+    this.init(this.skill.andPrerequisiteSkillIds, this.andPrerequisiteTreeNodes, this.selectedAndPrerequisiteTreeNodes);
+    this.init(this.skill.orPrerequisiteSkillIds, this.orPrerequisiteTreeNodes, this.selectedOrPrerequisiteTreeNodes);
+    this.updateAllSelections();
   }
 
   buildSkillTreeNodes(parentId: number) {
@@ -42,19 +46,32 @@ export class SkillPrerequisitesComponent implements OnInit {
   }
 
   andPrerequisiteSelected(event: {node: SkillTreeNode}) {
-    this.nodeSelected(event.node, this.selectedAndPrerequisiteTreeNodes);
+    this.nodeSelected(event.node, this.selectedAndPrerequisiteTreeNodes, this.selectedOrPrerequisiteTreeNodes);
   }
 
   orPrerequisiteSelected(event: {node: SkillTreeNode}) {
-    this.nodeSelected(event.node, this.selectedOrPrerequisiteTreeNodes);
+    this.nodeSelected(event.node, this.selectedOrPrerequisiteTreeNodes, this.selectedAndPrerequisiteTreeNodes);
   }
 
-  nodeSelected(skillTreeNode: SkillTreeNode, selectedSkillTreeNodes: Array<SkillTreeNode>) {
+  nodeSelected(skillTreeNode: SkillTreeNode, selectedSkillTreeNodes: Array<SkillTreeNode>, otherSelectedSkillTreeNodes: Array<SkillTreeNode>) {
     // unselect the parent node (if any) if a child node is selected
+    // TODO: unselect up the hierarchy
     this.unselectNode(skillTreeNode.parent, selectedSkillTreeNodes);
 
     // unselect all children nodes (if selected) if a parent node is selected
     skillTreeNode.children.forEach(child=>this.unselectNode(child, selectedSkillTreeNodes))
+
+    // unselect the parent node in the other list (if any) if a child node is selected
+    // TODO: unselect up the hierarchy
+    if (!!skillTreeNode.parent) {
+      this.unselectNodeById(skillTreeNode.parent.data.id, otherSelectedSkillTreeNodes);
+    }
+
+    let otherSelectedSkillTreeNode = otherSelectedSkillTreeNodes.find(otherSkillTreeNode=>otherSkillTreeNode.data.id === skillTreeNode.data.id);
+
+    if (!!otherSelectedSkillTreeNode) {
+      this.unselectNode(otherSelectedSkillTreeNode, otherSelectedSkillTreeNodes);
+    }
 
     this.updateAllSelections()
   }
@@ -63,13 +80,48 @@ export class SkillPrerequisitesComponent implements OnInit {
     this.updateAllSelections();
   }
 
-  unselectNode(skillTreeNode: SkillTreeNode, selectedSkillTreeNodes: Array<SkillTreeNode>)
-  {
-    if (skillTreeNode === undefined) {
+  init(prerequisiteSkillIds: Array<number>, skillTreeNodes: Array<SkillTreeNode>, selectedSkillTreeNodes: Array<SkillTreeNode>) {
+    if (!!prerequisiteSkillIds && !!skillTreeNodes) {
+      prerequisiteSkillIds.forEach(prerequisiteSkillId => {
+        let matchingSkillTreeNode = this.find(prerequisiteSkillId, skillTreeNodes);
+
+        if (!!matchingSkillTreeNode) {
+          selectedSkillTreeNodes.push(matchingSkillTreeNode);
+        }
+      })
+    }
+  }
+
+  find(skillId: number, skillTreeNodes: Array<SkillTreeNode>): SkillTreeNode {
+    let matchingSkillTreeNode = skillTreeNodes.find(skillTreeNode=>skillTreeNode.data.id === skillId);
+
+    if (!!matchingSkillTreeNode) {
+      return matchingSkillTreeNode;
+    }
+
+    for (let skillTreeNode of skillTreeNodes) {
+      if (!!skillTreeNode.children && skillTreeNode.children.length > 0) {
+        let matchingSkillTreeNode = this.find(skillId, skillTreeNode.children);
+
+        if (!!matchingSkillTreeNode) {
+          return matchingSkillTreeNode;
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  unselectNode(skillTreeNode: SkillTreeNode, selectedSkillTreeNodes: Array<SkillTreeNode>) {
+    if (!skillTreeNode) {
       return;
     }
 
-    let index: number = selectedSkillTreeNodes.findIndex(selectedSkillTreeNode=>selectedSkillTreeNode.data.id == skillTreeNode.data.id);
+    this.unselectNodeById(skillTreeNode.data.id, selectedSkillTreeNodes);
+  }
+
+  unselectNodeById(skillId: number, selectedSkillTreeNodes: Array<SkillTreeNode>) {
+    let index: number = selectedSkillTreeNodes.findIndex(selectedSkillTreeNode=>selectedSkillTreeNode.data.id == skillId);
 
     if (index > -1) {
       selectedSkillTreeNodes.splice(index, 1);
@@ -79,12 +131,14 @@ export class SkillPrerequisitesComponent implements OnInit {
   updateAllSelections() {
     this.selectedAndPrerequisiteSkills = this.updateSelections(this.selectedAndPrerequisiteTreeNodes);
     this.selectedOrPrerequisiteSkills = this.updateSelections(this.selectedOrPrerequisiteTreeNodes);
+    this.skill.andPrerequisiteSkillIds = this.selectedAndPrerequisiteTreeNodes.map(skillTreeNode=>skillTreeNode.data.id);
+    this.skill.orPrerequisiteSkillIds = this.selectedOrPrerequisiteTreeNodes.map(skillTreeNode=>skillTreeNode.data.id);
   }
 
   updateSelections(selectedSkillTreeNodes: Array<SkillTreeNode>): String {
     let selectedSkills: string = "";
 
-    if (selectedSkillTreeNodes == undefined) {
+    if (!selectedSkillTreeNodes) {
       return selectedSkills;
     }
 

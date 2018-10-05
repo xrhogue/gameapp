@@ -9,6 +9,7 @@ export class Skill {
     public parentId: number,
     public primaryStatId: number,
     public secondaryStatIds: Array<number>,
-    public prerequisiteSkillIds?: Array<number>
+    public andPrerequisiteSkillIds?: Array<number>,
+    public orPrerequisiteSkillIds?: Array<number>
   ) {}
 }
