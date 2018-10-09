@@ -8,9 +8,9 @@ import {Skill} from "../../admin/shared/skill";
 export class SkillService {
 
   skills: Array<Skill> = [
-    {id: 1, name: 'Hunting', shortName: 'Hunting', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1], prerequisiteSkillIds: null},
-    {id: 2, name: 'Targeting', shortName: 'Targeting', baseCost: 3, levelCost: 3, selectable: true, parentId: 1, primaryStatId: 1, secondaryStatIds: [1,2], prerequisiteSkillIds: null},
-    {id: 3, name: 'Partying', shortName: 'Partying', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1,2], prerequisiteSkillIds: null}
+    {id: 1, name: 'Hunting', shortName: 'Hunting', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1], andPrerequisiteSkillIds: null, orPrerequisiteSkillIds: null},
+    {id: 2, name: 'Targeting', shortName: 'Targeting', baseCost: 3, levelCost: 3, selectable: true, parentId: 1, primaryStatId: 1, secondaryStatIds: [1,2], andPrerequisiteSkillIds: null, orPrerequisiteSkillIds: null},
+    {id: 3, name: 'Partying', shortName: 'Partying', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1,2], andPrerequisiteSkillIds: null, orPrerequisiteSkillIds: null}
     ];
 
   constructor(private http: HttpClient) {}
@@ -33,11 +33,12 @@ export class SkillService {
           this.skills[skillKey].parentId,
           this.skills[skillKey].primaryStatId,
           this.skills[skillKey].secondaryStatIds,
-          this.skills[skillKey].prerequisiteSkillIds);
+          this.skills[skillKey].andPrerequisiteSkillIds,
+          this.skills[skillKey].orPrerequisiteSkillIds);
       }
     }
 
-    return {id: 1, name: 'Hunting', shortName: 'Hunting', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1], prerequisiteSkillIds: null};
+    return {id: 1, name: 'Hunting', shortName: 'Hunting', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1], andPrerequisiteSkillIds: null, orPrerequisiteSkillIds: null};
 
     // return this.http.get('http://localhost:9090/skills/' + skillId);
   }
@@ -61,7 +62,7 @@ export class SkillService {
       }
     }
 
-    return {id: 1, name: 'Hunting', shortName: 'Hunting', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1], prerequisiteSkillIds: null};
+    return {id: 1, name: 'Hunting', shortName: 'Hunting', baseCost: 3, levelCost: 3, selectable: true, parentId: null, primaryStatId: 1, secondaryStatIds: [1], andPrerequisiteSkillIds: null, orPrerequisiteSkillIds: null};
     // return this.http.put('http://localhost:9090/skills/' + skill.id);
   }
 

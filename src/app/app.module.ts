@@ -22,6 +22,8 @@ import {CharacterDetailsComponent} from './character/character-details/character
 
 import {StatService} from './service/stat/stat.service';
 import {SkillService} from "./service/skill/skill.service";
+import {MockService} from "./service/mock/mock.service";
+import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import {SkillService} from "./service/skill/skill.service";
     NgbModule,
     TreeTableModule,
     ContextMenuModule,
-    MultiSelectModule
+    MultiSelectModule,
+    InMemoryWebApiModule.forRoot(MockService)
   ],
   providers: [
     StatService,

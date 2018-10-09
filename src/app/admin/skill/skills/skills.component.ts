@@ -59,7 +59,7 @@ export class SkillsComponent implements OnInit {
   }
 
   buildSkillTreeNodes(parentId: number) {
-    let skillTreeNodes: Array<SkillTreeNode> = this.skills.filter(skill => skill.parentId === parentId).map(skill => new SkillTreeNode(skill, null, true, false));
+    let skillTreeNodes: Array<SkillTreeNode> = this.skills.filter(skill => skill.parentId === parentId).map(skill => new SkillTreeNode(skill, null, null, true, false));
 
     skillTreeNodes.forEach(skillTreeNode => {
       skillTreeNode.children = this.buildSkillTreeNodes(skillTreeNode.data.id);

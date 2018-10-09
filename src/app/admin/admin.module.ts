@@ -2,7 +2,15 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from "@angular/forms";
 
-import {ContextMenuModule, DragDropModule, MultiSelectModule, TreeModule, TreeTableModule, TreeDragDropService} from "primeng/primeng";
+import {
+  ContextMenuModule,
+  DragDropModule,
+  MultiSelectModule,
+  TreeModule,
+  TreeTableModule,
+  TreeDragDropService,
+  ListboxModule
+} from "primeng/primeng";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 import {SharedModule} from "../shared/shared.module";
@@ -15,6 +23,8 @@ import { SkillPrerequisitesComponent } from './skill/skill-details/skill-prerequ
 import { SkillGeneralComponent } from './skill/skill-details/skill-general/skill-general.component';
 import { RacesComponent } from './race/races/races.component';
 import { RaceDetailsComponent } from './race/race-details/race-details.component';
+import { AttributesComponent } from './race/attributes/attributes.component';
+import { AttributeDetailsComponent } from './race/attribute-details/attribute-details.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +34,9 @@ import { RaceDetailsComponent } from './race/race-details/race-details.component
     SkillPrerequisitesComponent,
     SkillGeneralComponent,
     RacesComponent,
-    RaceDetailsComponent
+    RaceDetailsComponent,
+    AttributesComponent,
+    AttributeDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +48,7 @@ import { RaceDetailsComponent } from './race/race-details/race-details.component
     TreeTableModule,
     TreeModule,
     DragDropModule,
+    ListboxModule,
     AdminRoutingModule
   ],
   providers: [

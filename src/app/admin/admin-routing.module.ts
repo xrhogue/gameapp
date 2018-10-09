@@ -8,6 +8,7 @@ import {AuthGuard} from "../shared/guards/auth-guard/auth-guard.service";
 import {DeactivateGuard} from "../shared/guards/deactivate-guard/deactivate-guard.service";
 import {RacesComponent} from "./race/races/races.component";
 import {RaceDetailsComponent} from "./race/race-details/race-details.component";
+import {AttributesComponent} from "./race/attributes/attributes.component";
 
 const adminRoutes: Routes = [
   {
@@ -31,6 +32,10 @@ const adminRoutes: Routes = [
             path: 'stats/:id',
             component: StatDetailsComponent,
             canDeactivate: [DeactivateGuard]
+          },
+          {
+            path: 'attributes',
+            component: AttributesComponent
           },
           {
             path: 'races',
