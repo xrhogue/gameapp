@@ -1,5 +1,4 @@
-<app-attribute-details [attributes]="complexions"></app-attribute-details>
-<app-attribute-details [attributes]="eyeColors"></app-attribute-details>
-<app-attribute-details [attributes]="hairColors"></app-attribute-details>
-<app-attribute-details [attributes]="skinColors"></app-attribute-details>
-
+<app-attribute-details [attributes]="complexions" (add)="addComplexion($event)" (delete)="deleteComplexions($event)"></app-attribute-details>
+<app-attribute-details [attributes]="eyeColors" (add)="addEyeColor($event)"></app-attribute-details>
+<app-attribute-details [attributes]="hairColors" (add)="addHairColor($event)"></app-attribute-details>
+<app-attribute-details [attributes]="skinColors" (add)="addSkinColor($event)"></app-attribute-details>

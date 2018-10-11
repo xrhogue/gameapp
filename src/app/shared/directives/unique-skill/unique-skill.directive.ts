@@ -1,7 +1,7 @@
 import {Directive, Input} from '@angular/core';
 import {AbstractControl, NG_VALIDATORS, Validator, ValidatorFn} from "@angular/forms";
-import {UniqueSkill} from "../../admin/shared/unique-skill";
-import {SkillService} from "../../service/skill/skill.service";
+import {UniqueSkill} from "../../../admin/shared/unique-skill";
+import {SkillService} from "../../../service/skill/skill.service";
 
 @Directive({
   selector: '[appUniqueSkill]',

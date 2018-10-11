@@ -1,1 +1,4 @@
-<p-listbox [options]="attributes" optionLabel="name" [(ngModel)]="selectedAttribute"></p-listbox>
+<input type="text" pInputText (input)="check($event.target.value)" [appUniqueName]="{attributes: this.attributes}" (keyup.enter)="addName()" [(ngModel)]="name" #attribute="ngModel"/>
+<div *ngIf="!!attribute.errors && attribute.errors['uniqueName']">{{attribute.errors['uniqueName'].description}}</div>
+<p-listbox [options]="attributes" optionLabel="name" multiple="false" showToggleAll="false" checkbox="true" [(ngModel)]="selectedAttributes"></p-listbox>
+<p-button label="Delete Selected" (onClick)="deleteNames($event)"></p-button>

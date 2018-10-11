@@ -1,7 +1,7 @@
 import {Directive, Input} from '@angular/core';
 import {AbstractControl, NG_VALIDATORS, Validator, ValidatorFn} from "@angular/forms";
-import {UniqueStat} from "../../admin/shared/unique-stat";
-import {StatService} from "../../service/stat/stat.service";
+import {UniqueStat} from "../../../admin/shared/unique-stat";
+import {StatService} from "../../../service/stat/stat.service";
 
 @Directive({
   selector: '[appUniqueStat]',

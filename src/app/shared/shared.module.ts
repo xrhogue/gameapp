@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import {UniqueStatDirective} from "./directives/unique-stat.directive";
-import {UniqueSkillDirective} from "./directives/unique-skill.directive";
+import {UniqueStatDirective} from "./directives/unique-stat/unique-stat.directive";
+import {UniqueSkillDirective} from "./directives/unique-skill/unique-skill.directive";
 import {AuthGuard} from "./guards/auth-guard/auth-guard.service";
 import {AuthService} from "./services/auth/auth.service";
 import { LoginComponent } from './components/login/login.component';
@@ -11,13 +11,16 @@ import {DialogService} from "./services/dialog/dialog.service";
 import {DeactivateGuard} from "./guards/deactivate-guard/deactivate-guard.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {UtilService} from "./services/util/util.service";
+import { UniqueNameDirective } from './directives/unique-name/unique-name.directive';
 
 @NgModule({
   declarations: [
     PageNotFoundComponent,
     UniqueStatDirective,
     UniqueSkillDirective,
-    LoginComponent
+    UniqueNameDirective,
+    LoginComponent,
+    UniqueNameDirective
   ],
   imports: [
     CommonModule,
@@ -27,7 +30,8 @@ import {UtilService} from "./services/util/util.service";
   exports: [
     PageNotFoundComponent,
     UniqueStatDirective,
-    UniqueSkillDirective
+    UniqueSkillDirective,
+    UniqueNameDirective
   ],
   providers: [
     AuthGuard,

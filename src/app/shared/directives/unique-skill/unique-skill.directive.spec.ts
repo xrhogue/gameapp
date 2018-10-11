@@ -1,26 +1,25 @@
-import { UniqueStatDirective } from './unique-stat.directive';
-import {StatService} from "../../service/stat/stat.service";
-import {HttpClient, HttpHandler} from "@angular/common/http";
+import { UniqueSkillDirective } from './unique-skill.directive';
+import {SkillService} from "../../../service/skill/skill.service";
 import {TestBed, getTestBed} from "@angular/core/testing";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 
-describe('UniqueStatDirective', () => {
+describe('UniqueSkillDirective', () => {
   let injector: TestBed;
-  let service: StatService;
+  let service: SkillService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [StatService]
+      providers: [SkillService]
     });
     injector = getTestBed();
-    service = injector.get(StatService);
+    service = injector.get(SkillService);
     httpMock = injector.get(HttpTestingController);
   });
 
   it('should create an instance', () => {
-    const directive = injector.get(UniqueStatDirective);
+    const directive = injector.get(UniqueSkillDirective);
     expect(directive).toBeTruthy();
   });
 });
