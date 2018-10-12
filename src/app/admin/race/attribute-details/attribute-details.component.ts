@@ -8,10 +8,11 @@ import {RaceAttribute} from "../../shared/race-attribute";
 })
 export class AttributeDetailsComponent implements OnInit {
 
+  @Input() attributeName: string;
   @Input() attributes: Array<RaceAttribute>;
   @Output() add = new EventEmitter<string>();
   @Output() delete = new EventEmitter<Array<RaceAttribute>>();
-  selectedAttributes: Array<RaceAttribute>;
+  selectedAttributes: Array<RaceAttribute> = [];
   name: string;
   invalid: boolean = false;
 

@@ -47,15 +47,39 @@ export class AttributesComponent implements OnInit {
     });
   }
 
+  deleteEyeColors(eyeColors: Array<EyeColor>) {
+    eyeColors.forEach(eyeColor=>{
+      this.raceService.deleteEyeColor(eyeColor.id).subscribe(data => {
+        this.raceService.getEyeColors().subscribe(data => this.eyeColors = data);
+      });
+    })
+  }
+
   addHairColor(name: string) {
     this.raceService.addHairColor(new HairColor(null, name)).subscribe(data => {
       this.raceService.getHairColors().subscribe(data => this.hairColors = data);
     });
   }
 
+  deleteHairColors(hairColors: Array<HairColor>) {
+    hairColors.forEach(hairColor=>{
+      this.raceService.deleteHairColor(hairColor.id).subscribe(data => {
+        this.raceService.getHairColors().subscribe(data => this.hairColors = data);
+      });
+    })
+  }
+
   addSkinColor(name: string) {
     this.raceService.addSkinColor(new SkinColor(null, name)).subscribe(data => {
       this.raceService.getSkinColors().subscribe(data => this.skinColors = data);
     });
+  }
+
+  deleteSkinColors(skinColors: Array<SkinColor>) {
+    skinColors.forEach(skinColor=>{
+      this.raceService.deleteSkinColor(skinColor.id).subscribe(data => {
+        this.raceService.getSkinColors().subscribe(data => this.skinColors = data);
+      });
+    })
   }
 }

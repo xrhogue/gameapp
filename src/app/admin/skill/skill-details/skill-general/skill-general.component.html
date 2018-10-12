@@ -14,7 +14,7 @@
                required
                [appUniqueSkill]="{skill: this.skill, fieldName: 'name'}"
                #name="ngModel">
-        <div *ngIf="name.invalid" class="alert alert-danger">
+          <div *ngIf="name.invalid" class="alert alert-danger">
           <div *ngIf="name.errors.required">Required</div>
           <div *ngIf="name.errors['uniqueSkill']">{{name.errors['uniqueSkill'].description}}</div>
         </div>
@@ -37,7 +37,7 @@
                required
                [appUniqueSkill]="{skill: this.skill, fieldName: 'shortName'}"
                #shortName="ngModel">
-        <div *ngIf="shortName.invalid" class="alert alert-danger">
+          <div *ngIf="shortName.invalid" class="alert alert-danger">
           <div *ngIf="shortName.errors.required">Required</div>
           <div *ngIf="shortName.errors['uniqueSkill']">{{shortName.errors['uniqueSkill'].description}}</div>
         </div>
@@ -95,7 +95,7 @@
                min="1"
                pattern="[1-9]+[0-9]*"
                #baseCost="ngModel">
-        <div *ngIf="baseCost.invalid" class="alert alert-danger">
+          <div *ngIf="baseCost.invalid" class="alert alert-danger">
           <div *ngIf="baseCost.errors.required">Required</div>
           <div *ngIf="baseCost.errors.pattern && isInteger(baseCost.errors.pattern.actualValue)">Value must be greater than '0'</div>
           <div *ngIf="baseCost.errors.pattern && !isInteger(baseCost.errors.pattern.actualValue)">Value is not an integer</div>
@@ -120,7 +120,7 @@
                min="1"
                pattern="[1-9]+[0-9]*"
                #levelCost="ngModel">
-        <div *ngIf="levelCost.invalid" class="alert alert-danger">
+          <div *ngIf="levelCost.invalid" class="alert alert-danger">
           <div *ngIf="levelCost.errors.required">Required</div>
           <div *ngIf="levelCost.errors.pattern && isInteger(levelCost.errors.pattern.actualValue)">Value must be greater than '0'</div>
           <div *ngIf="levelCost.errors.pattern && !isInteger(levelCost.errors.pattern.actualValue)">Value is not an integer</div>

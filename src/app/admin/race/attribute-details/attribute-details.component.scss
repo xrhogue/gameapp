@@ -1,0 +1,15 @@
+.attribute-title {
+  font-size: larger;
+  font-weight: bold;
+}
+
+:host ::ng-deep .attribute-name {
+  width: 200px;
+  margin-right: 20px;
+}
+:host ::ng-deep .attribute-list {
+  height: 250px;
+  max-height: 250px;
+  width: 200px;
+  margin-right: 20px;
+}

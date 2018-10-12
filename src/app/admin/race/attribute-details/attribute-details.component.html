@@ -1,4 +1,11 @@
-<input type="text" pInputText (input)="check($event.target.value)" [appUniqueName]="{attributes: this.attributes}" (keyup.enter)="addName()" [(ngModel)]="name" #attribute="ngModel"/>
-<div *ngIf="!!attribute.errors && attribute.errors['uniqueName']">{{attribute.errors['uniqueName'].description}}</div>
-<p-listbox [options]="attributes" optionLabel="name" multiple="false" showToggleAll="false" checkbox="true" [(ngModel)]="selectedAttributes"></p-listbox>
-<p-button label="Delete Selected" (onClick)="deleteNames($event)"></p-button>
+<div>
+  <div class="attribute-title">
+    {{attributeName}}
+  </div>
+  <div>
+    <input id="attribute-name" type="text" class="attribute-name" pInputText placeholder="Add {{attributeName}}" (input)="check($event.target.value)" [appUniqueName]="{attributes: this.attributes}" (keyup.enter)="addName()" [(ngModel)]="name" #attribute="ngModel"/>
+    <div *ngIf="!!attribute.errors && attribute.errors['uniqueName']">{{attribute.errors['uniqueName'].description}}</div>
+    <p-listbox styleClass="attribute-list" [listStyle]="{'max-height': '200px'}" [options]="attributes" optionLabel="name" multiple="false" showToggleAll="false" checkbox="true" [(ngModel)]="selectedAttributes"></p-listbox>
+    <p-button label="Delete Selected" [disabled]="selectedAttributes.length == 0" (onClick)="deleteNames($event)"></p-button>
+  </div>
+</div>

@@ -39,6 +39,10 @@ export class RaceService {
     return this.http.post("http://localhost:8888/admin/eyeColors", eyeColor);
   }
 
+  deleteEyeColor(eyeColorId: number): Observable<{}> {
+    return this.http.delete("http://localhost:8888/admin/eyeColors/" + eyeColorId);
+  }
+
   getHairColors(): Observable<Array<HairColor>> {
     return <Observable<Array<HairColor>>> this.http.get("http://localhost:8888/admin/hairColors")
       .pipe(map(data=>this.sort(data)));
@@ -48,6 +52,10 @@ export class RaceService {
     return this.http.post("http://localhost:8888/admin/hairColors", hairColor);
   }
 
+  deleteHairColor(hairColorId: number): Observable<{}> {
+    return this.http.delete("http://localhost:8888/admin/hairColors/" + hairColorId);
+  }
+
   getSkinColors(): Observable<Array<SkinColor>> {
     return <Observable<Array<SkinColor>>> this.http.get("http://localhost:8888/admin/skinColors")
       .pipe(map(data=>this.sort(data)));
@@ -55,6 +63,10 @@ export class RaceService {
 
   addSkinColor(skinColor: SkinColor): Observable<{}> {
     return this.http.post("http://localhost:8888/admin/skinColors", skinColor);
+  }
+
+  deleteSkinColor(skinColorId: number): Observable<{}> {
+    return this.http.delete("http://localhost:8888/admin/skinColors/" + skinColorId);
   }
 
   sort(data: Object): Array<RaceAttribute>
