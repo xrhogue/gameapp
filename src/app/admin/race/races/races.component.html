@@ -1,3 +1,53 @@
-<p>
-  races works!
-</p>
+<h1>Races</h1>
+
+<p-treeTable [value]="raceTreeNodes" [columns]="cols" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" selectionMode="checkbox" [(selection)]="selectedRaceTreeNodes" [contextMenu]="cm" [(contextMenuSelection)]="selectedRaceTreeNode">
+  <ng-template pTemplate="caption">
+    <div style="text-align:left">
+      <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+      <span style="margin-left: .25em; vertical-align: middle">Toggle All</span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of cols" [ngClass]="{'center-cell' : col.field == 'selectable'}">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <tr pDraggable="treeTable" pDroppable="treeTable" [pDroppableDisabled]="disableDroppable(rowNode)"
+        [ttContextMenuRow]="rowNode"
+        (onDragStart)="dragStart($event, rowNode)"
+        (onDragEnd)="dragEnd($event)"
+        (onDragEnter)="dragEnter($event, rowNode)"
+        (onDragLeave)="dragLeave($event)"
+        (onDrop)="drop($event, rowNode)">
+      <td *ngFor="let col of cols; let i = index" ttEditableColumn [ngClass]="{'center-cell' : col.field == 'selectable'}">
+        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+        <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+        <p-treeTableCellEditor *ngIf="col.field == 'selectable'">
+          <ng-template pTemplate="input">
+            <input type="checkbox" [(ngModel)]="rowData[col.field]">
+          </ng-template>
+          <ng-template pTemplate="output">
+            <input type="checkbox" [(ngModel)]="rowData[col.field]">
+          </ng-template>
+        </p-treeTableCellEditor>
+        <span *ngIf="col.field == 'actions'">
+          <i class="material-icons" (click)="updateRace(rowData)" ngbTooltip="Update {{rowData.name}}">description</i>
+          <i class="material-icons"(click)="deleteRace(rowData.id)" ngbTooltip="Delete {{rowData.name}}">delete</i>
+        </span>
+        <span *ngIf="col.field != 'selectable' && col.field != 'actions'">
+          {{rowData[col.field]}}
+        </span>
+
+      </td>
+    </tr>
+  </ng-template>
+</p-treeTable>
+
+<div>
+  <button type="button" class="btn btn-secondary" ngbTooltip="Create a New Race" placement="top" (click)="addRace()"><i class="material-icons">add_box</i>New Race</button>
+</div>
+
+<p-contextMenu #cm [model]="items"></p-contextMenu>

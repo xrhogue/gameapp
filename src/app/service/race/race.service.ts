@@ -6,8 +6,11 @@ import {EyeColor} from "../../admin/shared/eye-color";
 import {HairColor} from "../../admin/shared/hair-color";
 import {SkinColor} from "../../admin/shared/skin-color";
 
-import { map } from 'rxjs/operators'
 import {RaceAttribute} from "../../admin/shared/race-attribute";
+import {Gender} from "../../admin/shared/gender";
+import {Race} from "../../admin/shared/race";
+
+import { map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +18,31 @@ import {RaceAttribute} from "../../admin/shared/race-attribute";
 export class RaceService {
 
   constructor(private http: HttpClient) {
+  }
+
+  getRaces(): Observable<Array<Race>> {
+    return <Observable<Array<Race>>> this.http.get("http://localhost:8888/admin/races");
+  }
+
+  updateRace(race: Race): Observable<{}> {
+    return this.http.put("http://localhost:8888/admin/races", race);
+  }
+
+  deleteRace(raceId: number): Observable<{}> {
+    return this.http.delete("http://localhost:8888/admin/races/" + raceId);
+  }
+
+  getGenders(): Observable<Array<Gender>> {
+    return <Observable<Array<Gender>>> this.http.get("http://localhost:8888/admin/genders")
+      .pipe(map(data=>this.sort(data)));
+  }
+
+  addGender(gender: Gender): Observable<{}> {
+    return this.http.post("http://localhost:8888/admin/genders", gender);
+  }
+
+  deleteGender(genderId: number): Observable<{}> {
+    return this.http.delete("http://localhost:8888/admin/genders/" + genderId);
   }
 
   getComplexions(): Observable<Array<Complexion>> {

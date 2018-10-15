@@ -4,6 +4,7 @@ import {Complexion} from "../../shared/complexion";
 import {SkinColor} from "../../shared/skin-color";
 import {HairColor} from "../../shared/hair-color";
 import {EyeColor} from "../../shared/eye-color";
+import {Gender} from "../../shared/gender";
 
 @Component({
   selector: 'app-attributes',
@@ -12,6 +13,7 @@ import {EyeColor} from "../../shared/eye-color";
 })
 export class AttributesComponent implements OnInit {
 
+  genders: Array<Gender> = [];
   complexions: Array<Complexion> = [];
   eyeColors: Array<EyeColor> = [];
   hairColors: Array<HairColor> = [];
@@ -21,10 +23,25 @@ export class AttributesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.raceService.getGenders().subscribe(data => this.genders = data);
     this.raceService.getComplexions().subscribe(data => this.complexions = data);
     this.raceService.getEyeColors().subscribe(data => this.eyeColors = data);
     this.raceService.getHairColors().subscribe(data => this.hairColors = data);
     this.raceService.getSkinColors().subscribe(data => this.skinColors = data);
+  }
+
+  addGender(name: string) {
+    this.raceService.addGender(new Gender(null, name)).subscribe(data => {
+      this.raceService.getGenders().subscribe(data => this.genders = data);
+    });
+  }
+
+  deleteGenders(genders: Array<Gender>) {
+    genders.forEach(gender=>{
+      this.raceService.deleteGender(gender.id).subscribe(data => {
+        this.raceService.getGenders().subscribe(data => this.genders = data);
+      });
+    })
   }
 
   addComplexion(name: string) {
