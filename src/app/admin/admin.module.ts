@@ -25,16 +25,18 @@ import { RacesComponent } from './race/races/races.component';
 import { RaceDetailsComponent } from './race/race-details/race-details.component';
 import { AttributesComponent } from './race/attributes/attributes.component';
 import { AttributeDetailsComponent } from './race/attribute-details/attribute-details.component';
+import { RaceGeneralComponent } from './race/race-details/race-general/race-general.component';
 
 @NgModule({
   declarations: [
     StatDetailsComponent,
     SkillsComponent,
     SkillDetailsComponent,
-    SkillPrerequisitesComponent,
     SkillGeneralComponent,
+    SkillPrerequisitesComponent,
     RacesComponent,
     RaceDetailsComponent,
+    RaceGeneralComponent,
     AttributesComponent,
     AttributeDetailsComponent
   ],

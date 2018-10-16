@@ -12,15 +12,16 @@ import {DeactivateGuard} from "./guards/deactivate-guard/deactivate-guard.servic
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {UtilService} from "./services/util/util.service";
 import { UniqueNameDirective } from './directives/unique-name/unique-name.directive';
+import { UniqueRaceDirective } from './directives/unique-race/unique-race.directive';
 
 @NgModule({
   declarations: [
     PageNotFoundComponent,
     UniqueStatDirective,
+    UniqueRaceDirective,
     UniqueSkillDirective,
     UniqueNameDirective,
-    LoginComponent,
-    UniqueNameDirective
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +31,7 @@ import { UniqueNameDirective } from './directives/unique-name/unique-name.direct
   exports: [
     PageNotFoundComponent,
     UniqueStatDirective,
+    UniqueRaceDirective,
     UniqueSkillDirective,
     UniqueNameDirective
   ],

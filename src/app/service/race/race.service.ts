@@ -10,7 +10,8 @@ import {RaceAttribute} from "../../admin/shared/race-attribute";
 import {Gender} from "../../admin/shared/gender";
 import {Race} from "../../admin/shared/race";
 
-import { map } from 'rxjs/operators'
+import {catchError, map} from 'rxjs/operators'
+import {throwError} from "rxjs/internal/observable/throwError";
 
 @Injectable({
   providedIn: 'root'
@@ -21,15 +22,23 @@ export class RaceService {
   }
 
   getRaces(): Observable<Array<Race>> {
-    return <Observable<Array<Race>>> this.http.get("http://localhost:8888/admin/races");
+    return this.http.get<Array<Race>>("http://localhost:8888/admin/races");
   }
 
-  updateRace(race: Race): Observable<{}> {
-    return this.http.put("http://localhost:8888/admin/races", race);
+  getRace(raceId: number): Observable<Race> {
+    return this.http.get<Race>("http://localhost:8888/admin/races/" + raceId);
   }
 
-  deleteRace(raceId: number): Observable<{}> {
-    return this.http.delete("http://localhost:8888/admin/races/" + raceId);
+  addRace(race: Race): Observable<Race> {
+    return this.http.post<Race>("http://localhost:8888/admin/races", race);
+  }
+
+  updateRace(race: Race): Observable<Race> {
+    return this.http.put<Race>("http://localhost:8888/admin/races", race);
+  }
+
+  deleteRace(raceId: number): Observable<Race> {
+    return this.http.delete<Race>("http://localhost:8888/admin/races/" + raceId);
   }
 
   getGenders(): Observable<Array<Gender>> {
@@ -106,5 +115,25 @@ export class RaceService {
     });
 
     return raceAttributes;
+  }
+
+  isUnique(race: Race, fieldName: String, value: String) {
+    this.getRaces().subscribe(races => {
+      for (let raceKey in races) {
+        if (races[raceKey].id != race.id &&
+          ((fieldName === "name" && races[raceKey].name === value))) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }
+
+  private handleError (error: any) {
+    // In a real world app, we might send the error to remote logging infrastructure
+    // and reformat for user consumption
+    console.error(error); // log to console instead
+    return throwError(error);
   }
 }

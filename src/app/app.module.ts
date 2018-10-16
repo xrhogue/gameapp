@@ -45,7 +45,7 @@ import {InMemoryWebApiModule} from "angular-in-memory-web-api";
     TreeTableModule,
     ContextMenuModule,
     MultiSelectModule,
-    InMemoryWebApiModule.forRoot(MockService)
+    InMemoryWebApiModule.forRoot(MockService, { delay: 0 })
   ],
   providers: [
     StatService,

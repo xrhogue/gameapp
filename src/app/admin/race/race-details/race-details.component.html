@@ -1,3 +1,23 @@
-<p>
-  race-details works!
-</p>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <h1>Race</h1>
+  </div>
+</div>
+
+<form #form="ngForm">
+  <ngb-tabset type="pill">
+    <ngb-tab title="General">
+      <ng-template ngbTabContent>
+        <app-race-general [(race)]="race" [ngForm]="ngForm"></app-race-general>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+  <div class="expanded button-group">
+    <button class="success btn btn-secondary" type="button"
+            [disabled]="isInvalid()"
+            (click)="update()">
+      {{race.id > 0 ? 'Update' : 'Add'}}
+    </button>
+    <button class="cancel btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
+  </div>
+</form>
