@@ -1,0 +1,57 @@
+<input type="hidden" class="form-control" [(ngModel)]="race.id" name="id" #id="ngModel">
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="name">Name
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               id="name"
+               oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())"
+               (input)="updateInvalid('name', name.invalid)"
+               [(ngModel)]="race.name"
+               (ngModelChange)="raceChange.emit(race)"
+               name="name"
+               required
+               [appUniqueRace]="{race: this.race, fieldName: 'name'}"
+               #name="ngModel">
+        <div *ngIf="name.invalid" class="alert alert-danger">
+          <div *ngIf="name.errors.required">Required</div>
+          <div *ngIf="name.errors['uniqueRace']">{{name.errors['uniqueRace'].description}}</div>
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="genders">Genders
+      <div class="input-group">
+        <p-multiSelect id="genders"
+                       [inputId]="genders"
+                       [options]="genders"
+                       optionLabel="name"
+                       dataKey="id"
+                       [showToggleAll]="false"
+                       [showHeader]="false"
+                       [filter]="false"
+                       defaultLabel="Choose Genders"
+                       [(ngModel)]="raceGenders"
+                       (ngModelChange)="updateGenders();raceChange.emit(race);updateInvalid('genders', gender.invalid)"
+                       name="genders"
+                       required
+                       #gender="ngModel">
+        </p-multiSelect>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="selectable">Selectable
+      <div class="input-group">
+        <input type="checkbox" class="form-control" id="selectable" oninput="this.value = this.value.replace(/\D/g, '')" [(ngModel)]="race.selectable" name="selectable" #selectable="ngModel">
+      </div>
+    </label>
+  </div>
+</div>
+

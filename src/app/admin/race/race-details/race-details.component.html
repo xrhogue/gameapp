@@ -11,6 +11,13 @@
         <app-race-general [(race)]="race" [ngForm]="ngForm"></app-race-general>
       </ng-template>
     </ngb-tab>
+    <div *ngFor="let gender of race.genders">
+      <ngb-tab title="{{gender.name}}">
+        <ng-template ngbTabContent>
+          <app-race-gender [(race)]="race" [gender]="gender" [ngForm]="ngForm"></app-race-gender>
+        </ng-template>
+      </ngb-tab>
+    </div>
   </ngb-tabset>
   <div class="expanded button-group">
     <button class="success btn btn-secondary" type="button"
