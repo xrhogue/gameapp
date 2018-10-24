@@ -1,6 +1,6 @@
-import {RaceAttribute} from "./race-attribute";
+import {Attribute} from "./attribute";
 
-export class Complexion extends RaceAttribute {
+export class Complexion extends Attribute {
   constructor(
     public id: number,
     public name: string

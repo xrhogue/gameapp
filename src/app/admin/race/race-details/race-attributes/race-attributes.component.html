@@ -1,0 +1,27 @@
+<div>
+  {{gender.name}}
+</div>
+<input type="hidden" class="form-control" [(ngModel)]="race.id" name="id" #id="ngModel">
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="complexions">Complexions
+      <div class="input-group">
+        <p-multiSelect id="complexions"
+                       [inputId]="complexions"
+                       [options]="complexions"
+                       optionLabel="name"
+                       dataKey="id"
+                       [showToggleAll]="false"
+                       [showHeader]="false"
+                       [filter]="false"
+                       defaultLabel="Choose Complexions"
+                       [(ngModel)]="raceComplexions"
+                       (ngModelChange)="updateComplexions();raceChange.emit(race);updateInvalid('complexions', complexion.invalid)"
+                       name="complexions"
+                       required
+                       #complexion="ngModel">
+        </p-multiSelect>
+      </div>
+    </label>
+  </div>
+</div>

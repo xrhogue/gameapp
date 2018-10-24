@@ -6,7 +6,7 @@ import {EyeColor} from "../../admin/shared/eye-color";
 import {HairColor} from "../../admin/shared/hair-color";
 import {SkinColor} from "../../admin/shared/skin-color";
 
-import {RaceAttribute} from "../../admin/shared/race-attribute";
+import {Attribute} from "../../admin/shared/attribute";
 import {Gender} from "../../admin/shared/gender";
 import {Race} from "../../admin/shared/race";
 
@@ -106,9 +106,9 @@ export class RaceService {
     return this.http.delete("http://localhost:8888/admin/skinColors/" + skinColorId);
   }
 
-  sort(data: Object): Array<RaceAttribute>
+  sort(data: Object): Array<Attribute>
   {
-    let raceAttributes: Array<RaceAttribute> = <Array<RaceAttribute>> data;
+    let raceAttributes: Array<Attribute> = <Array<Attribute>> data;
 
     raceAttributes.sort((a, b) => {
       return a.name < b.name ? -1 : 1;

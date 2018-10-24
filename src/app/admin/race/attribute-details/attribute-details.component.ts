@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {RaceAttribute} from "../../shared/race-attribute";
+import {Attribute} from "../../shared/attribute";
 
 @Component({
   selector: 'app-attribute-details',
@@ -9,10 +9,10 @@ import {RaceAttribute} from "../../shared/race-attribute";
 export class AttributeDetailsComponent implements OnInit {
 
   @Input() attributeName: string;
-  @Input() attributes: Array<RaceAttribute>;
+  @Input() attributes: Array<Attribute>;
   @Output() add = new EventEmitter<string>();
-  @Output() delete = new EventEmitter<Array<RaceAttribute>>();
-  selectedAttributes: Array<RaceAttribute> = [];
+  @Output() delete = new EventEmitter<Array<Attribute>>();
+  selectedAttributes: Array<Attribute> = [];
   name: string;
   invalid: boolean = false;
 

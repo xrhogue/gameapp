@@ -1,6 +1,8 @@
+import {Attribute} from "./attribute";
+
 export class RaceAttribute {
   constructor(
-    public id: number,
-    public name: string
+    public attributeId: number,
+    public genderId: number
   ) {}
 }

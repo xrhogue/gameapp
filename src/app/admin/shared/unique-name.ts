@@ -1,8 +1,8 @@
-import {RaceAttribute} from "./race-attribute";
+import {Attribute} from "./attribute";
 
 export class UniqueName {
   constructor(
-    public attributes: Array<RaceAttribute>,
+    public attributes: Array<Attribute>,
     public name: string
   ) {}
 }
