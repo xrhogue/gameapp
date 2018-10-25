@@ -22,6 +22,8 @@ export class RaceAttributesComponent implements OnInit {
   @Input() ngForm: NgForm;
   complexions: Array<Complexion>;
   raceComplexions: Array<Complexion>;
+  showDialog: boolean = false;
+  attr: string = "";
 
   constructor(private route: ActivatedRoute, private router: Router, private raceService: RaceService, private utilService: UtilService) {
     this.JSON = JSON;
@@ -50,6 +52,14 @@ export class RaceAttributesComponent implements OnInit {
 
       this.raceComplexions.forEach(complexion => this.race.complexions.push(new RaceComplexion(complexion.id, this.gender.id)));
     }
+  }
+
+  addComplexion() {
+    this.raceService.addComplexion(new Complexion(null, this.attr)).subscribe(data => {
+      this.raceService.getComplexions().subscribe(data => this.complexions = data);
+    });
+
+    this.attr = "";
   }
 
   updateInvalid(name: string, invalid: boolean) {

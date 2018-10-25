@@ -9,7 +9,7 @@ import {
   TreeModule,
   TreeTableModule,
   TreeDragDropService,
-  ListboxModule, InputTextModule, ButtonModule
+  ListboxModule, InputTextModule, ButtonModule, DialogModule
 } from "primeng/primeng";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
@@ -57,6 +57,7 @@ import { RaceAttributesComponent } from './race/race-details/race-attributes/rac
     ListboxModule,
     InputTextModule,
     ButtonModule,
+    DialogModule,
     AdminRoutingModule
   ],
   providers: [

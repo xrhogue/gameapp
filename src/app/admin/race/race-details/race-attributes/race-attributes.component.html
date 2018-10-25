@@ -21,7 +21,16 @@
                        required
                        #complexion="ngModel">
         </p-multiSelect>
+        <p-button label="New" (onClick)="showDialog=true"></p-button>
       </div>
     </label>
   </div>
 </div>
+<p-dialog header="New Complexion" [(visible)]="showDialog">
+  <input id="newComplexion" type="text" pInputText placeholder="Add Complexion" (keyup.enter)="addComplexion($event)" [appUniqueName]="{attributes: this.complexions}" [(ngModel)]="attr" #newComplexion="ngModel"/>
+  <div *ngIf="!!newComplexion.errors && newComplexion.errors['uniqueName']">{{newComplexion.errors['uniqueName'].description}}</div>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" [disabled]="attr?.length == 0 || !!newComplexion.errors" (click)="addComplexion($event);showDialog=false" label="Add"></button>
+    <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>

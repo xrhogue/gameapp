@@ -39,22 +39,14 @@ export class RaceGeneralComponent implements OnInit {
   }
 
   updateGenders() {
-    this.raceGenders.forEach(gender => this.updateGenderAttributes(gender))
-
-    if (!!this.race.attributes) {
-      this.race.attributes.forEach(attributes => {
-        if (this.raceGenders.filter(gender => gender.name === attributes.gender.name).length > 0) {
-          this.race.attributes.splice(0);
-        }
-      });
-    }
+    this.updateGenderAttributes(this.raceGenders.map(gender => gender.id))
 
     this.race.genders = Array.from(this.raceGenders);
   }
 
-  updateGenderAttributes(gender: Gender) {
-    if (!!this.race.attributes && this.race.attributes.filter(attribute => attribute.gender.name === gender.name).length == 0) {
-      this.race.attributes.push(new RaceGenderAttributes(gender, null, null, null, null, null, null, null));
+  updateGenderAttributes(genderIds: Array<number>) {
+    if (!!this.race.complexions) {
+      this.race.complexions = this.race.complexions.filter(complexion => genderIds.indexOf(complexion.genderId) > -1);
     }
   }
 
