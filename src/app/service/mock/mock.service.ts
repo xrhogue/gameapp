@@ -42,9 +42,9 @@ export class MockService implements InMemoryDbService {
     ];
 
     let races = [
-      new Race(1, 'human', true, null),
-      new Race(2, 'felisi', true, null),
-      new Race(3, 'charr', true, 2)
+      new Race(1, 'Human', true, null, null, null, null, null, null, null, null, null),
+      new Race(2, 'Felisi', true, null, null, null, null, null, null, null, null, null),
+      new Race(3, 'Charr', true, 2, null, null, null, null, null, null, null, null)
     ];
 
     return {

@@ -16,7 +16,7 @@ export class RaceGeneralComponent implements OnInit {
 
   id: number;
   genders: Array<Gender>;
-  raceGenders: Array<Gender>;
+  selectedGenders: Array<Gender>;
   @Input() race: Race;
   @Output() raceChange: EventEmitter<Race> = new EventEmitter<Race>();
   JSON: JSON;
@@ -32,6 +32,7 @@ export class RaceGeneralComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selectedGenders = this.race.genders;
   }
 
   invalid() {
@@ -39,9 +40,9 @@ export class RaceGeneralComponent implements OnInit {
   }
 
   updateGenders() {
-    this.updateGenderAttributes(this.raceGenders.map(gender => gender.id))
+    this.updateGenderAttributes(this.selectedGenders.map(gender => gender.id))
 
-    this.race.genders = Array.from(this.raceGenders);
+    this.race.genders = Array.from(this.selectedGenders);
   }
 
   updateGenderAttributes(genderIds: Array<number>) {

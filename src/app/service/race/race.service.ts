@@ -18,6 +18,8 @@ import {throwError} from "rxjs/internal/observable/throwError";
 })
 export class RaceService {
 
+  races: Array<Race>;
+
   constructor(private http: HttpClient) {
   }
 
@@ -117,17 +119,19 @@ export class RaceService {
     return raceAttributes;
   }
 
-  isUnique(race: Race, fieldName: String, value: String) {
-    this.getRaces().subscribe(races => {
-      for (let raceKey in races) {
-        if (races[raceKey].id != race.id &&
-          ((fieldName === "name" && races[raceKey].name === value))) {
+  isUnique(race: Race, fieldName: string, value: string) {
+    this.getRaces().subscribe(races => this.races = races);
+
+    if (!!this.races) {
+      for (let raceKey in this.races) {
+        if (this.races[raceKey].id != race.id &&
+          ((fieldName === "name" && this.races[raceKey].name === value))) {
           return false;
         }
       }
+    }
 
-      return true;
-    });
+    return true;
   }
 
   private handleError (error: any) {

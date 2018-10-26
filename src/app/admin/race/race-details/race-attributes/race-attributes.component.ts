@@ -21,9 +21,9 @@ export class RaceAttributesComponent implements OnInit {
   JSON: JSON;
   @Input() ngForm: NgForm;
   complexions: Array<Complexion>;
-  raceComplexions: Array<Complexion>;
+  selectedComplexions: Array<Complexion>;
   showDialog: boolean = false;
-  attr: string = "";
+  newComplexion: string = "";
 
   constructor(private route: ActivatedRoute, private router: Router, private raceService: RaceService, private utilService: UtilService) {
     this.JSON = JSON;
@@ -31,6 +31,10 @@ export class RaceAttributesComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!!this.race.complexions) {
+      this.selectedComplexions = this.race.complexions.filter(complexion => complexion.genderId === this.gender.id)
+        .map(raceComplexion => this.complexions.filter(complexion => complexion.id === raceComplexion.complexionId)[0]);
+    }
   }
 
   updateComplexions() {
@@ -45,21 +49,21 @@ export class RaceAttributesComponent implements OnInit {
   }
 
   addRaceComplexions() {
-    if (!!this.raceComplexions) {
+    if (!!this.selectedComplexions) {
       if (!this.race.complexions) {
         this.race.complexions = [];
       }
 
-      this.raceComplexions.forEach(complexion => this.race.complexions.push(new RaceComplexion(complexion.id, this.gender.id)));
+      this.selectedComplexions.forEach(complexion => this.race.complexions.push(new RaceComplexion(complexion.id, this.gender.id)));
     }
   }
 
   addComplexion() {
-    this.raceService.addComplexion(new Complexion(null, this.attr)).subscribe(data => {
+    this.raceService.addComplexion(new Complexion(null, this.newComplexion)).subscribe(data => {
       this.raceService.getComplexions().subscribe(data => this.complexions = data);
     });
 
-    this.attr = "";
+    this.newComplexion = "";
   }
 
   updateInvalid(name: string, invalid: boolean) {

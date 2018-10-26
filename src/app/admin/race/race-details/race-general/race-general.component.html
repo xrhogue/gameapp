@@ -35,7 +35,7 @@
                        [showHeader]="false"
                        [filter]="false"
                        defaultLabel="Choose Genders"
-                       [(ngModel)]="raceGenders"
+                       [(ngModel)]="selectedGenders"
                        (ngModelChange)="updateGenders();raceChange.emit(race);updateInvalid('genders', gender.invalid)"
                        name="genders"
                        required

@@ -11,16 +11,16 @@ export class UniqueRaceDirective implements Validator {
 
   @Input('appUniqueRace') uniqueRace: UniqueRace;
 
-  constructor(private data: RaceService) { }
+  constructor(private raceService: RaceService) { }
 
   validate(control: AbstractControl): {[key: string]: any} | null {
-    return control.value ? uniqueRaceValidator(this.data, this.uniqueRace)(control)
+    return control.value ? uniqueRaceValidator(this.raceService, this.uniqueRace)(control)
       : null;
   }
 }
 
-export function uniqueRaceValidator(data: RaceService, uniqueRace: UniqueRace): ValidatorFn {
+export function uniqueRaceValidator(raceService: RaceService, uniqueRace: UniqueRace): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    return data.isUnique(uniqueRace.race, uniqueRace.fieldName, control.value) ? null : {'uniqueRace': {value: control.value, description: "'" + control.value + "' is not unique"}};
+    return raceService.isUnique(uniqueRace.race, uniqueRace.fieldName, control.value) ? null : {'uniqueRace': {value: control.value, description: "'" + control.value + "' is not unique"}};
   };
 }
