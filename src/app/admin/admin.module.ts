@@ -28,6 +28,7 @@ import { AttributeDetailsComponent } from './race/attribute-details/attribute-de
 import { RaceGeneralComponent } from './race/race-details/race-general/race-general.component';
 import { RaceGenderComponent } from './race/race-details/race-gender/race-gender.component';
 import { RaceAttributesComponent } from './race/race-details/race-attributes/race-attributes.component';
+import { RaceAttributeDetailsComponent } from './race/race-details/race-attribute-details/race-attribute-details.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { RaceAttributesComponent } from './race/race-details/race-attributes/rac
     AttributesComponent,
     AttributeDetailsComponent,
     RaceGenderComponent,
-    RaceAttributesComponent
+    RaceAttributesComponent,
+    RaceAttributeDetailsComponent
   ],
   imports: [
     CommonModule,

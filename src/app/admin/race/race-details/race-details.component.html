@@ -14,7 +14,7 @@
     <div *ngFor="let gender of race.genders">
       <ngb-tab title="{{gender.name}}">
         <ng-template ngbTabContent>
-          <app-race-attributes [(race)]="race" [gender]="gender" [ngForm]="ngForm"></app-race-attributes>
+          <app-race-attributes [(race)]="race" [gender]="gender"></app-race-attributes>
         </ng-template>
       </ngb-tab>
     </div>

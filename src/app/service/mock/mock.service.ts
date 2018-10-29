@@ -17,8 +17,8 @@ export class MockService implements InMemoryDbService {
 
   createDb(reqInfo?: RequestInfo): {} | Observable<{}> | Promise<{}> {
     let genders = [
-      new Complexion(1, 'male'),
-      new Complexion(2, 'female')
+      new Complexion(1, 'Male'),
+      new Complexion(2, 'Female')
     ];
 
     let complexions = [

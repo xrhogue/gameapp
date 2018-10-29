@@ -1,36 +1,41 @@
-<div>
-  {{gender.name}}
-</div>
 <input type="hidden" class="form-control" [(ngModel)]="race.id" name="id" #id="ngModel">
 <div class="row">
-  <div class="small-12 medium-6 columns">
-    <label class="control-label" for="complexions">Complexions
-      <div class="input-group">
-        <p-multiSelect id="complexions"
-                       [inputId]="complexions"
-                       [options]="complexions"
-                       optionLabel="name"
-                       dataKey="id"
-                       [showToggleAll]="false"
-                       [showHeader]="false"
-                       [filter]="false"
-                       defaultLabel="Choose Complexions"
-                       [(ngModel)]="selectedComplexions"
-                       (ngModelChange)="updateComplexions();raceChange.emit(race);updateInvalid('complexions', complexion.invalid)"
-                       name="complexions"
-                       required
-                       #complexion="ngModel">
-        </p-multiSelect>
-        <p-button label="New" (onClick)="showDialog=true"></p-button>
-      </div>
-    </label>
-  </div>
+  <app-race-attribute-details [attributeName]="'Complexion'"
+                              [(race)]="race"
+                              [gender]="gender"
+                              [attributes]="complexions"
+                              [raceAttributes]="race.complexions"
+                              (update)="updateComplexions($event)"
+                              (add)="addComplexion($event)">
+  </app-race-attribute-details>
 </div>
-<p-dialog header="New Complexion" [(visible)]="showDialog">
-  <input id="newComplexion" type="text" pInputText placeholder="Add Complexion" (keyup.enter)="addComplexion($event)" [appUniqueName]="{attributes: this.complexions}" [(ngModel)]="newComplexion" #complexionDlg="ngModel"/>
-  <div *ngIf="!!complexionDlg.errors && complexionDlg.errors['uniqueName']">{{complexionDlg.errors['uniqueName'].description}}</div>
-  <p-footer>
-    <button type="button" pButton icon="pi pi-check" [disabled]="newComplexion?.length == 0 || !!newComplexion.errors" (click)="addComplexion($event);showDialog=false" label="Add"></button>
-    <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
-  </p-footer>
-</p-dialog>
+<div class="row">
+  <app-race-attribute-details [attributeName]="'EyeColor'"
+                              [(race)]="race"
+                              [gender]="gender"
+                              [attributes]="eyeColors"
+                              [raceAttributes]="race.eyeColors"
+                              (update)="updateEyeColors($event)"
+                              (add)="addEyeColor($event)">
+  </app-race-attribute-details>
+</div>
+<div class="row">
+  <app-race-attribute-details [attributeName]="'HairColor'"
+                              [(race)]="race"
+                              [gender]="gender"
+                              [attributes]="hairColors"
+                              [raceAttributes]="race.hairColors"
+                              (update)="updateHairColors($event)"
+                              (add)="addHairColor($event)">
+  </app-race-attribute-details>
+</div>
+<div class="row">
+  <app-race-attribute-details [attributeName]="'SkinColor'"
+                              [(race)]="race"
+                              [gender]="gender"
+                              [attributes]="skinColors"
+                              [raceAttributes]="race.skinColors"
+                              (update)="updateSkinColors($event)"
+                              (add)="addSkinColor($event)">
+  </app-race-attribute-details>
+</div>

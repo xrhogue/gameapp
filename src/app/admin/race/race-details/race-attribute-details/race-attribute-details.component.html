@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="attributes">{{attributeName}}
+      <div class="input-group">
+        <p-multiSelect id="attributes"
+                       [inputId]="attributes"
+                       [options]="attributes"
+                       optionLabel="name"
+                       dataKey="id"
+                       [showToggleAll]="false"
+                       [showHeader]="false"
+                       [filter]="false"
+                       defaultLabel="Choose {{attributeName}}"
+                       [(ngModel)]="selectedAttributes"
+                       (ngModelChange)="updateAttributes();raceChange.emit(race);updateInvalid('attributes', attributeList.invalid)"
+                       name="complexions"
+                       required
+                       #attributeList="ngModel">
+        </p-multiSelect>
+        <p-button label="New" (onClick)="showDialog=true"></p-button>
+      </div>
+    </label>
+  </div>
+</div>
+<p-dialog header="New {{attributeName}}" [(visible)]="showDialog">
+  <input id="newAttribute" type="text" pInputText placeholder="Add {{attributeName}}" (keyup.enter)="addAttribute($event)" [appUniqueName]="{attributes: this.attributes}" [(ngModel)]="newAttribute" #attributeDlg="ngModel"/>
+  <div *ngIf="!!attributeDlg.errors && attributeDlg.errors['uniqueName']">{{attributeDlg.errors['uniqueName'].description}}</div>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" [disabled]="newAttribute?.length == 0 || !!newAttribute.errors" (click)="addAttribute($event);showDialog=false" label="Add"></button>
+    <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
