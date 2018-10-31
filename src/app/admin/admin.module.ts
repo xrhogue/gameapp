@@ -29,6 +29,7 @@ import { RaceGeneralComponent } from './race/race-details/race-general/race-gene
 import { RaceGenderComponent } from './race/race-details/race-gender/race-gender.component';
 import { RaceAttributesComponent } from './race/race-details/race-attributes/race-attributes.component';
 import { RaceAttributeDetailsComponent } from './race/race-details/race-attribute-details/race-attribute-details.component';
+import {NumberComponent} from "../shared/components/number/number.component";
 
 @NgModule({
   declarations: [

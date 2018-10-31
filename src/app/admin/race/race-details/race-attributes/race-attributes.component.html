@@ -39,3 +39,37 @@
                               (add)="addSkinColor($event)">
   </app-race-attribute-details>
 </div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="ageChild">Child
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               id="ageChild"
+               oninput="this.value = this.value.replace(/\D/g, '')"
+               (input)="updateInvalid('age', childAge.invalid)"
+               [(ngModel)]="race.ages[gender.id].child"
+               (ngModelChange)="raceChange.emit(race)"
+               name="ageChild"
+               required
+               [appBetween]="{min: 0, max: race.ages[gender.id].teen, inclusiveMin: false, inclusiveMax: false}"
+               min="1"
+               pattern="[1-9]+[0-9]*"
+               #childAge="ngModel">
+        <div *ngIf="childAge.invalid" class="alert alert-danger">
+          <div *ngIf="childAge.errors.required">Required</div>
+          <div *ngIf="childAge.errors.pattern && isInteger(childAge.errors.pattern.actualValue)">Value must be greater than '0'</div>
+          <div *ngIf="childAge.errors.pattern && !isInteger(childAge.errors.pattern.actualValue)">Value is not an integer</div>
+          <div *ngIf="childAge.errors.between">Value is not between bounding ages</div>
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="ageTeen">Teen
+      <app-number id="ageTeen" [id]="'ageTeen'" [name]="'ageTeen'" [value]="race.ages[gender.id].teen" [decorator]="'years'"></app-number>
+    </label>
+  </div>
+</div>

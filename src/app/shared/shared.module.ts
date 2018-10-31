@@ -13,6 +13,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {UtilService} from "./services/util/util.service";
 import { UniqueNameDirective } from './directives/unique-name/unique-name.directive';
 import { UniqueRaceDirective } from './directives/unique-race/unique-race.directive';
+import {BetweenDirective} from "./directives/between/between.directive";
+import { NumberComponent } from './components/number/number.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,19 +24,24 @@ import { UniqueRaceDirective } from './directives/unique-race/unique-race.direct
     UniqueRaceDirective,
     UniqueSkillDirective,
     UniqueNameDirective,
-    LoginComponent
+    BetweenDirective,
+    LoginComponent,
+    NumberComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SharedRoutingModule,
     FontAwesomeModule
   ],
   exports: [
     PageNotFoundComponent,
+    NumberComponent,
     UniqueStatDirective,
     UniqueRaceDirective,
     UniqueSkillDirective,
-    UniqueNameDirective
+    UniqueNameDirective,
+    BetweenDirective
   ],
   providers: [
     AuthGuard,

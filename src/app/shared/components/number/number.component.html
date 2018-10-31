@@ -1,0 +1,20 @@
+<div class="input-group">
+  <input type="text"
+         class="form-control"
+         [id]="id"
+         oninput="this.value = this.value.replace(/\D/g, '')"
+         (input)="updateInvalid(id, number.invalid)"
+         [name]="name"
+         required
+         [min]="min"
+         [pattern]="pattern"
+         [(ngModel)]="value"
+         (ngModelChange)="valueChange.emit(value)"
+         #number="ngModel">
+  {{decorator.endsWith("s") && this.value == 1 ? decorator.substr(0, decorator.length - 1) : decorator}}
+  <div *ngIf="number.invalid" class="alert alert-danger">
+    <div *ngIf="number.errors.required">Required</div>
+    <div *ngIf="number.errors.pattern && isInteger(number.errors.pattern.actualValue)">Value must be greater than or equal to {{min}}</div>
+    <div *ngIf="number.errors.pattern && !isInteger(number.errors.pattern.actualValue)">Value is not an integer</div>
+  </div>
+</div>

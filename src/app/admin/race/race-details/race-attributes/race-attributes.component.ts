@@ -12,6 +12,7 @@ import {HairColor} from "../../../shared/hair-color";
 import {RaceHairColor} from "../../../shared/race-hair-color";
 import {SkinColor} from "../../../shared/skin-color";
 import {RaceSkinColor} from "../../../shared/race-skin-color";
+import {RaceAge} from "../../../shared/race-age";
 
 @Component({
   selector: 'app-race-attributes',
@@ -27,15 +28,24 @@ export class RaceAttributesComponent implements OnInit {
   eyeColors: Array<EyeColor>;
   hairColors: Array<HairColor>;
   skinColors: Array<SkinColor>;
+  isInteger:(number: string) => boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private raceService: RaceService, private utilService: UtilService) {
     this.raceService.getComplexions().subscribe(data => this.complexions = data);
     this.raceService.getEyeColors().subscribe(data => this.eyeColors = data);
     this.raceService.getHairColors().subscribe(data => this.hairColors = data);
     this.raceService.getSkinColors().subscribe(data => this.skinColors = data);
+    this.isInteger = this.utilService.isInteger;
   }
 
   ngOnInit() {
+    if (!this.race.ages) {
+      this.race.ages = [];
+    }
+
+    if (!this.race.ages[this.gender.id]) {
+      this.race.ages[this.gender.id] = new RaceAge(this.gender.id, 1, 2, 3, 4, 5, 6, 7, 8);
+    }
   }
 
   updateComplexions(selectedComplexions: Array<Complexion>) {
