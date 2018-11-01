@@ -16,11 +16,14 @@ export class NumberComponent implements OnInit {
   @Input() decorator: string;
   @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
   @Input() pattern: string = "[1-9]+[0-9]*";
-  @Input() min: number = 1;
+  @Input() min: number = Number.MIN_VALUE;
+  @Input() max: number = Number.MAX_VALUE;
 
+  JSON: JSON;
   isInteger:(number: string) => boolean;
 
   constructor(private utilService: UtilService) {
+    this.JSON = JSON;
     this.isInteger = this.utilService.isInteger;
   }
 

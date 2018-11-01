@@ -16,6 +16,7 @@ import { UniqueRaceDirective } from './directives/unique-race/unique-race.direct
 import {BetweenDirective} from "./directives/between/between.directive";
 import { NumberComponent } from './components/number/number.component';
 import {FormsModule} from "@angular/forms";
+import {CustomFormsModule} from "ng2-validation";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {FormsModule} from "@angular/forms";
     CommonModule,
     FormsModule,
     SharedRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    CustomFormsModule
   ],
   exports: [
     PageNotFoundComponent,

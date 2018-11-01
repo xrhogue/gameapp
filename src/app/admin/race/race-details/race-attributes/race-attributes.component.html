@@ -1,75 +1,138 @@
 <input type="hidden" class="form-control" [(ngModel)]="race.id" name="id" #id="ngModel">
-<div class="row">
-  <app-race-attribute-details [attributeName]="'Complexion'"
-                              [(race)]="race"
-                              [gender]="gender"
-                              [attributes]="complexions"
-                              [raceAttributes]="race.complexions"
-                              (update)="updateComplexions($event)"
-                              (add)="addComplexion($event)">
-  </app-race-attribute-details>
-</div>
-<div class="row">
-  <app-race-attribute-details [attributeName]="'EyeColor'"
-                              [(race)]="race"
-                              [gender]="gender"
-                              [attributes]="eyeColors"
-                              [raceAttributes]="race.eyeColors"
-                              (update)="updateEyeColors($event)"
-                              (add)="addEyeColor($event)">
-  </app-race-attribute-details>
-</div>
-<div class="row">
-  <app-race-attribute-details [attributeName]="'HairColor'"
-                              [(race)]="race"
-                              [gender]="gender"
-                              [attributes]="hairColors"
-                              [raceAttributes]="race.hairColors"
-                              (update)="updateHairColors($event)"
-                              (add)="addHairColor($event)">
-  </app-race-attribute-details>
-</div>
-<div class="row">
-  <app-race-attribute-details [attributeName]="'SkinColor'"
-                              [(race)]="race"
-                              [gender]="gender"
-                              [attributes]="skinColors"
-                              [raceAttributes]="race.skinColors"
-                              (update)="updateSkinColors($event)"
-                              (add)="addSkinColor($event)">
-  </app-race-attribute-details>
-</div>
-<div class="row">
-  <div class="small-12 medium-6 columns">
-    <label class="control-label" for="ageChild">Child
-      <div class="input-group">
-        <input type="text"
-               class="form-control"
-               id="ageChild"
-               oninput="this.value = this.value.replace(/\D/g, '')"
-               (input)="updateInvalid('age', childAge.invalid)"
-               [(ngModel)]="race.ages[gender.id].child"
-               (ngModelChange)="raceChange.emit(race)"
-               name="ageChild"
-               required
-               [appBetween]="{min: 0, max: race.ages[gender.id].teen, inclusiveMin: false, inclusiveMax: false}"
-               min="1"
-               pattern="[1-9]+[0-9]*"
-               #childAge="ngModel">
-        <div *ngIf="childAge.invalid" class="alert alert-danger">
-          <div *ngIf="childAge.errors.required">Required</div>
-          <div *ngIf="childAge.errors.pattern && isInteger(childAge.errors.pattern.actualValue)">Value must be greater than '0'</div>
-          <div *ngIf="childAge.errors.pattern && !isInteger(childAge.errors.pattern.actualValue)">Value is not an integer</div>
-          <div *ngIf="childAge.errors.between">Value is not between bounding ages</div>
+<div class="p-grid">
+  <div class="p-col">
+    <div class="box">
+      Physical Attributes
+    </div>
+    <div class="box">
+      <div class="row">
+        <app-race-attribute-details [attributeName]="'Complexion'"
+                                    [(race)]="race"
+                                    [gender]="gender"
+                                    [attributes]="complexions"
+                                    [raceAttributes]="race.complexions"
+                                    (update)="updateComplexions($event)"
+                                    (add)="addComplexion($event)">
+        </app-race-attribute-details>
+      </div>
+      <div class="row">
+        <app-race-attribute-details [attributeName]="'EyeColor'"
+                                    [(race)]="race"
+                                    [gender]="gender"
+                                    [attributes]="eyeColors"
+                                    [raceAttributes]="race.eyeColors"
+                                    (update)="updateEyeColors($event)"
+                                    (add)="addEyeColor($event)">
+        </app-race-attribute-details>
+      </div>
+      <div class="row">
+        <app-race-attribute-details [attributeName]="'HairColor'"
+                                    [(race)]="race"
+                                    [gender]="gender"
+                                    [attributes]="hairColors"
+                                    [raceAttributes]="race.hairColors"
+                                    (update)="updateHairColors($event)"
+                                    (add)="addHairColor($event)">
+        </app-race-attribute-details>
+      </div>
+      <div class="row">
+        <app-race-attribute-details [attributeName]="'SkinColor'"
+                                    [(race)]="race"
+                                    [gender]="gender"
+                                    [attributes]="skinColors"
+                                    [raceAttributes]="race.skinColors"
+                                    (update)="updateSkinColors($event)"
+                                    (add)="addSkinColor($event)">
+        </app-race-attribute-details>
+      </div>
+    </div>
+  </div>
+  <div class="p-col">
+    <div class="box">
+      Ages
+    </div>
+    <div class="box">
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <label class="control-label" for="ageChild">Child
+            <app-number [id]="'ageChild'"
+                        [name]="'ageChild'"
+                        [(value)]="race.ages[gender.id].child"
+                        [min]="0"
+                        [max]="race.ages[gender.id].teen"
+                        [decorator]="'years'">
+            </app-number>
+          </label>
         </div>
       </div>
-    </label>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <label class="control-label" for="ageTeen">Teen
+            <app-number [id]="'ageTeen'"
+                        [name]="'ageTeen'"
+                        [(value)]="race.ages[gender.id].teen"
+                        [min]="race.ages[gender.id].child"
+                        [max]="race.ages[gender.id].adult"
+                        [decorator]="'years'">
+            </app-number>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <label class="control-label" for="ageAdult">Adult
+            <app-number [id]="'ageAdult'"
+                        [name]="'ageAdult'"
+                        [(value)]="race.ages[gender.id].adult"
+                        [min]="race.ages[gender.id].teen"
+                        [max]="race.ages[gender.id].mature"
+                        [decorator]="'years'">
+            </app-number>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <label class="control-label" for="ageMature">Mature
+            <app-number [id]="'ageMature'"
+                        [name]="'ageMature'"
+                        [(value)]="race.ages[gender.id].mature"
+                        [min]="race.ages[gender.id].adult"
+                        [max]="race.ages[gender.id].old"
+                        [decorator]="'years'">
+            </app-number>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <label class="control-label" for="ageOld">Old
+            <app-number [id]="'ageOld'"
+                        [name]="'ageOld'"
+                        [(value)]="race.ages[gender.id].old"
+                        [min]="race.ages[gender.id].mature"
+                        [max]="race.ages[gender.id].venerable"
+                        [decorator]="'years'">
+            </app-number>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <label class="control-label" for="ageVenerable">Venerable
+            <app-number [id]="'ageVenerable'"
+                        [name]="'ageVenerable'"
+                        [(value)]="race.ages[gender.id].venerable"
+                        [min]="race.ages[gender.id].old"
+                        [decorator]="'years'">
+            </app-number>
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="small-12 medium-6 columns">
-    <label class="control-label" for="ageTeen">Teen
-      <app-number id="ageTeen" [id]="'ageTeen'" [name]="'ageTeen'" [value]="race.ages[gender.id].teen" [decorator]="'years'"></app-number>
-    </label>
+  <div class="p-col">
+    <div class="box">Height</div>
+    <div class="box">Weight</div>
   </div>
 </div>
