@@ -1,16 +1,16 @@
 <div class="row">
   <div class="small-12 medium-6 columns">
-    <label class="control-label" for="attributes">{{attributeName}}
+    <label class="control-label" [for]="attributeName.replace('/ /g', '')">{{attributeName + 's'}}
       <div class="input-group">
-        <p-multiSelect id="attributes"
-                       [inputId]="attributes"
+        <p-multiSelect [style]="{'width': '15em'}"
+                       [inputId]="attributeName.replace('/ /g', '')"
                        [options]="attributes"
                        optionLabel="name"
                        dataKey="id"
                        [showToggleAll]="false"
                        [showHeader]="false"
                        [filter]="false"
-                       defaultLabel="Choose {{attributeName}}"
+                       defaultLabel="Choose {{attributeName + 's'}}"
                        [(ngModel)]="selectedAttributes"
                        (ngModelChange)="updateAttributes();raceChange.emit(race);updateInvalid('attributes', attributeList.invalid)"
                        name="complexions"

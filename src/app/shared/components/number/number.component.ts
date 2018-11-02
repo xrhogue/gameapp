@@ -16,8 +16,10 @@ export class NumberComponent implements OnInit {
   @Input() decorator: string;
   @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
   @Input() pattern: string = "[1-9]+[0-9]*";
+  @Input() width: string = "5";
   @Input() min: number = Number.MIN_VALUE;
   @Input() max: number = Number.MAX_VALUE;
+  @Input() disabled: boolean = false;
 
   JSON: JSON;
   isInteger:(number: string) => boolean;

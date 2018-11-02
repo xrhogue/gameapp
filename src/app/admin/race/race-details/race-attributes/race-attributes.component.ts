@@ -29,6 +29,7 @@ export class RaceAttributesComponent implements OnInit {
   hairColors: Array<HairColor>;
   skinColors: Array<SkinColor>;
   isInteger:(number: string) => boolean;
+  MAX_VALUE: Number = Number.MAX_VALUE;
 
   constructor(private route: ActivatedRoute, private router: Router, private raceService: RaceService, private utilService: UtilService) {
     this.raceService.getComplexions().subscribe(data => this.complexions = data);
@@ -44,7 +45,7 @@ export class RaceAttributesComponent implements OnInit {
     }
 
     if (!this.race.ages[this.gender.id]) {
-      this.race.ages[this.gender.id] = new RaceAge(this.gender.id, 1, 2, 3, 4, 5, 6, 7, 8);
+      this.race.ages[this.gender.id] = new RaceAge(this.gender.id, 1, 2, 3, 4, 5, 6, 7, 8, false);
     }
   }
 

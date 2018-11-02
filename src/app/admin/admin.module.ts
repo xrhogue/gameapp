@@ -9,7 +9,7 @@ import {
   TreeModule,
   TreeTableModule,
   TreeDragDropService,
-  ListboxModule, InputTextModule, ButtonModule, DialogModule
+  ListboxModule, InputTextModule, ButtonModule, DialogModule, CheckboxModule
 } from "primeng/primeng";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
@@ -59,6 +59,7 @@ import {NumberComponent} from "../shared/components/number/number.component";
     DragDropModule,
     ListboxModule,
     InputTextModule,
+    CheckboxModule,
     ButtonModule,
     DialogModule,
     AdminRoutingModule

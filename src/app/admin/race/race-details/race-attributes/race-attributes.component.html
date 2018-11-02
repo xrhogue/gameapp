@@ -16,7 +16,7 @@
         </app-race-attribute-details>
       </div>
       <div class="row">
-        <app-race-attribute-details [attributeName]="'EyeColor'"
+        <app-race-attribute-details [attributeName]="'Eye Color'"
                                     [(race)]="race"
                                     [gender]="gender"
                                     [attributes]="eyeColors"
@@ -26,7 +26,7 @@
         </app-race-attribute-details>
       </div>
       <div class="row">
-        <app-race-attribute-details [attributeName]="'HairColor'"
+        <app-race-attribute-details [attributeName]="'Hair Color'"
                                     [(race)]="race"
                                     [gender]="gender"
                                     [attributes]="hairColors"
@@ -36,7 +36,7 @@
         </app-race-attribute-details>
       </div>
       <div class="row">
-        <app-race-attribute-details [attributeName]="'SkinColor'"
+        <app-race-attribute-details [attributeName]="'Skin Color'"
                                     [(race)]="race"
                                     [gender]="gender"
                                     [attributes]="skinColors"
@@ -54,7 +54,8 @@
     <div class="box">
       <div class="row">
         <div class="small-12 medium-6 columns">
-          <label class="control-label" for="ageChild">Child
+          <div class="input-group">
+            <label class="control-label list-label" for="ageChild">Child</label>
             <app-number [id]="'ageChild'"
                         [name]="'ageChild'"
                         [(value)]="race.ages[gender.id].child"
@@ -62,12 +63,13 @@
                         [max]="race.ages[gender.id].teen"
                         [decorator]="'years'">
             </app-number>
-          </label>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="small-12 medium-6 columns">
-          <label class="control-label" for="ageTeen">Teen
+          <div class="input-group">
+          <label class="control-label list-label" for="ageTeen">Teen</label>
             <app-number [id]="'ageTeen'"
                         [name]="'ageTeen'"
                         [(value)]="race.ages[gender.id].teen"
@@ -75,12 +77,13 @@
                         [max]="race.ages[gender.id].adult"
                         [decorator]="'years'">
             </app-number>
-          </label>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="small-12 medium-6 columns">
-          <label class="control-label" for="ageAdult">Adult
+          <div class="input-group">
+            <label class="control-label list-label" for="ageAdult">Adult</label>
             <app-number [id]="'ageAdult'"
                         [name]="'ageAdult'"
                         [(value)]="race.ages[gender.id].adult"
@@ -88,25 +91,41 @@
                         [max]="race.ages[gender.id].mature"
                         [decorator]="'years'">
             </app-number>
-          </label>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="small-12 medium-6 columns">
-          <label class="control-label" for="ageMature">Mature
+          <div class="input-group">
+            <label class="control-label list-label" for="ageMature">Mature</label>
             <app-number [id]="'ageMature'"
                         [name]="'ageMature'"
                         [(value)]="race.ages[gender.id].mature"
                         [min]="race.ages[gender.id].adult"
-                        [max]="race.ages[gender.id].old"
+                        [max]="race.ages[gender.id].middle"
                         [decorator]="'years'">
             </app-number>
-          </label>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="small-12 medium-6 columns">
-          <label class="control-label" for="ageOld">Old
+          <div class="input-group">
+            <label class="control-label list-label" for="ageMiddle">Middle</label>
+            <app-number [id]="'ageMiddle'"
+                        [name]="'ageMiddle'"
+                        [(value)]="race.ages[gender.id].middle"
+                        [min]="race.ages[gender.id].mature"
+                        [max]="race.ages[gender.id].old"
+                        [decorator]="'years'">
+            </app-number>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <div class="input-group">
+            <label class="control-label list-label" for="ageOld">Old</label>
             <app-number [id]="'ageOld'"
                         [name]="'ageOld'"
                         [(value)]="race.ages[gender.id].old"
@@ -114,22 +133,47 @@
                         [max]="race.ages[gender.id].venerable"
                         [decorator]="'years'">
             </app-number>
-          </label>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="small-12 medium-6 columns">
-          <label class="control-label" for="ageVenerable">Venerable
+          <div class="input-group">
+            <label class="control-label list-label" for="ageVenerable">Venerable</label>
             <app-number [id]="'ageVenerable'"
                         [name]="'ageVenerable'"
                         [(value)]="race.ages[gender.id].venerable"
                         [min]="race.ages[gender.id].old"
+                        [max]="race.ages[gender.id].max"
                         [decorator]="'years'">
             </app-number>
-          </label>
+          </div>
         </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <div class="input-group">
+            <label class="control-label list-label" for="ageMax">Max</label>
+            <app-number [id]="'ageMax'"
+                        [name]="'ageMax'"
+                        [(value)]="race.ages[gender.id].max"
+                        [min]="race.ages[gender.id].venerable"
+                        [max]="MAX_VALUE"
+                        [decorator]="'years'"
+                        [disabled]="race.ages[gender.id].immortal">
+            </app-number>
+           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <div class="input-group">
+            <label class="control-label list-label" for="immortal">Immortal</label>
+            <p-checkbox inputId="immortal" binary="true" [(ngModel)]="race.ages[gender.id].immortal" name="immortal"></p-checkbox>
+          </div>
+        </div>
+      </div>
+   </div>
   </div>
   <div class="p-col">
     <div class="box">Height</div>

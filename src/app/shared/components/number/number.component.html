@@ -1,11 +1,13 @@
 <div class="input-group">
   <input type="text"
-         class="form-control"
+         class="form-control number-control"
+         [style.width.em]="width"
          [id]="id"
          oninput="this.value = this.value.replace(/\D/g, '')"
          (input)="updateInvalid(id, number.invalid)"
          [name]="name"
          required
+         [disabled]="disabled"
          [gt]="min"
          [lt]="max"
          [pattern]="pattern"
