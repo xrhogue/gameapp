@@ -13,6 +13,8 @@ import {RaceHairColor} from "../../../shared/race-hair-color";
 import {SkinColor} from "../../../shared/skin-color";
 import {RaceSkinColor} from "../../../shared/race-skin-color";
 import {RaceAge} from "../../../shared/race-age";
+import {RaceWeight} from "../../../shared/race-weight";
+import {RaceHeight} from "../../../shared/race-height";
 
 @Component({
   selector: 'app-race-attributes',
@@ -44,8 +46,24 @@ export class RaceAttributesComponent implements OnInit {
       this.race.ages = [];
     }
 
+    if (!this.race.weights) {
+      this.race.weights = [];
+    }
+
+    if (!this.race.heights) {
+      this.race.heights = [];
+    }
+
     if (!this.race.ages[this.gender.id]) {
       this.race.ages[this.gender.id] = new RaceAge(this.gender.id, 1, 2, 3, 4, 5, 6, 7, 8, false);
+    }
+
+    if (!this.race.weights[this.gender.id]) {
+      this.race.weights[this.gender.id] = new RaceWeight(this.gender.id, 7, 1000);
+    }
+
+    if (!this.race.heights[this.gender.id]) {
+      this.race.heights[this.gender.id] = new RaceHeight(this.gender.id, 14, 96);
     }
   }
 

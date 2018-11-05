@@ -26,7 +26,7 @@ export class RaceGeneralComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router, private raceService: RaceService, private utilService: UtilService) {
     this.route.params.subscribe( params => this.id = params.id );
-    this.raceService.getGenders().subscribe(data => this.genders = data);
+    this.raceService.getGenders().subscribe(data => this.genders = data.filter(gender=>gender.id !== 0));
     this.JSON = JSON;
     this.isInteger = utilService.isInteger;
   }

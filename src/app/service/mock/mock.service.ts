@@ -7,6 +7,7 @@ import {EyeColor} from "../../admin/shared/eye-color";
 import {HairColor} from "../../admin/shared/hair-color";
 import {SkinColor} from "../../admin/shared/skin-color";
 import {Race} from "../../admin/shared/race";
+import {Gender} from "../../admin/shared/gender";
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,9 @@ export class MockService implements InMemoryDbService {
 
   createDb(reqInfo?: RequestInfo): {} | Observable<{}> | Promise<{}> {
     let genders = [
-      new Complexion(1, 'Male'),
-      new Complexion(2, 'Female')
+      new Gender(0, 'Base'),
+      new Gender(1, 'Male'),
+      new Gender(2, 'Female')
     ];
 
     let complexions = [

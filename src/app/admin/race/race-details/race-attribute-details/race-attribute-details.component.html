@@ -1,9 +1,11 @@
 <div class="row">
   <div class="small-12 medium-6 columns">
-    <label class="control-label" [for]="attributeName.replace('/ /g', '')">{{attributeName + 's'}}
+    <label class="control-label" [for]="attributeName">{{attributeName + 's'}}
       <div class="input-group">
-        <p-multiSelect [style]="{'width': '15em'}"
-                       [inputId]="attributeName.replace('/ /g', '')"
+        <!-- only [id] or [inputId] works, but not both (current cannot have the label perform a dropdown action, even though the [for] attribute should allow that -->
+        <p-multiSelect [id]="attributeName"
+                       [inputId]="attributeName"
+                       [style]="{'width': '15em'}"
                        [options]="attributes"
                        optionLabel="name"
                        dataKey="id"
@@ -13,7 +15,7 @@
                        defaultLabel="Choose {{attributeName + 's'}}"
                        [(ngModel)]="selectedAttributes"
                        (ngModelChange)="updateAttributes();raceChange.emit(race);updateInvalid('attributes', attributeList.invalid)"
-                       name="complexions"
+                       [name]="attributeName"
                        required
                        #attributeList="ngModel">
         </p-multiSelect>

@@ -4,6 +4,7 @@ import {RaceService} from "../../../service/race/race.service";
 import {NgForm} from "@angular/forms";
 import {Race} from "../../shared/race";
 import {RaceGeneralComponent} from "./race-general/race-general.component";
+import {Gender} from "../../shared/gender";
 
 @Component({
   selector: 'app-race-details',
@@ -14,6 +15,7 @@ export class RaceDetailsComponent implements OnInit {
 
   id: number;
   race: Race;
+  genderBase: Gender;
   JSON: JSON;
   invalid: boolean = true;
 
@@ -23,6 +25,7 @@ export class RaceDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private raceService: RaceService) {
     this.route.params.subscribe( params => this.id = params.id );
     this.JSON = JSON;
+    raceService.getGenders().subscribe(data => this.genderBase = data.filter(gender => gender.id === 0).pop());
   }
 
   ngOnInit() {

@@ -31,6 +31,8 @@ export class RaceAttributeDetailsComponent implements OnInit {
       this.selectedAttributes = this.raceAttributes.filter(raceAttribute => raceAttribute.genderId === this.gender.id)
         .map(raceAttribute => this.attributes.filter(attribute => attribute.id === raceAttribute.attributeId)[0]);
     }
+
+    this.attributeName = this.attributeName.replace(/\s/g, '');
   }
 
   updateAttributes() {

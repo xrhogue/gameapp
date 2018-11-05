@@ -11,6 +11,11 @@
         <app-race-general [(race)]="race" [ngForm]="ngForm"></app-race-general>
       </ng-template>
     </ngb-tab>
+    <ngb-tab title="{{genderBase.name}}">
+      <ng-template ngbTabContent>
+        <app-race-attributes [(race)]="race" [gender]="genderBase"></app-race-attributes>
+      </ng-template>
+    </ngb-tab>
     <div *ngFor="let gender of race.genders">
       <ngb-tab title="{{gender.name}}">
         <ng-template ngbTabContent>

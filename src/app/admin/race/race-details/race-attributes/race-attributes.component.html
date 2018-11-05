@@ -2,6 +2,11 @@
 <div class="p-grid">
   <div class="p-col">
     <div class="box">
+      Stats
+    </div>
+  </div>
+  <div class="p-col">
+    <div class="box">
       Physical Attributes
     </div>
     <div class="box">
@@ -177,6 +182,66 @@
   </div>
   <div class="p-col">
     <div class="box">Height</div>
+    <div class="box">
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <div class="input-group">
+            <label class="control-label list-label" for="heightMin">Min</label>
+            <app-number [id]="'heighMin'"
+                        [name]="'heighMin'"
+                        [(value)]="race.heights[gender.id].min"
+                        [min]="0"
+                        [max]="race.heights[gender.id].max"
+                        [decorator]="'inches'">
+            </app-number>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <div class="input-group">
+            <label class="control-label list-label" for="heightMax">Max</label>
+            <app-number [id]="'heightMax'"
+                        [name]="'heightMax'"
+                        [(value)]="race.heights[gender.id].max"
+                        [min]="race.heights[gender.id].min"
+                        [max]="MAX_VALUE"
+                        [decorator]="'inches'">
+            </app-number>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="box">Weight</div>
+    <div class="box">
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <div class="input-group">
+            <label class="control-label list-label" for="weightMin">Min</label>
+            <app-number [id]="'weightMin'"
+                        [name]="'weightMin'"
+                        [(value)]="race.weights[gender.id].min"
+                        [min]="0"
+                        [max]="race.weights[gender.id].max"
+                        [decorator]="'lbs'">
+            </app-number>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <div class="input-group">
+            <label class="control-label list-label" for="weightMax">Max</label>
+            <app-number [id]="'weightMax'"
+                        [name]="'weightMax'"
+                        [(value)]="race.weights[gender.id].max"
+                        [min]="race.weights[gender.id].min"
+                        [max]="MAX_VALUE"
+                        [decorator]="'lbs'">
+            </app-number>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

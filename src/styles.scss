@@ -25,20 +25,26 @@ body {
             margin:0;padding:0;
 
             li {
-                background: #fff;
+                background-color: transparent;
                 border-radius: 8px;
-                padding: 20px;
+                padding-top: 0px;
+                padding-bottom: 0px;
                 margin-bottom: 8px;
 
                 a {
+                    border-radius: 8px;
                     font-size: 1.5em;
                     text-decoration: none;
                     font-weight: bold;
                     color:#00A8FF;
                 }
 
+                a.active {
+                  background: darkslateblue;
+                }
+
                 ul {
-                    margin-top: 20px;
+                    margin-top: 0px;
 
                     li {
                         padding:0;
@@ -54,17 +60,6 @@ body {
     }
 }
 
-#container #content ul li ul {
-  margin-top: 0px;
-}
-
-#container #content ul li {
-  background-color: transparent;
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-
 .ui-state-highlight {
   color: #000;
 }
-
