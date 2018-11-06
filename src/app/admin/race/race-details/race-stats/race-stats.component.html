@@ -1,0 +1,23 @@
+<div *ngFor="let stat of stats; let statIndex = index">
+  <div class="row">
+    <div class="small-12 medium-6 columns">
+      <div class="input-group">
+        <label class="control-label list-label" for="{{stat.shortName}}">{{stat.shortName}}</label>
+        <app-number [id]="stat.shortName"
+                    [name]="stat.shortName"
+                    [(value)]="race.stats[gender.id][statIndex].low"
+                    [min]="0"
+                    [max]="MAX_VALUE"
+                    [decorator]="''">
+        </app-number>
+        <app-number [id]="stat.shortName"
+                    [name]="stat.shortName"
+                    [(value)]="race.stats[gender.id][statIndex].high"
+                    [min]="0"
+                    [max]="MAX_VALUE"
+                    [decorator]="''">
+        </app-number>
+      </div>
+    </div>
+  </div>
+</div>

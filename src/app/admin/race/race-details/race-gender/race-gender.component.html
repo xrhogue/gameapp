@@ -1,3 +1,12 @@
-<p>
-  {{gender.name}}
-</p>
+<ngb-tabset type="pill">
+  <ngb-tab title="Stats">
+    <ng-template ngbTabContent>
+      <app-race-stats [(race)]="race" [gender]="gender"></app-race-stats>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Attributes">
+    <ng-template ngbTabContent>
+      <app-race-attributes [(race)]="race" [gender]="gender"></app-race-attributes>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

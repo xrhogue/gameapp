@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, CanDeactivate, Router} from '@angular/router';
 import { StatService } from '../../../service/stat/stat.service';
 import { Stat } from '../../shared/stat';
@@ -12,7 +12,7 @@ import {DialogService} from "../../../shared/services/dialog/dialog.service";
   templateUrl: './stat-details.component.html',
   styleUrls: ['./stat-details.component.scss']
 })
-export class StatDetailsComponent implements OnInit, CanDeactivate<Observable<boolean>> {
+export class StatDetailsComponent implements OnInit, OnDestroy, CanDeactivate<Observable<boolean>> {
 
   id: number;
   stat: Stat;
@@ -39,7 +39,7 @@ export class StatDetailsComponent implements OnInit, CanDeactivate<Observable<bo
     })
 
     if (this.id > 0) {
-      this.stat = this.data.getStat(this.id);
+      this.data.getStat(this.id).subscribe(stat => this.stat = stat);
     }
     else {
       this.stat = new Stat(0, "", "", "", 1);
@@ -47,20 +47,21 @@ export class StatDetailsComponent implements OnInit, CanDeactivate<Observable<bo
 
     this.statCodes = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.toUpperCase().split('');
 
-    let stats = this.data.getStats();
+    this.data.getStats().subscribe(data => {
+      let stats: Array<Stat> = data
 
-    for (let statKey in stats) {
-      if (stats[statKey].code === this.stat.code) {
-        continue;
+      for (let statKey in stats) {
+        if (stats[statKey].code === this.stat.code) {
+          continue;
+        }
+
+        let index = this.statCodes.findIndex(statCode => statCode === stats[statKey].code)
+
+        if (index > -1) {
+          this.statCodes.splice(index, 1);
+        }
       }
-
-      let index = this.statCodes.findIndex(statCode => statCode === stats[statKey].code)
-
-      if (index > -1) {
-        this.statCodes.splice(index, 1);
-      }
-    }
-    // this.data.getStat(id).subscribe(data => this.stat = data);
+    });
   }
 
   ngOnDestroy() {
@@ -69,12 +70,12 @@ export class StatDetailsComponent implements OnInit, CanDeactivate<Observable<bo
 
   update() {
     if (this.stat.id == 0) {
-      this.stat = this.data.addStat(this.stat);
+      this.data.addStat(this.stat).subscribe(stat => this.stat = stat);
     }
     else {
-      this.stat = this.data.updateStat(this.stat);
+      this.data.updateStat(this.stat).subscribe(stat => this.stat = stat);
     }
-    // this.data.updateStat(this.stat).subscribe(data => this.stat = data);
+
     this.router.navigate(['/admin/stats']);
   }
 
@@ -97,5 +98,4 @@ export class StatDetailsComponent implements OnInit, CanDeactivate<Observable<bo
 
     return this.dialogService.confirm('Discard changes?');
   }
-
 }

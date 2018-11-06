@@ -6,6 +6,7 @@ import {RaceComplexion} from "./race-complexion";
 import {RaceEyeColor} from "./race-eye-color";
 import {RaceHairColor} from "./race-hair-color";
 import {RaceSkinColor} from "./race-skin-color";
+import {RaceStat} from "./race-stat";
 
 export class Race {
   constructor(
@@ -14,6 +15,7 @@ export class Race {
     public selectable: boolean,
     public parentId: number,
     public genders: Array<Gender>,
+    public stats: Array<Array<RaceStat>>,
     public ages: Array<RaceAge>,
     public heights: Array<RaceHeight>,
     public weights: Array<RaceWeight>,

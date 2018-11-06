@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { StatService } from '../../../service/stat/stat.service';
-import { Stat } from '../../shared/stat';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {StatService} from '../../../service/stat/stat.service';
+import {Stat} from '../../shared/stat';
 
 @Component({
   selector: 'app-stats',
@@ -12,11 +12,11 @@ export class StatsComponent implements OnInit {
 
   stats: Array<Stat>;
 
-  constructor(private data: StatService, private router: Router) { }
+  constructor(private data: StatService, private router: Router) {
+  }
 
   ngOnInit() {
-    this.stats = this.data.getStats();
-    // this.data.getStats().subscribe(data => this.stats = data);
+    this.data.getStats().subscribe(stats => this.stats = stats);
   }
 
   addStat() {
@@ -24,12 +24,10 @@ export class StatsComponent implements OnInit {
   }
 
   updateStat(stat: Stat) {
-    return this.data.updateStat(stat);
-    // return this.data.updateStat(stat);
+    return this.data.updateStat(stat).subscribe();
   }
 
   deleteStat(statId: number) {
-    this.data.deleteStat(statId);
-    // this.data.deleteStat(statId);
+    this.data.deleteStat(statId).subscribe();
   }
 }

@@ -8,6 +8,7 @@ import {HairColor} from "../../admin/shared/hair-color";
 import {SkinColor} from "../../admin/shared/skin-color";
 import {Race} from "../../admin/shared/race";
 import {Gender} from "../../admin/shared/gender";
+import {Stat} from "../../admin/shared/stat";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,11 @@ export class MockService implements InMemoryDbService {
   constructor() { }
 
   createDb(reqInfo?: RequestInfo): {} | Observable<{}> | Promise<{}> {
+    let stats = [
+      new Stat(1, 'Strength', 'STR', 'S',1),
+      new Stat(2, 'Intelligence', 'INT', 'I', 1)
+    ];
+
     let genders = [
       new Gender(0, 'Base'),
       new Gender(1, 'Male'),
@@ -44,12 +50,13 @@ export class MockService implements InMemoryDbService {
     ];
 
     let races = [
-      new Race(1, 'Human', true, null, null, null, null, null, null, null, null, null),
-      new Race(2, 'Felisi', true, null, null, null, null, null, null, null, null, null),
-      new Race(3, 'Charr', true, 2, null, null, null, null, null, null, null, null)
+      new Race(1, 'Human', true, null, null, null, null, null, null, null, null, null, null),
+      new Race(2, 'Felisi', true, null, null, null, null, null, null, null, null, null, null),
+      new Race(3, 'Charr', true, 2, null, null, null, null, null, null, null, null, null)
     ];
 
     return {
+      stats: stats,
       genders: genders,
       complexions: complexions,
       eyeColors: eyeColors,

@@ -1,82 +1,49 @@
-import { Stat } from '../../admin/shared/stat';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Stat} from '../../admin/shared/stat';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from "rxjs/internal/Observable";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatService {
 
-  stats: Array<Stat> = [
-    {id: 1, name: 'Strength', shortName: 'STR', code: 'S', multiplier: 1},
-    {id: 2, name: 'Intelligence', shortName: 'INT', code: 'I', multiplier: 1}
-    ];
+  stats: Array<Stat>
 
-  constructor(private http: HttpClient) {}
-
-  getStats() {
-    return this.stats;
-        // return this.http.get('http://localhost:9090/stats');
+  constructor(private http: HttpClient) {
   }
 
-  getStat(statId: number) {
-    for (let statKey in this.stats) {
-      if (this.stats[statKey].id == statId) {
-        return new Stat(
-          this.stats[statKey].id,
-          this.stats[statKey].name,
-          this.stats[statKey].shortName,
-          this.stats[statKey].code,
-          this.stats[statKey].multiplier);
-      }
-    }
-
-    return {id: 0, name: 'Unknown', shortName: 'UNK', code: 'U', multiplier: 0};
-
-    // return this.http.get('http://localhost:9090/stats/' + statId);
+  getStats(): Observable<Array<Stat>> {
+    return this.http.get<Array<Stat>>("http://localhost:8888/admin/stats");
   }
 
-  addStat(stat: Stat) {
-    stat.id = this.stats.length + 1;
-
-    this.stats.push(stat)
-
-    return stat;
-
-    // return this.http.post('http://localhost:9090/stats');
+  getStat(statId: number): Observable<Stat> {
+    return this.http.get<Stat>("http://localhost:8888/admin/stats/" + statId);
   }
 
-  updateStat(stat: Stat) {
-    for (let statKey in this.stats) {
-      if (this.stats[statKey].id === stat.id) {
-        this.stats[statKey] = stat;
-
-        return stat;
-      }
-    }
-
-    return {id: 0, name: 'Unknown', shortName: 'UNK', code: 'U', multiplier: 0};
-    // return this.http.put('http://localhost:9090/stats/' + stat.id);
+  addStat(stat: Stat): Observable<Stat> {
+    return this.http.post<Stat>("http://localhost:8888/admin/stats", stat);
   }
 
-  deleteStat(statId: number) {
-    let statKey;
+  updateStat(stat: Stat): Observable<Stat> {
+    return this.http.put<Stat>("http://localhost:8888/admin/stats", stat);
+  }
 
-    for (statKey in this.stats) {
-      if (this.stats[statKey].id === statId) {
-        this.stats.splice(statKey,1);
-      }
-    }
-    // return this.http.delete('http://localhost:9090/stats/' + stat.id);
+  deleteStat(statId: number): Observable<Stat> {
+    return this.http.delete<Stat>("http://localhost:8888/admin/stats/" + statId);
   }
 
   isUnique(stat: Stat, fieldName: String, value: String) {
-    for (let statKey in this.stats) {
-      if (this.stats[statKey].id != stat.id &&
-        ((fieldName === "name" && this.stats[statKey].name === value) ||
-          (fieldName === "shortName" && this.stats[statKey].shortName == value) ||
-          (fieldName === "code" && this.stats[statKey].code == value))) {
-        return false;
+    this.getStats().subscribe(stats => this.stats = stats);
+
+    if (!!this.stats) {
+      for (let statKey in this.stats) {
+        if (this.stats[statKey].id != stat.id &&
+          ((fieldName === "name" && this.stats[statKey].name === value) ||
+            (fieldName === "shortName" && this.stats[statKey].shortName == value) ||
+            (fieldName === "code" && this.stats[statKey].code == value))) {
+          return false;
+        }
       }
     }
 
