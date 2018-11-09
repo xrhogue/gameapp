@@ -6,6 +6,7 @@ import {SkillTreeNode} from "../../shared/skill-tree-node";
 import {Column} from "../../shared/column";
 import {MenuItem} from "primeng/api";
 import {StatService} from "../../../service/stat/stat.service";
+import {Stat} from "../../shared/stat";
 
 @Component({
   selector: 'app-skills',
@@ -14,6 +15,7 @@ import {StatService} from "../../../service/stat/stat.service";
 })
 export class SkillsComponent implements OnInit {
 
+  stats: Array<Stat>;
   skills: Array<Skill>;
   skillTreeNodes: Array<SkillTreeNode>;
   selectedSkillTreeNode: SkillTreeNode;
@@ -25,6 +27,7 @@ export class SkillsComponent implements OnInit {
   constructor(private skillService: SkillService, private statService: StatService, private router: Router) { }
 
   ngOnInit() {
+    this.statService.getStats().subscribe(stats => this.stats = stats);
     this.skills = this.skillService.getSkills();
     this.skillTreeNodes = this.buildSkillTreeNodes(null);
 
@@ -75,7 +78,7 @@ export class SkillsComponent implements OnInit {
       return '';
     }
 
-    return this.statService.getStat(skill.primaryStatId).name;
+    return this.stats.filter(stat => stat.id === skill.primaryStatId)[0].name;
   }
 
   getSecondaryStats(skill: Skill) {
@@ -83,7 +86,7 @@ export class SkillsComponent implements OnInit {
       return '';
     }
 
-    return skill.secondaryStatIds.map(statId => this.statService.getStat(statId).shortName).join("/");
+    return skill.secondaryStatIds.map(statId => this.stats.filter(stat => stat.id === statId)[0].shortName).join("/");
   }
 
   getSelectedSkillTreeNodeDataId(selectedSkillTreeNode: SkillTreeNode) {

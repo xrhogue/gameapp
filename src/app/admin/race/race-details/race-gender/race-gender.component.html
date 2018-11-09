@@ -1,12 +1,34 @@
-<ngb-tabset type="pill">
-  <ngb-tab title="Stats">
+<ngb-tabset class="sub-tabset" type="pill">
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <div class="sub-tab">Stats</div>
+    </ng-template>
     <ng-template ngbTabContent>
       <app-race-stats [(race)]="race" [gender]="gender"></app-race-stats>
     </ng-template>
   </ngb-tab>
-  <ngb-tab title="Attributes">
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <div class="sub-tab">Ages</div>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <app-race-ages [(race)]="race" [gender]="gender"></app-race-ages>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <div class="sub-tab">Attributes</div>
+    </ng-template>
     <ng-template ngbTabContent>
       <app-race-attributes [(race)]="race" [gender]="gender"></app-race-attributes>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <div class="sub-tab">Measurements</div>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <app-race-measurements [(race)]="race" [gender]="gender"></app-race-measurements>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

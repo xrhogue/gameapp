@@ -39,10 +39,12 @@ export class SkillGeneralComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.stats = this.statService.getStats();
+    this.statService.getStats().subscribe(stats => {
+      this.stats = stats
 
-    // probably should be checking here if the filter does not return a stat based on the id...
-    this.skill.secondaryStatIds.forEach(statId=>this.skillSecondaryStats.push(this.stats.filter(stat=>stat.id === statId)[0]))
+      // probably should be checking here if the filter does not return a stat based on the id...
+      this.skill.secondaryStatIds.forEach(statId=>this.skillSecondaryStats.push(this.stats.filter(stat=>stat.id === statId)[0]))
+    });
   }
 
   ngOnDestroy() {

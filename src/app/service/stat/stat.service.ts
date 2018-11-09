@@ -11,6 +11,11 @@ export class StatService {
   stats: Array<Stat>
 
   constructor(private http: HttpClient) {
+    this.updateCache();
+  }
+
+  getStatsCache(): Array<Stat> {
+    return this.stats;
   }
 
   getStats(): Observable<Array<Stat>> {
@@ -22,14 +27,20 @@ export class StatService {
   }
 
   addStat(stat: Stat): Observable<Stat> {
+    setTimeout(this.updateCache, 500);
+
     return this.http.post<Stat>("http://localhost:8888/admin/stats", stat);
   }
 
   updateStat(stat: Stat): Observable<Stat> {
+    setTimeout(this.updateCache, 500);
+
     return this.http.put<Stat>("http://localhost:8888/admin/stats", stat);
   }
 
   deleteStat(statId: number): Observable<Stat> {
+    setTimeout(this.updateCache, 500);
+
     return this.http.delete<Stat>("http://localhost:8888/admin/stats/" + statId);
   }
 
@@ -48,5 +59,9 @@ export class StatService {
     }
 
     return true;
+  }
+
+  updateCache() {
+    this.getStats().subscribe(stats => this.stats = stats);
   }
 }

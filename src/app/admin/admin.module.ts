@@ -31,6 +31,9 @@ import { RaceAttributesComponent } from './race/race-details/race-attributes/rac
 import { RaceAttributeDetailsComponent } from './race/race-details/race-attribute-details/race-attribute-details.component';
 import {NumberComponent} from "../shared/components/number/number.component";
 import { RaceStatsComponent } from './race/race-details/race-stats/race-stats.component';
+import { RaceAgesComponent } from './race/race-details/race-ages/race-ages.component';
+import { RaceMeasurementsComponent } from './race/race-details/race-measurements/race-measurements.component';
+import { RaceGenderBaseComponent } from './race/shared/components/race-gender-base/race-gender-base.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { RaceStatsComponent } from './race/race-details/race-stats/race-stats.co
     RaceGenderComponent,
     RaceAttributesComponent,
     RaceAttributeDetailsComponent,
-    RaceStatsComponent
+    RaceStatsComponent,
+    RaceAgesComponent,
+    RaceMeasurementsComponent,
+    RaceGenderBaseComponent
   ],
   imports: [
     CommonModule,

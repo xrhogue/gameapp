@@ -27,13 +27,58 @@ export class RaceStatsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.statService.getStats().subscribe(stats => this.stats = stats);
+    this.statService.getStats().subscribe(stats => {
+      this.stats = stats;
+      this.initRaceStats();
+    });
 
-    if (!this.race.stats)
-    {
+  }
+
+  initRaceStats() {
+    if (!this.race.stats) {
       this.race.stats = [];
-
-      this.race.stats[0] = [new RaceStat(1, 0, 70, 100), new RaceStat(2, 0, 70, 100)];
     }
+
+    if (!this.race.stats[0]) {
+      this.initRaceGenderStats(0)
+    }
+
+    if (this.gender.id !== 0 && this.getGenderIndex(this.gender.id) === 0) {
+      this.initRaceGenderStats(this.gender.id)
+    }
+  }
+
+  initRaceGenderStats(genderId: number) {
+    let genderIndex: number = this.race.stats.length;
+
+    this.race.stats[genderIndex] = [];
+
+    let statIndex: number = 0;
+
+    this.stats.forEach(stat => this.race.stats[0][statIndex++] = this.getGenderRaceStat(genderId, stat.id))
+  }
+
+  getGenderRaceStat(genderId: number, statId: number): RaceStat {
+    if (genderId === 0) {
+      return new RaceStat(statId, genderId);
+    }
+
+    let baseRaceStat : RaceStat = this.race.stats[0].filter(raceStat => raceStat.statId === statId)[0];
+
+    return new RaceStat(statId, genderId, baseRaceStat.low, baseRaceStat.high, baseRaceStat.max);
+  }
+
+  getGenderIndex(genderId: number) {
+    if (!!this.race.stats) {
+      for (let index = 0; index < this.race.stats.length; index++) {
+        if (!!this.race.stats[index] && this.race.stats[index].length > 0) {
+          if (this.race.stats[index][0].genderId === genderId) {
+            return index;
+          }
+        }
+      }
+    }
+
+    return 0;
   }
 }

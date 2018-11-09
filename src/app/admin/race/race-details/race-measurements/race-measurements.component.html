@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <div class="input-group">
+      <label class="control-label list-label" for="heightMin">Minimum Height</label>
+      <app-number [id]="'heighMin'"
+                  [name]="'heighMin'"
+                  [(value)]="race.measurements[getGenderIndex(gender.id)].height.min"
+                  [min]="0"
+                  [max]="race.measurements[getGenderIndex(gender.id)].height.max"
+                  [decorator]="'inches'">
+      </app-number>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <div class="input-group">
+      <label class="control-label list-label" for="heightMax">Maximum Height</label>
+      <app-number [id]="'heightMax'"
+                  [name]="'heightMax'"
+                  [(value)]="race.measurements[getGenderIndex(gender.id)].height.max"
+                  [min]="race.measurements[getGenderIndex(gender.id)].height.min"
+                  [max]="MAX_VALUE"
+                  [decorator]="'inches'">
+      </app-number>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <div class="input-group">
+      <label class="control-label list-label" for="weightMin">Minimum Weight</label>
+      <app-number [id]="'weightMin'"
+                  [name]="'weightMin'"
+                  [(value)]="race.measurements[getGenderIndex(gender.id)].weight.min"
+                  [min]="0"
+                  [max]="race.measurements[getGenderIndex(gender.id)].weight.max"
+                  [decorator]="'lbs'">
+      </app-number>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <div class="input-group">
+      <label class="control-label list-label" for="weightMax">Maximum Weight</label>
+      <app-number [id]="'weightMax'"
+                  [name]="'weightMax'"
+                  [(value)]="race.measurements[getGenderIndex(gender.id)].weight.max"
+                  [min]="race.measurements[getGenderIndex(gender.id)].weight.min"
+                  [max]="MAX_VALUE"
+                  [decorator]="'lbs'">
+      </app-number>
+    </div>
+  </div>
+</div>

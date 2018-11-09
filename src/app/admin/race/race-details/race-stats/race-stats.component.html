@@ -1,19 +1,56 @@
-<div *ngFor="let stat of stats; let statIndex = index">
-  <div class="row">
-    <div class="small-12 medium-6 columns">
-      <div class="input-group">
+<div class="p-grid">
+  <div class="p-col-1">
+    <div class="box box-label">
+      Stat
+    </div>
+    <div *ngFor="let stat of stats; let statIndex = index">
+      <div class="box">
         <label class="control-label list-label" for="{{stat.shortName}}">{{stat.shortName}}</label>
+      </div>
+    </div>
+  </div>
+  <div class="p-col-1">
+    <div class="box box-label">
+      Low
+    </div>
+    <div *ngFor="let stat of stats; let statIndex = index">
+      <div class="box">
         <app-number [id]="stat.shortName"
                     [name]="stat.shortName"
-                    [(value)]="race.stats[gender.id][statIndex].low"
+                    [(value)]="race.stats[getGenderIndex(gender.id)][statIndex].low"
                     [min]="0"
-                    [max]="MAX_VALUE"
+                    [max]="race.stats[getGenderIndex(gender.id)][statIndex].high"
                     [decorator]="''">
         </app-number>
+      </div>
+    </div>
+  </div>
+  <div class="p-col-1">
+    <div class="box box-label">
+      High
+    </div>
+    <div *ngFor="let stat of stats; let statIndex = index">
+      <div class="box">
         <app-number [id]="stat.shortName"
                     [name]="stat.shortName"
-                    [(value)]="race.stats[gender.id][statIndex].high"
-                    [min]="0"
+                    [(value)]="race.stats[getGenderIndex(gender.id)][statIndex].high"
+                    [min]="race.stats[getGenderIndex(gender.id)][statIndex].low"
+                    [max]="race.stats[getGenderIndex(gender.id)][statIndex].max"
+                    [decorator]="''">
+        </app-number>
+      </div>
+    </div>
+  </div>
+  <div class="p-col-1">
+    <div class="box box-label">
+      Max
+    </div>
+    <div *ngFor="let stat of stats; let statIndex = index">
+      <div class="box">
+        <app-number [id]="stat.shortName"
+                    [name]="stat.shortName"
+                    [(value)]="race.stats[getGenderIndex(gender.id)][statIndex].max"
+                    [min]="race.stats[getGenderIndex(gender.id)][statIndex].high"
                     [max]="MAX_VALUE"
                     [decorator]="''">
         </app-number>

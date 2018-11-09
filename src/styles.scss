@@ -10,6 +10,12 @@ body {
      background: #F2F2F2;
      font-family: 'Montserrat', sans-serif;
      height: 100vh;
+     line-height: 1.25;
+}
+
+
+ngb-tabset.sub-tabset ul li a.active {
+  background: black;
 }
 
 #container {
