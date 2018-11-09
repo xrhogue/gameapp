@@ -1,8 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RaceService} from "../../../../service/race/race.service";
-import {Race} from "../../../shared/race";
-import {Gender} from "../../../shared/gender";
 import {Complexion} from "../../../shared/complexion";
 import {RaceComplexion} from "../../../shared/race-complexion";
 import {RaceEyeColor} from "../../../shared/race-eye-color";
@@ -11,23 +9,24 @@ import {HairColor} from "../../../shared/hair-color";
 import {RaceHairColor} from "../../../shared/race-hair-color";
 import {SkinColor} from "../../../shared/skin-color";
 import {RaceSkinColor} from "../../../shared/race-skin-color";
+import {RaceGenderBaseComponent} from "../../shared/components/race-gender-base/race-gender-base.component";
+import {UtilService} from "../../../../shared/services/util/util.service";
 
 @Component({
   selector: 'app-race-attributes',
   templateUrl: './race-attributes.component.html',
   styleUrls: ['./race-attributes.component.scss']
 })
-export class RaceAttributesComponent implements OnInit {
+export class RaceAttributesComponent extends RaceGenderBaseComponent implements OnInit {
 
-  @Input() gender: Gender;
-  @Input() race: Race;
-  @Output() raceChange: EventEmitter<Race> = new EventEmitter<Race>();
   complexions: Array<Complexion>;
   eyeColors: Array<EyeColor>;
   hairColors: Array<HairColor>;
   skinColors: Array<SkinColor>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private raceService: RaceService) {
+  constructor(private route: ActivatedRoute, private router: Router, private raceService: RaceService, protected utilService: UtilService) {
+    super(utilService);
+
     this.raceService.getComplexions().subscribe(data => this.complexions = data);
     this.raceService.getEyeColors().subscribe(data => this.eyeColors = data);
     this.raceService.getHairColors().subscribe(data => this.hairColors = data);

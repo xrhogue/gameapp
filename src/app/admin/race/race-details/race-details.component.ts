@@ -33,7 +33,7 @@ export class RaceDetailsComponent implements OnInit {
       this.raceService.getRace(this.id).subscribe(data => this.race = data);
     }
     else {
-      this.race = new Race(0, "", true, 3, null,null, null, null, null, null, null, null, null);
+      this.race = new Race(0, "", true, 3);
     }
   }
 

@@ -1,22 +1,18 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Gender} from "../../../shared/gender";
-import {Race} from "../../../shared/race";
+import {Component, OnInit} from '@angular/core';
 import {RaceMeasurement} from "../../../shared/race-measurement";
+import {RaceGenderBaseComponent} from "../../shared/components/race-gender-base/race-gender-base.component";
+import {UtilService} from "../../../../shared/services/util/util.service";
 
 @Component({
   selector: 'app-race-measurements',
   templateUrl: './race-measurements.component.html',
   styleUrls: ['./race-measurements.component.scss']
 })
-export class RaceMeasurementsComponent implements OnInit {
+export class RaceMeasurementsComponent extends RaceGenderBaseComponent implements OnInit {
 
-  @Input() gender: Gender;
-  @Input() race: Race;
-  @Output() raceChange: EventEmitter<Race> = new EventEmitter<Race>();
-  isInteger:(number: string) => boolean;
-  MAX_VALUE: Number = Number.MAX_VALUE;
-
-  constructor() { }
+  constructor(protected utilService: UtilService) {
+    super(utilService);
+  }
 
   ngOnInit() {
     if (!this.race.measurements) {
