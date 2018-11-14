@@ -47,11 +47,10 @@
 </div>
 <div class="row">
   <div class="small-12 medium-6 columns">
-    <label class="control-label" for="selectable">Selectable
       <div class="input-group">
-        <input type="checkbox" class="form-control" id="selectable" oninput="this.value = this.value.replace(/\D/g, '')" [(ngModel)]="race.selectable" name="selectable" #selectable="ngModel">
+        <label class="control-label" for="selectable">Selectable</label>
+        <p-checkbox inputId="selectable" binary="true" [(ngModel)]="race.selectable" name="selectable"></p-checkbox>
       </div>
-    </label>
   </div>
 </div>
 

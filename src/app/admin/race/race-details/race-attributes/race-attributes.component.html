@@ -5,7 +5,8 @@
                               [attributes]="complexions"
                               [raceAttributes]="race.complexions"
                               (update)="updateComplexions($event)"
-                              (add)="addComplexion($event)">
+                              (add)="addComplexion($event)"
+                              (invalid)="updateInvalid($event)">
   </app-race-attribute-details>
 </div>
 <div class="row">
@@ -15,7 +16,8 @@
                               [attributes]="eyeColors"
                               [raceAttributes]="race.eyeColors"
                               (update)="updateEyeColors($event)"
-                              (add)="addEyeColor($event)">
+                              (add)="addEyeColor($event)"
+                              (invalid)="updateInvalid($event)">
   </app-race-attribute-details>
 </div>
 <div class="row">
@@ -25,7 +27,8 @@
                               [attributes]="hairColors"
                               [raceAttributes]="race.hairColors"
                               (update)="updateHairColors($event)"
-                              (add)="addHairColor($event)">
+                              (add)="addHairColor($event)"
+                              (invalid)="updateInvalid($event)">
   </app-race-attribute-details>
 </div>
 <div class="row">
@@ -35,6 +38,7 @@
                               [attributes]="skinColors"
                               [raceAttributes]="race.skinColors"
                               (update)="updateSkinColors($event)"
-                              (add)="addSkinColor($event)">
+                              (add)="addSkinColor($event)"
+                              (invalid)="updateInvalid($event)">
   </app-race-attribute-details>
 </div>

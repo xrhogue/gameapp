@@ -4,7 +4,7 @@
          [style.width.em]="width"
          [id]="id"
          oninput="this.value = this.value.replace(/\D/g, '')"
-         (input)="updateInvalid(id, number.invalid)"
+         (input)="updateInvalid(number.invalid)"
          [name]="name"
          required
          [disabled]="disabled"

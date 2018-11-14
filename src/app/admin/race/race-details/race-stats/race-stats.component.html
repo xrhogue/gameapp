@@ -20,6 +20,7 @@
                     [(value)]="race.stats[getGenderIndex(gender.id)][statIndex].low"
                     [min]="0"
                     [max]="race.stats[getGenderIndex(gender.id)][statIndex].high"
+                    (invalid)="updateInvalid($event)"
                     [decorator]="''">
         </app-number>
       </div>
@@ -36,6 +37,7 @@
                     [(value)]="race.stats[getGenderIndex(gender.id)][statIndex].high"
                     [min]="race.stats[getGenderIndex(gender.id)][statIndex].low"
                     [max]="race.stats[getGenderIndex(gender.id)][statIndex].max"
+                    (invalid)="updateInvalid($event)"
                     [decorator]="''">
         </app-number>
       </div>
@@ -52,6 +54,7 @@
                     [(value)]="race.stats[getGenderIndex(gender.id)][statIndex].max"
                     [min]="race.stats[getGenderIndex(gender.id)][statIndex].high"
                     [max]="MAX_VALUE"
+                    (invalid)="updateInvalid($event)"
                     [decorator]="''">
         </app-number>
       </div>

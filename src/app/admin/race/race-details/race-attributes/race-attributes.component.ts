@@ -19,10 +19,10 @@ import {UtilService} from "../../../../shared/services/util/util.service";
 })
 export class RaceAttributesComponent extends RaceGenderBaseComponent implements OnInit {
 
-  complexions: Array<Complexion>;
-  eyeColors: Array<EyeColor>;
-  hairColors: Array<HairColor>;
-  skinColors: Array<SkinColor>;
+  complexions: Array<Complexion> = [];
+  eyeColors: Array<EyeColor> = [];
+  hairColors: Array<HairColor> = [];
+  skinColors: Array<SkinColor> = [];
 
   constructor(private route: ActivatedRoute, private router: Router, private raceService: RaceService, protected utilService: UtilService) {
     super(utilService);
@@ -34,6 +34,7 @@ export class RaceAttributesComponent extends RaceGenderBaseComponent implements 
   }
 
   ngOnInit() {
+    this.initInvalid();
   }
 
   updateComplexions(selectedComplexions: Array<Complexion>) {
@@ -136,6 +137,9 @@ export class RaceAttributesComponent extends RaceGenderBaseComponent implements 
     });
   }
 
-  updateInvalid(name: string, invalid: boolean) {
+  initInvalid() {
+    if (!this.race.complexions || this.race.complexions.filter(complexion => complexion.genderId == this.gender.id).length == 0) {
+      this.fieldStates['Complexion'] = true;
+    }
   }
 }

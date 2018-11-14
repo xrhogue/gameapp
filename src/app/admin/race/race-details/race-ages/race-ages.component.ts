@@ -10,6 +10,8 @@ import {RaceGenderBaseComponent} from "../../shared/components/race-gender-base/
 })
 export class RaceAgesComponent extends RaceGenderBaseComponent implements OnInit {
 
+  fieldStates: Array<boolean> = [];
+
   constructor(protected utilService: UtilService) {
     super(utilService);
   }

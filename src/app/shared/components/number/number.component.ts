@@ -15,6 +15,7 @@ export class NumberComponent implements OnInit {
   @Input() value: number;
   @Input() decorator: string;
   @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() invalid: EventEmitter<{id: string, name: string, invalid: boolean}> = new EventEmitter<{id: string, name: string, invalid: boolean}>();
   @Input() pattern: string = "[1-9]+[0-9]*";
   @Input() width: string = "5";
   @Input() min: number = Number.MIN_VALUE;
@@ -32,6 +33,7 @@ export class NumberComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateInvalid(field: string, invalid: boolean) {
+  updateInvalid(invalid: boolean) {
+    this.invalid.emit({id: this.id, name: this.name, invalid: invalid});
   }
 }

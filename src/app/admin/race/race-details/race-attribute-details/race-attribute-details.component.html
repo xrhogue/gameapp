@@ -14,7 +14,7 @@
                        [filter]="false"
                        defaultLabel="Choose {{attributeName + 's'}}"
                        [(ngModel)]="selectedAttributes"
-                       (ngModelChange)="updateAttributes();raceChange.emit(race);updateInvalid('attributes', attributeList.invalid)"
+                       (ngModelChange)="updateAttributes();raceChange.emit(race);updateInvalid(attributeList.invalid)"
                        [name]="attributeName"
                        required
                        #attributeList="ngModel">

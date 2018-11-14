@@ -48,7 +48,7 @@ export class RaceStatsComponent extends RaceGenderBaseComponent implements OnIni
 
     let statIndex: number = 0;
 
-    this.stats.forEach(stat => this.race.stats[0][statIndex++] = this.getGenderRaceStat(genderId, stat.id))
+    this.stats.forEach(stat => this.race.stats[genderIndex][statIndex++] = this.getGenderRaceStat(genderId, stat.id))
   }
 
   getGenderRaceStat(genderId: number, statId: number): RaceStat {

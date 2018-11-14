@@ -7,6 +7,7 @@
                   [(value)]="race.measurements[getGenderIndex(gender.id)].height.min"
                   [min]="0"
                   [max]="race.measurements[getGenderIndex(gender.id)].height.max"
+                  (invalid)="updateInvalid($event)"
                   [decorator]="'inches'">
       </app-number>
     </div>
@@ -21,6 +22,7 @@
                   [(value)]="race.measurements[getGenderIndex(gender.id)].height.max"
                   [min]="race.measurements[getGenderIndex(gender.id)].height.min"
                   [max]="MAX_VALUE"
+                  (invalid)="updateInvalid($event)"
                   [decorator]="'inches'">
       </app-number>
     </div>
@@ -35,6 +37,7 @@
                   [(value)]="race.measurements[getGenderIndex(gender.id)].weight.min"
                   [min]="0"
                   [max]="race.measurements[getGenderIndex(gender.id)].weight.max"
+                  (invalid)="updateInvalid($event)"
                   [decorator]="'lbs'">
       </app-number>
     </div>
@@ -49,6 +52,7 @@
                   [(value)]="race.measurements[getGenderIndex(gender.id)].weight.max"
                   [min]="race.measurements[getGenderIndex(gender.id)].weight.min"
                   [max]="MAX_VALUE"
+                  (invalid)="updateInvalid($event)"
                   [decorator]="'lbs'">
       </app-number>
     </div>

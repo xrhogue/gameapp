@@ -91,6 +91,7 @@
                   [(value)]="race.ages[gender.id].venerable"
                   [min]="race.ages[gender.id].old"
                   [max]="race.ages[gender.id].max"
+                  (invalid)="updateInvalid($event)"
                   [decorator]="'years'">
       </app-number>
     </div>

@@ -8,18 +8,20 @@
   <ngb-tabset type="pill">
     <ngb-tab title="General">
       <ng-template ngbTabContent>
-        <app-race-general [(race)]="race" [ngForm]="ngForm"></app-race-general>
+        <app-race-general [(race)]="race" (genderUpdate)="updateGenders($event)"></app-race-general>
       </ng-template>
     </ngb-tab>
-    <ngb-tab title="{{genderBase.name}}">
+    <ngb-tab>
+      <ng-template ngbTabTitle ><div [class.invalid]="isGenderInvalid(genderBase.name)">{{genderBase.name}}</div></ng-template>
       <ng-template ngbTabContent>
         <app-race-gender [(race)]="race" [gender]="genderBase"></app-race-gender>
       </ng-template>
     </ngb-tab>
     <div *ngFor="let gender of race.genders">
-      <ngb-tab title="{{gender.name}}">
+      <ngb-tab>
+        <ng-template ngbTabTitle ><div [class.invalid]="isGenderInvalid(gender.name)">{{gender.name}}</div></ng-template>
         <ng-template ngbTabContent>
-          <app-race-attributes [(race)]="race" [gender]="gender"></app-race-attributes>
+          <app-race-gender [(race)]="race" [gender]="gender"></app-race-gender>
         </ng-template>
       </ngb-tab>
     </div>

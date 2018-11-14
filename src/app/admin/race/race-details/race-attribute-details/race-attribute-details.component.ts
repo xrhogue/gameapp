@@ -19,6 +19,7 @@ export class RaceAttributeDetailsComponent implements OnInit {
   @Output() raceChange: EventEmitter<Race> = new EventEmitter<Race>();
   @Output() update: EventEmitter<Array<Attribute>> = new EventEmitter<Array<Attribute>>();
   @Output() add: EventEmitter<string> = new EventEmitter<string>();
+  @Output() invalid: EventEmitter<{id: string, name: string, invalid: boolean}> = new EventEmitter<{id: string, name: string, invalid: boolean}>();
   selectedAttributes: Array<Attribute>;
   showDialog: boolean = false;
   newAttribute: string = "";
@@ -32,7 +33,7 @@ export class RaceAttributeDetailsComponent implements OnInit {
         .map(raceAttribute => this.attributes.filter(attribute => attribute.id === raceAttribute.attributeId)[0]);
     }
 
-    this.attributeName = this.attributeName.replace(/\s/g, '');
+    //this.attributeName = this.attributeName.replace(/\s/g, '');
   }
 
   updateAttributes() {
@@ -45,6 +46,7 @@ export class RaceAttributeDetailsComponent implements OnInit {
     this.newAttribute = "";
   }
 
-  updateInvalid(name: string, invalid: boolean) {
+  updateInvalid(invalid: boolean) {
+    this.invalid.emit({id: this.attributeName, name: this.attributeName, invalid: invalid});
   }
 }
