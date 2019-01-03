@@ -12,14 +12,14 @@
       </ng-template>
     </ngb-tab>
     <ngb-tab>
-      <ng-template ngbTabTitle ><div [class.invalid]="isGenderInvalid(genderBase.name)">{{genderBase.name}}</div></ng-template>
+      <ng-template ngbTabTitle ><div [class.invalid]="isGenderInvalid(genderBase.id)">{{genderBase.name}}</div></ng-template>
       <ng-template ngbTabContent>
         <app-race-gender [(race)]="race" [gender]="genderBase"></app-race-gender>
       </ng-template>
     </ngb-tab>
     <div *ngFor="let gender of race.genders">
       <ngb-tab>
-        <ng-template ngbTabTitle ><div [class.invalid]="isGenderInvalid(gender.name)">{{gender.name}}</div></ng-template>
+        <ng-template ngbTabTitle ><div [class.invalid]="isGenderInvalid(gender.id)">{{gender.name}}</div></ng-template>
         <ng-template ngbTabContent>
           <app-race-gender [(race)]="race" [gender]="gender"></app-race-gender>
         </ng-template>

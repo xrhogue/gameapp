@@ -1,5 +1,4 @@
 <h1>Races</h1>
-
 <p-treeTable [value]="raceTreeNodes" [columns]="cols" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" selectionMode="checkbox" [(selection)]="selectedRaceTreeNodes" [contextMenu]="cm" [(contextMenuSelection)]="selectedRaceTreeNode">
   <ng-template pTemplate="caption">
     <div style="text-align:left">
@@ -40,7 +39,6 @@
         <span *ngIf="col.field != 'selectable' && col.field != 'actions'">
           {{rowData[col.field]}}
         </span>
-
       </td>
     </tr>
   </ng-template>

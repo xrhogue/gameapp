@@ -20,14 +20,14 @@ export class StatsComponent implements OnInit {
   }
 
   addStat() {
-    this.router.navigateByUrl('/stats/0');
+    this.router.navigateByUrl('/admin/stats/0');
   }
 
   updateStat(stat: Stat) {
-    return this.data.updateStat(stat).subscribe();
+    this.router.navigateByUrl('/admin/stats/' + stat.id);
   }
 
   deleteStat(statId: number) {
-    this.data.deleteStat(statId).subscribe();
+    this.data.deleteStat(statId).subscribe(data => this.data.getStats().subscribe(stats => this.stats = stats));
   }
 }

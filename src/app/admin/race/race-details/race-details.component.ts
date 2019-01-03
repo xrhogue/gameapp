@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {RaceService} from "../../../service/race/race.service";
 import {Race} from "../../shared/race";
 import {RaceGeneralComponent} from "./race-general/race-general.component";
 import {Gender} from "../../shared/gender";
 import {RaceGenderComponent} from "./race-gender/race-gender.component";
+import {RaceService} from "../../../service/race/race.service";
+import {StatService} from "../../../service/stat/stat.service";
 
 @Component({
   selector: 'app-race-details',
@@ -22,16 +23,27 @@ export class RaceDetailsComponent implements OnInit {
   @ViewChild(RaceGeneralComponent) private raceGeneralComponent: RaceGeneralComponent;
   @ViewChild(RaceGenderComponent) private raceGenderComponent: RaceGenderComponent;
 
-  constructor(private route: ActivatedRoute, private router: Router, private raceService: RaceService) {
+  constructor(private route: ActivatedRoute, private router: Router, private statService: StatService, private raceService: RaceService) {
     this.route.params.subscribe( params => this.id = params.id );
     this.JSON = JSON;
   }
 
   ngOnInit() {
-    this.raceService.getGenders().subscribe(genders => this.genderBase = genders.filter(gender => gender.id === 0).pop());
 
     if (this.id > 0) {
-      this.raceService.getRace(this.id).subscribe(data => this.race = data);
+      this.raceService.getRace(this.id).subscribe(race => {
+        this.race = race;
+
+        console.log('initializing race');
+
+        this.race = Race.initialize(this.race, 0, this.statService.getStatsCache());
+
+        this.raceService.getGenders().subscribe(genders =>{
+          this.genderBase = genders.filter(gender => gender.id === 0).pop();
+
+          this.initInvalid();
+        });
+      });
     }
     else {
       this.race = new Race(0, "", true, 0);
@@ -61,36 +73,43 @@ export class RaceDetailsComponent implements OnInit {
     })
   }
 
+  initInvalid() {
+    this.componentStates['raceGender' + this.getGender().name + 'Component'] = Race.isGenderInvalid(this.race, this.getGender().id)
+  }
+
   isInvalid() {
-    if (!!this.raceGeneralComponent) {
-      this.componentStates['raceGeneralComponent'] = this.raceGeneralComponent.isInvalid();
-    }
+    console.log('checking race invalid state');
 
-    if (!!this.raceGenderComponent) {
-      this.componentStates['raceGender' + this.raceGenderComponent.gender.name + 'Component'] = this.raceGenderComponent.isInvalid();
-    }
-
-    if (this.isRaceInvalid()) {
-      return true;
-    }
-
-    for (let componentKey in this.componentStates) {
-      //console.log('component: ' + componentKey +', state: ' + this.componentStates[componentKey]);
-
-      if (this.componentStates[componentKey]) {
-        return true;
-      }
-    }
-
-    return false;
+    return Race.isInvalid(this.race);
+    // if (!!this.raceGeneralComponent) {
+    //   this.componentStates['raceGeneralComponent'] = this.raceGeneralComponent.isInvalid();
+    // }
+    //
+    // if (!!this.raceGenderComponent) {
+    //   this.componentStates['raceGender' + this.raceGenderComponent.gender.name + 'Component'] = this.raceGenderComponent.isInvalid();
+    // }
+    //
+    // if (Race.isInvalid(this.race)) {
+    //   return true;
+    // }
+    //
+    // for (let componentKey in this.componentStates) {
+    //   console.log('component: ' + componentKey +', state: ' + this.componentStates[componentKey]);
+    //
+    //   if (this.componentStates[componentKey]) {
+    //     return true;
+    //   }
+    // }
+    //
+    // return false;
   }
 
-  isGenderInvalid(genderName: string) {
-    return this.componentStates['raceGender' + genderName + 'Component'];
+  isGenderInvalid(genderId: number) {
+    console.log("gender: " + genderId + ", invalid: " + Race.isGenderInvalid(this.race, genderId));
+    return Race.isGenderInvalid(this.race, genderId);
   }
 
-  // TODO: Why can I not add this function to the Race class and access it there?
-  isRaceInvalid(): boolean {
-    return !this.race || !this.race.name || this.race.name.length == 0 || !this.race.stats || this.race.stats.length == 0 || !this.race.complexions || this.race.complexions.length == 0;
+  getGender(): Gender {
+    return !!this.raceGenderComponent && this.raceGenderComponent.gender !== undefined ? this.raceGenderComponent.gender : this.genderBase;
   }
 }

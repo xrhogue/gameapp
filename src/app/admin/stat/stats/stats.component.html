@@ -11,11 +11,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let stat of stats" [routerLink]="[stat.id]">
-            <td>{{stat.name}}</td>
-            <td>{{stat.shortName}}</td>
-            <td>{{stat.code}}</td>
-            <td class="text-right">{{stat.multiplier}}</td>
+        <tr *ngFor="let stat of stats">
+          <td [routerLink]="[stat.id]">{{stat.name}}</td>
+          <td [routerLink]="[stat.id]">{{stat.shortName}}</td>
+          <td [routerLink]="[stat.id]">{{stat.code}}</td>
+          <td [routerLink]="[stat.id]" class="text-right">{{stat.multiplier}}</td>
           <td>
             <i class="material-icons" (click)="updateStat(stat)" ngbTooltip="Update {{stat.shortName}}">description</i>
             <i class="material-icons" (click)="deleteStat(stat.id)" ngbTooltip="Delete {{stat.shortName}}">delete</i></td>

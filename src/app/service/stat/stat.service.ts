@@ -1,7 +1,8 @@
 import {Stat} from '../../admin/shared/stat';
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from "rxjs/internal/Observable";
+import {RequestOptions} from "@angular/http";
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,8 @@ export class StatService {
   }
 
   updateCache() {
-    this.getStats().subscribe(stats => this.stats = stats);
+    if (!!this.getStats) { // TODO why is this sometimes a function, and sometimes not?
+      this.getStats().subscribe(stats => this.stats = stats);
+    }
   }
 }

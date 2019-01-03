@@ -5,6 +5,7 @@ import {RaceAgesComponent} from "../race-ages/race-ages.component";
 import {RaceStatsComponent} from "../race-stats/race-stats.component";
 import {RaceAttributesComponent} from "../race-attributes/race-attributes.component";
 import {RaceMeasurementsComponent} from "../race-measurements/race-measurements.component";
+import {StatService} from "../../../../service/stat/stat.service";
 
 @Component({
   selector: 'app-race-gender',
@@ -22,39 +23,60 @@ export class RaceGenderComponent implements OnInit {
   @ViewChild(RaceMeasurementsComponent) private raceMeasurementsComponent: RaceMeasurementsComponent;
   componentStates: Array<boolean> = [];
 
-  constructor() {
+  constructor(private statService: StatService) {
   }
 
   ngOnInit() {
+    this.race = Race.initialize(this.race, this.gender.id, this.statService.getStatsCache());
     this.initInvalid();
   }
 
   isInvalid() {
-    if (!!this.raceAgesComponent) {
-      this.componentStates['raceAgesComponent'] = this.raceAgesComponent.isInvalid();
-    }
-    if (!!this.raceStatsComponent) {
-      this.componentStates['raceStatsComponent'] = this.raceStatsComponent.isInvalid();
-    }
-    if (!!this.raceAttributesComponent) {
-      this.componentStates['raceAttributesComponent'] = this.raceAttributesComponent.isInvalid();
-    }
-    if (!!this.raceMeasurementsComponent) {
-      this.componentStates['raceMeasurementsComponent'] = this.raceMeasurementsComponent.isInvalid();
-    }
+    return Race.isGenderInvalid(this.race, this.gender.id);
+    // if (!!this.raceAgesComponent) {
+    //   this.componentStates['ages'] = this.raceAgesComponent.isInvalid();
+    // }
+    //
+    // if (!!this.raceStatsComponent) {
+    //   this.componentStates['stats'] = this.raceStatsComponent.isInvalid();
+    // }
+    //
+    // if (!!this.raceAttributesComponent) {
+    //   this.componentStates['attributes'] = this.raceAttributesComponent.isInvalid();
+    // }
+    //
+    // if (!!this.raceMeasurementsComponent) {
+    //   this.componentStates['measurements'] = this.raceMeasurementsComponent.isInvalid();
+    // }
+    //
+    // for (let componentKey in this.componentStates) {
+    //   if (this.componentStates[componentKey]) {
+    //     return true;
+    //   }
+    // }
+    //
+    // return false;
+  }
 
-    for (let componentKey in this.componentStates) {
-      if (this.componentStates[componentKey]) {
-        return true;
-      }
-    }
+  areAttributesInvalid() {
+    return Race.areAttributesInvalid(this.race, this.gender.id);
+  }
 
-    return false;
+  isComponentInvalid(name: string) {
+    return this.componentStates[name];
   }
 
   initInvalid() {
-    if (!this.race.complexions || this.race.complexions.filter(complexion => complexion.genderId == this.gender.id).length == 0) {
-      this.componentStates['raceAttributesComponent'] = true;
-    }
+    console.log('initializing race gender invalid state');
+
+    this.componentStates['stats'] = Race.areStatsInvalid(this.race, this.gender.id);
+    this.componentStates['ages'] = Race.areAgesInvalid(this.race, this.gender.id);
+    this.componentStates['attributes'] = Race.areAttributesInvalid(this.race, this.gender.id);
+    this.componentStates['measurements'] = Race.areMeasurementsInvalid(this.race, this.gender.id);
+
+    console.log('race gender stats invalid: ' + this.componentStates['stats']);
+    console.log('race gender ages invalid: ' + this.componentStates['ages']);
+    console.log('race gender attributes invalid: ' + this.componentStates['attributes']);
+    console.log('race gender measurements invalid: ' + this.componentStates['measurements']);
   }
 }

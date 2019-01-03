@@ -1,7 +1,7 @@
 <ngb-tabset class="sub-tabset" type="pill">
   <ngb-tab>
     <ng-template ngbTabTitle>
-      <div class="sub-tab">Stats</div>
+      <div class="sub-tab" [class.invalid]="isComponentInvalid('stats')">Stats</div>
     </ng-template>
     <ng-template ngbTabContent>
       <app-race-stats [(race)]="race" [gender]="gender"></app-race-stats>
@@ -9,7 +9,7 @@
   </ngb-tab>
   <ngb-tab>
     <ng-template ngbTabTitle>
-      <div class="sub-tab">Ages</div>
+      <div class="sub-tab" [class.invalid]="isComponentInvalid('ages')">Ages</div>
     </ng-template>
     <ng-template ngbTabContent>
       <app-race-ages [(race)]="race" [gender]="gender"></app-race-ages>
@@ -17,7 +17,7 @@
   </ngb-tab>
   <ngb-tab>
     <ng-template ngbTabTitle>
-      <div class="sub-tab">Attributes</div>
+      <div class="sub-tab" [class.invalid]="areAttributesInvalid()">Attributes</div>
     </ng-template>
     <ng-template ngbTabContent>
       <app-race-attributes [(race)]="race" [gender]="gender"></app-race-attributes>
@@ -25,7 +25,7 @@
   </ngb-tab>
   <ngb-tab>
     <ng-template ngbTabTitle>
-      <div class="sub-tab">Measurements</div>
+      <div class="sub-tab" [class.invalid]="isComponentInvalid('measurements')">Measurements</div>
     </ng-template>
     <ng-template ngbTabContent>
       <app-race-measurements [(race)]="race" [gender]="gender"></app-race-measurements>

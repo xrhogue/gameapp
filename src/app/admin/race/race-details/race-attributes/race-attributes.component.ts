@@ -141,5 +141,14 @@ export class RaceAttributesComponent extends RaceGenderBaseComponent implements 
     if (!this.race.complexions || this.race.complexions.filter(complexion => complexion.genderId == this.gender.id).length == 0) {
       this.fieldStates['Complexion'] = true;
     }
+    if (!this.race.eyeColors || this.race.eyeColors.filter(eyeColor => eyeColor.genderId == this.gender.id).length == 0) {
+      this.fieldStates['EyeColor'] = true;
+    }
+    if (!this.race.hairColors || this.race.hairColors.filter(hairColor => hairColor.genderId == this.gender.id).length == 0) {
+      this.fieldStates['HairColor'] = true;
+    }
+    if (!this.race.skinColors || this.race.skinColors.filter(skinColor => skinColor.genderId == this.gender.id).length == 0) {
+      this.fieldStates['SkinColor'] = true;
+    }
   }
 }

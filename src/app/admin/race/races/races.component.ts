@@ -33,8 +33,8 @@ export class RacesComponent implements OnInit {
       {label: 'Update', command: (event: any) => {this.updateRace(this.selectedRaceTreeNode.data)}},
       {label: 'Delete', command: (event: any) => {this.deleteRace(this.selectedRaceTreeNode.data)}}];
 
-    this.raceService.getRaces().subscribe(data => {
-      this.races = data;
+    this.raceService.getRaces().subscribe(races => {
+      this.races = races;
       this.raceTreeNodes = this.buildRaceTreeNodes(null);
     });
   }
@@ -46,11 +46,10 @@ export class RacesComponent implements OnInit {
   updateRace(race: Race) {
     //this.router.navigateByUrl('/races/' + race.id);
     this.router.navigate(['admin/races', race.id])
-    //return this.raceService.updateRace(race);
   }
 
   deleteRace(race: Race) {
-    this.raceService.deleteRace(race.id);
+    this.raceService.deleteRace(race.id).subscribe();
   }
 
   buildRaceTreeNodes(parentId: number) {

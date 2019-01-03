@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Attribute} from "../../shared/attribute";
+import {Attribute} from "admin/shared/attribute";
 
 @Component({
   selector: 'app-attribute-details',
