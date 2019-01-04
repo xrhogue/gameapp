@@ -17,6 +17,7 @@ import {BetweenDirective} from "./directives/between/between.directive";
 import { NumberComponent } from './components/number/number.component';
 import {FormsModule} from "@angular/forms";
 import {CustomFormsModule} from "ng2-validation";
+import {UniqueGenderDirective} from "./directives/unique-gender/unique-gender.directive";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {CustomFormsModule} from "ng2-validation";
     UniqueRaceDirective,
     UniqueSkillDirective,
     UniqueNameDirective,
+    UniqueGenderDirective,
     BetweenDirective,
     LoginComponent,
     NumberComponent
@@ -43,6 +45,7 @@ import {CustomFormsModule} from "ng2-validation";
     UniqueRaceDirective,
     UniqueSkillDirective,
     UniqueNameDirective,
+    UniqueGenderDirective,
     BetweenDirective
   ],
   providers: [

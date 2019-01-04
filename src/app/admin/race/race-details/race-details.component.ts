@@ -29,7 +29,6 @@ export class RaceDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-
     if (this.id > 0) {
       this.raceService.getRace(this.id).subscribe(race => {
         this.race = race;
@@ -81,27 +80,6 @@ export class RaceDetailsComponent implements OnInit {
     console.log('checking race invalid state');
 
     return Race.isInvalid(this.race);
-    // if (!!this.raceGeneralComponent) {
-    //   this.componentStates['raceGeneralComponent'] = this.raceGeneralComponent.isInvalid();
-    // }
-    //
-    // if (!!this.raceGenderComponent) {
-    //   this.componentStates['raceGender' + this.raceGenderComponent.gender.name + 'Component'] = this.raceGenderComponent.isInvalid();
-    // }
-    //
-    // if (Race.isInvalid(this.race)) {
-    //   return true;
-    // }
-    //
-    // for (let componentKey in this.componentStates) {
-    //   console.log('component: ' + componentKey +', state: ' + this.componentStates[componentKey]);
-    //
-    //   if (this.componentStates[componentKey]) {
-    //     return true;
-    //   }
-    // }
-    //
-    // return false;
   }
 
   isGenderInvalid(genderId: number) {

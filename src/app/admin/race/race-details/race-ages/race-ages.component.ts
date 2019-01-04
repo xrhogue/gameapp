@@ -21,8 +21,8 @@ export class RaceAgesComponent extends RaceGenderBaseComponent implements OnInit
       this.race.ages = [];
     }
 
-    if (!this.race.ages[this.gender.id]) {
-      this.race.ages[this.gender.id] = new RaceAge(this.gender.id);
+    if (this.race.ages.filter(age => age.genderId === this.gender.id).length == 0) {
+      this.race.ages[this.gender.id] = (new RaceAge(this.gender.id));
     }
   }
 }
