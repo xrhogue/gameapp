@@ -19,8 +19,19 @@ import {throwError} from "rxjs/internal/observable/throwError";
 export class RaceService {
 
   races: Array<Race>;
+  complexions: Array<Complexion>;
+  eyeColors: Array<EyeColor>;
 
   constructor(private http: HttpClient) {
+    this.updateCache();
+  }
+
+  getComplexionsCache() : Array<Complexion> {
+    return this.complexions;
+  }
+
+  getEyeColorsCache() : Array<EyeColor> {
+    return this.eyeColors;
   }
 
   getRaces(): Observable<Array<Race>> {
@@ -139,5 +150,15 @@ export class RaceService {
     // and reformat for user consumption
     console.error(error); // log to console instead
     return throwError(error);
+  }
+
+  updateCache() {
+    if (!!this.getComplexions()) {
+      this.getComplexions().subscribe(complexions => this.complexions = complexions);
+    }
+
+    if (!!this.getEyeColors()) {
+      this.getEyeColors().subscribe(eyeColors => this.eyeColors = eyeColors);
+    }
   }
 }

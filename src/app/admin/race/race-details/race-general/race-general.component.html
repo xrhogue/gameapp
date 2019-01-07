@@ -41,7 +41,7 @@
                        required
                        #gender="ngModel">
         </p-multiSelect>
-        <p-button label="New" (onClick)="showDialog=true"></p-button>
+        <p-button label="New" (onClick)="this.newGender = ''; showDialog=true"></p-button>
       </div>
     </label>
   </div>
@@ -55,10 +55,19 @@
   </div>
 </div>
 <p-dialog header="New Gender" [(visible)]="showDialog">
-  <input id="newGender" type="text" pInputText placeholder="Add Gender" (keyup.enter)="addGender($event)" [appUniqueGender]="{genders: this.genders}" [(ngModel)]="newGender" #genderDlg="ngModel"/>
+  <input id="newGender"
+         type="text"
+         autofocus
+         oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())"
+         pInputText
+         placeholder="Add Gender"
+         (keyup.enter)="addGender($event)"
+         [appUniqueGender]="{genders: this.genders}"
+         [(ngModel)]="newGender"
+         #genderDlg="ngModel"/>
   <div *ngIf="!!genderDlg.errors && genderDlg.errors['uniqueGender']">{{genderDlg.errors['uniqueGender'].description}}</div>
   <p-footer>
-    <button type="button" pButton icon="pi pi-check" [disabled]="newGender?.length == 0 || !!newGender.errors" (click)="addGender($event);showDialog=false" label="Add"></button>
+    <button type="button" pButton icon="pi pi-check" [disabled]="newGender?.length == 0 || !!genderDlg.errors" (click)="addGender($event);showDialog=false" label="Add"></button>
     <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>

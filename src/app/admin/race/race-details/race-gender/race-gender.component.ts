@@ -6,6 +6,7 @@ import {RaceStatsComponent} from "../race-stats/race-stats.component";
 import {RaceAttributesComponent} from "../race-attributes/race-attributes.component";
 import {RaceMeasurementsComponent} from "../race-measurements/race-measurements.component";
 import {StatService} from "../../../../service/stat/stat.service";
+import {RaceService} from "../../../../service/race/race.service";
 
 @Component({
   selector: 'app-race-gender',
@@ -23,11 +24,11 @@ export class RaceGenderComponent implements OnInit {
   @ViewChild(RaceMeasurementsComponent) private raceMeasurementsComponent: RaceMeasurementsComponent;
   componentStates: Array<boolean> = [];
 
-  constructor(private statService: StatService) {
+  constructor(private statService: StatService, private raceService: RaceService) {
   }
 
   ngOnInit() {
-    this.race = Race.initialize(this.race, this.gender.id, this.statService.getStatsCache());
+    this.race = Race.initialize(this.race, this.gender.id, this.statService.getStatsCache(), this.raceService.getComplexionsCache(), this.raceService.getEyeColorsCache());
     this.initInvalid();
   }
 

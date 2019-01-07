@@ -7,6 +7,8 @@ import {RaceSkinColor} from "./race-skin-color";
 import {RaceStat} from "./race-stat";
 import {RaceMeasurement} from "./race-measurement";
 import {Stat} from "admin/shared/stat";
+import {Complexion} from "admin/shared/complexion";
+import {EyeColor} from "admin/shared/eye-color";
 
 export class Race {
   constructor(
@@ -24,7 +26,11 @@ export class Race {
     public skinColors: Array<RaceSkinColor> = []
   ) {}
 
-  static initialize(race: Race, genderId: number, stats: Array<Stat>): Race {
+  static initialize(race: Race,
+                    genderId: number,
+                    stats: Array<Stat>,
+                    complexions: Array<Complexion> = [],
+                    eyeColors: Array<EyeColor> = []): Race {
 
     if (!race.stats) {
       race.stats = [];
@@ -48,6 +54,26 @@ export class Race {
 
     if (!race.measurements[genderId]) {
       race.measurements.push(new RaceMeasurement(genderId));
+    }
+
+    if (!race.complexions) {
+      race.complexions = [];
+    }
+
+    if (race.complexions.filter(complexion => complexion.genderId === genderId).length == 0) {
+      if (complexions.length > 0) {
+        race.complexions.push(new RaceComplexion(complexions[0].id, genderId));
+      }
+    }
+
+    if (!race.eyeColors) {
+      race.eyeColors = [];
+    }
+
+    if (race.eyeColors.filter(eyeColor => eyeColor.genderId === genderId).length == 0) {
+      if (eyeColors.length > 0) {
+        race.eyeColors.push(new RaceEyeColor(eyeColors[0].id, genderId));
+      }
     }
 
     return race;

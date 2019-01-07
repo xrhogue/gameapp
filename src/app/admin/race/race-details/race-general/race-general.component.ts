@@ -14,7 +14,6 @@ import {Height} from "admin/shared/height";
 import {Weight} from "admin/shared/weight";
 import {RaceStat} from "admin/shared/race-stat";
 import {RaceAge} from "admin/shared/race-age";
-import {Complexion} from "admin/shared/complexion";
 
 @Component({
   selector: 'app-race-general',
@@ -66,7 +65,8 @@ export class RaceGeneralComponent implements OnInit {
 
   addGender(event: Event) {
     this.raceService.addGender(new Gender(null, this.newGender)).subscribe(data => {
-      this.raceService.getGenders().subscribe(data => this.genders = data);
+      this.newGender = '';
+      this.raceService.getGenders().subscribe(genders => this.genders = genders.filter(gender => gender.id !== 0));
     });
   }
 

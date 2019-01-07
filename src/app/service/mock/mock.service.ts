@@ -30,23 +30,23 @@ export class MockService implements InMemoryDbService {
     ];
 
     let complexions = [
-      new Complexion(1, 'tan'),
-      new Complexion(2, 'dark')
+      new Complexion(1, 'Tan'),
+      new Complexion(2, 'Dark')
     ];
 
     let eyeColors = [
-      new EyeColor(1, 'blue'),
-      new EyeColor(2, 'green')
+      new EyeColor(1, 'Blue'),
+      new EyeColor(2, 'Green')
     ];
 
     let hairColors = [
-      new HairColor(1, 'black'),
-      new HairColor(2, 'red')
+      new HairColor(1, 'Black'),
+      new HairColor(2, 'Red')
     ];
 
     let skinColors = [
-      new SkinColor(1, 'orange'),
-      new SkinColor(2, 'purple')
+      new SkinColor(1, 'Orange'),
+      new SkinColor(2, 'Purple')
     ];
 
     let races = [
