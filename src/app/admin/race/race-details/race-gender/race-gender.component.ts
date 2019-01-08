@@ -28,35 +28,12 @@ export class RaceGenderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.race = Race.initialize(this.race, this.gender.id, this.statService.getStatsCache(), this.raceService.getComplexionsCache(), this.raceService.getEyeColorsCache());
+    this.race = Race.initialize(this.race, this.gender.id, this.statService.getStatsCache(), this.raceService.getComplexionsCache(), this.raceService.getEyeColorsCache(), this.raceService.getHairColorsCache(), this.raceService.getSkinColorsCache());
     this.initInvalid();
   }
 
   isInvalid() {
     return Race.isGenderInvalid(this.race, this.gender.id);
-    // if (!!this.raceAgesComponent) {
-    //   this.componentStates['ages'] = this.raceAgesComponent.isInvalid();
-    // }
-    //
-    // if (!!this.raceStatsComponent) {
-    //   this.componentStates['stats'] = this.raceStatsComponent.isInvalid();
-    // }
-    //
-    // if (!!this.raceAttributesComponent) {
-    //   this.componentStates['attributes'] = this.raceAttributesComponent.isInvalid();
-    // }
-    //
-    // if (!!this.raceMeasurementsComponent) {
-    //   this.componentStates['measurements'] = this.raceMeasurementsComponent.isInvalid();
-    // }
-    //
-    // for (let componentKey in this.componentStates) {
-    //   if (this.componentStates[componentKey]) {
-    //     return true;
-    //   }
-    // }
-    //
-    // return false;
   }
 
   areAttributesInvalid() {
@@ -68,16 +45,16 @@ export class RaceGenderComponent implements OnInit {
   }
 
   initInvalid() {
-    console.log('initializing race gender invalid state');
+    //console.log('initializing race gender invalid state');
 
     this.componentStates['stats'] = Race.areStatsInvalid(this.race, this.gender.id);
     this.componentStates['ages'] = Race.areAgesInvalid(this.race, this.gender.id);
     this.componentStates['attributes'] = Race.areAttributesInvalid(this.race, this.gender.id);
     this.componentStates['measurements'] = Race.areMeasurementsInvalid(this.race, this.gender.id);
 
-    console.log('race gender stats invalid: ' + this.componentStates['stats']);
-    console.log('race gender ages invalid: ' + this.componentStates['ages']);
-    console.log('race gender attributes invalid: ' + this.componentStates['attributes']);
-    console.log('race gender measurements invalid: ' + this.componentStates['measurements']);
+    //console.log('race gender stats invalid: ' + this.componentStates['stats']);
+    //console.log('race gender ages invalid: ' + this.componentStates['ages']);
+    //console.log('race gender attributes invalid: ' + this.componentStates['attributes']);
+    //console.log('race gender measurements invalid: ' + this.componentStates['measurements']);
   }
 }

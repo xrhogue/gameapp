@@ -21,6 +21,8 @@ export class RaceService {
   races: Array<Race>;
   complexions: Array<Complexion>;
   eyeColors: Array<EyeColor>;
+  hairColors: Array<HairColor>;
+  skinColors: Array<SkinColor>;
 
   constructor(private http: HttpClient) {
     this.updateCache();
@@ -32,6 +34,14 @@ export class RaceService {
 
   getEyeColorsCache() : Array<EyeColor> {
     return this.eyeColors;
+  }
+
+  getHairColorsCache() : Array<HairColor> {
+    return this.hairColors;
+  }
+
+  getSkinColorsCache() : Array<SkinColor> {
+    return this.skinColors;
   }
 
   getRaces(): Observable<Array<Race>> {
@@ -159,6 +169,14 @@ export class RaceService {
 
     if (!!this.getEyeColors()) {
       this.getEyeColors().subscribe(eyeColors => this.eyeColors = eyeColors);
+    }
+
+    if (!!this.getHairColors()) {
+      this.getHairColors().subscribe(hairColors => this.hairColors = hairColors);
+    }
+
+    if (!!this.getSkinColors()) {
+      this.getSkinColors().subscribe(skinColors => this.skinColors = skinColors);
     }
   }
 }

@@ -9,6 +9,8 @@ import {RaceMeasurement} from "./race-measurement";
 import {Stat} from "admin/shared/stat";
 import {Complexion} from "admin/shared/complexion";
 import {EyeColor} from "admin/shared/eye-color";
+import {HairColor} from "admin/shared/hair-color";
+import {SkinColor} from "admin/shared/skin-color";
 
 export class Race {
   constructor(
@@ -20,6 +22,7 @@ export class Race {
     public stats: Array<Array<RaceStat>> = [],
     public ages: Array<RaceAge> = [],
     public measurements: Array<RaceMeasurement> = [],
+    // TODO: consider adding attributes: Array<RaceAttribute> to consolidate all the physical attributes
     public complexions: Array<RaceComplexion> = [],
     public eyeColors: Array<RaceEyeColor> = [],
     public hairColors: Array<RaceHairColor> = [],
@@ -30,7 +33,9 @@ export class Race {
                     genderId: number,
                     stats: Array<Stat>,
                     complexions: Array<Complexion> = [],
-                    eyeColors: Array<EyeColor> = []): Race {
+                    eyeColors: Array<EyeColor> = [],
+                    hairColors: Array<HairColor> = [],
+                    skinColors: Array<SkinColor> = []): Race {
 
     if (!race.stats) {
       race.stats = [];
@@ -76,6 +81,26 @@ export class Race {
       }
     }
 
+    if (!race.hairColors) {
+      race.hairColors = [];
+    }
+
+    if (race.hairColors.filter(hairColor => hairColor.genderId === genderId).length == 0) {
+      if (hairColors.length > 0) {
+        race.hairColors.push(new RaceHairColor(hairColors[0].id, genderId));
+      }
+    }
+
+    if (!race.skinColors) {
+      race.skinColors = [];
+    }
+
+    if (race.skinColors.filter(skinColor => skinColor.genderId === genderId).length == 0) {
+      if (skinColors.length > 0) {
+        race.skinColors.push(new RaceSkinColor(skinColors[0].id, genderId));
+      }
+    }
+
     return race;
   }
 
@@ -97,11 +122,11 @@ export class Race {
   }
 
   static isGenderInvalid(race: Race, genderId: number) {
-    console.log('gender: ' + genderId);
-    console.log('stats invalid: ' + this.areStatsInvalid(race, genderId));
-    console.log('ages invalid: ' + this.areAgesInvalid(race, genderId));
-    console.log('measurements invalid: ' + this.areMeasurementsInvalid(race, genderId));
-    console.log('attributes invalid: ' + this.areAttributesInvalid(race, genderId));
+    //console.log('gender: ' + genderId);
+    //console.log('stats invalid: ' + this.areStatsInvalid(race, genderId));
+    //console.log('ages invalid: ' + this.areAgesInvalid(race, genderId));
+    //console.log('measurements invalid: ' + this.areMeasurementsInvalid(race, genderId));
+    //console.log('attributes invalid: ' + this.areAttributesInvalid(race, genderId));
 
     return (genderId !== 0 && race.genders.filter(gender => gender.id === genderId).length == 0) ||
       this.areStatsInvalid(race, genderId) ||
@@ -119,17 +144,17 @@ export class Race {
           let raceStat: RaceStat = stats[statIndex];
 
           if (raceStat.low <= 0 || raceStat.high <= 0 || raceStat.max <= 0 || raceStat.low >= raceStat.high || raceStat.high >= raceStat.max) {
-            console.log('internal stats invalid true');
+            //console.log('internal stats invalid true');
             return true;
           }
         }
 
-        console.log('internal stats invalid false');
+        //console.log('internal stats invalid false');
         return false;
       }
     }
 
-    console.log('internal stats invalid true (no gender stats)');
+    //console.log('internal stats invalid true (no gender stats)');
     return true;
   }
 

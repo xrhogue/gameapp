@@ -35,7 +35,7 @@ export class RaceDetailsComponent implements OnInit {
 
         console.log('initializing race');
 
-        this.race = Race.initialize(this.race, 0, this.statService.getStatsCache());
+        this.race = Race.initialize(this.race, 0, this.statService.getStatsCache(), this.raceService.getComplexionsCache(), this.raceService.getEyeColorsCache(), this.raceService.getHairColorsCache(), this.raceService.getSkinColorsCache());
 
         this.raceService.getGenders().subscribe(genders =>{
           this.genderBase = genders.filter(gender => gender.id === 0).pop();
@@ -77,13 +77,13 @@ export class RaceDetailsComponent implements OnInit {
   }
 
   isInvalid() {
-    console.log('checking race invalid state');
+    //console.log('checking race invalid state');
 
     return Race.isInvalid(this.race);
   }
 
   isGenderInvalid(genderId: number) {
-    console.log("gender: " + genderId + ", invalid: " + Race.isGenderInvalid(this.race, genderId));
+    //console.log("gender: " + genderId + ", invalid: " + Race.isGenderInvalid(this.race, genderId));
     return Race.isGenderInvalid(this.race, genderId);
   }
 

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RaceService} from "../../../../service/race/race.service";
 import {NgForm} from "@angular/forms";
@@ -14,6 +14,7 @@ import {Height} from "admin/shared/height";
 import {Weight} from "admin/shared/weight";
 import {RaceStat} from "admin/shared/race-stat";
 import {RaceAge} from "admin/shared/race-age";
+import {Dialog} from "primeng/dialog";
 
 @Component({
   selector: 'app-race-general',
@@ -25,6 +26,7 @@ export class RaceGeneralComponent implements OnInit {
   id: number;
   genders: Array<Gender>;
   selectedGenders: Array<Gender>;
+  //@ViewChild('gInput') gInput;
   @Input() race: Race;
   @Output() raceChange: EventEmitter<Race> = new EventEmitter<Race>();
   @Output() genderUpdate: EventEmitter<any> = new EventEmitter<any>();
