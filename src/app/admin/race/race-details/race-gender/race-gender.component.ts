@@ -7,6 +7,7 @@ import {RaceAttributesComponent} from "../race-attributes/race-attributes.compon
 import {RaceMeasurementsComponent} from "../race-measurements/race-measurements.component";
 import {StatService} from "../../../../service/stat/stat.service";
 import {RaceService} from "../../../../service/race/race.service";
+import {UtilService} from "../../../../shared/services/util/util.service";
 
 @Component({
   selector: 'app-race-gender',
@@ -23,8 +24,10 @@ export class RaceGenderComponent implements OnInit {
   @ViewChild(RaceAttributesComponent) private raceAttributesComponent: RaceAttributesComponent;
   @ViewChild(RaceMeasurementsComponent) private raceMeasurementsComponent: RaceMeasurementsComponent;
   componentStates: Array<boolean> = [];
+  isInteger:(number: string)=>boolean;
 
-  constructor(private statService: StatService, private raceService: RaceService) {
+  constructor(private statService: StatService, private raceService: RaceService, private utilService: UtilService) {
+    this.isInteger = utilService.isInteger;
   }
 
   ngOnInit() {
@@ -47,6 +50,7 @@ export class RaceGenderComponent implements OnInit {
   initInvalid() {
     //console.log('initializing race gender invalid state');
 
+    this.componentStates['general'] = Race.areGeneralsInvalid(this.race, this.gender.id);
     this.componentStates['stats'] = Race.areStatsInvalid(this.race, this.gender.id);
     this.componentStates['ages'] = Race.areAgesInvalid(this.race, this.gender.id);
     this.componentStates['attributes'] = Race.areAttributesInvalid(this.race, this.gender.id);

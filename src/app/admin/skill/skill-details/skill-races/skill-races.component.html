@@ -1,0 +1,18 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-3">
+    <h4>Races</h4>
+    <p-tree styleClass="race-tree"
+            [value]="raceTreeNodes"
+            selectionMode="checkbox"
+            [(selection)]="selectedRaceTreeNodes"
+            (selection)="skillChange.emit(skill)"
+            [propagateSelectionUp]="false"
+            [propagateSelectionDown]="false"
+            (onNodeSelect)="raceSelected($event)"
+            (onNodeUnselect)="nodeUnselected($event)">
+      <ng-template let-node  pTemplate="default">
+        {{node.data.name}}
+      </ng-template>
+    </p-tree>
+    <textarea class="race-area" [ngModel]="selectedRaces"></textarea>
+  </div>

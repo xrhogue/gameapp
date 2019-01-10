@@ -84,7 +84,7 @@
     <label class="control-label" for="baseCost">Base Cost
       <div class="input-group">
         <input type="text"
-               class="form-control"
+               class="form-control number"
                id="baseCost"
                oninput="this.value = this.value.replace(/\D/g, '')"
                (input)="updateInvalid('baseCost', baseCost.invalid)"
@@ -109,7 +109,7 @@
     <label class="control-label" for="levelCost">Level Cost
       <div class="input-group">
         <input type="text"
-               class="form-control"
+               class="form-control number"
                id="levelCost"
                oninput="this.value = this.value.replace(/\D/g, '')"
                (input)="updateInvalid('levelCost', levelCost.invalid)"

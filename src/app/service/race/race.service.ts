@@ -28,6 +28,10 @@ export class RaceService {
     this.updateCache();
   }
 
+  getRacesCache() : Array<Race> {
+    return this.races;
+  }
+
   getComplexionsCache() : Array<Complexion> {
     return this.complexions;
   }
@@ -163,6 +167,10 @@ export class RaceService {
   }
 
   updateCache() {
+    if (!!this.getRaces()) {
+      this.getRaces().subscribe(races => this.races = races);
+    }
+
     if (!!this.getComplexions()) {
       this.getComplexions().subscribe(complexions => this.complexions = complexions);
     }

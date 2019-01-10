@@ -26,7 +26,8 @@ export class Race {
     public complexions: Array<RaceComplexion> = [],
     public eyeColors: Array<RaceEyeColor> = [],
     public hairColors: Array<RaceHairColor> = [],
-    public skinColors: Array<RaceSkinColor> = []
+    public skinColors: Array<RaceSkinColor> = [],
+    public cost: Array<number> = []
   ) {}
 
   static initialize(race: Race,
@@ -101,6 +102,14 @@ export class Race {
       }
     }
 
+    if (!race.cost) {
+      race.cost = [];
+    }
+
+    if (!race.cost[genderId]) {
+      race.cost[genderId] = 3;
+    }
+
     return race;
   }
 
@@ -129,10 +138,15 @@ export class Race {
     //console.log('attributes invalid: ' + this.areAttributesInvalid(race, genderId));
 
     return (genderId !== 0 && race.genders.filter(gender => gender.id === genderId).length == 0) ||
+      this.areGeneralsInvalid(race, genderId) ||
       this.areStatsInvalid(race, genderId) ||
       this.areAgesInvalid(race, genderId) ||
       this.areMeasurementsInvalid(race, genderId) ||
       this.areAttributesInvalid(race, genderId);
+  }
+
+  static areGeneralsInvalid(race: Race, genderId: number): boolean {
+    return !race.cost || !race.cost[genderId] || race.cost[genderId] <= 0;
   }
 
   static areStatsInvalid(race: Race, genderId: number): boolean {
