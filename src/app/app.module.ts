@@ -24,6 +24,7 @@ import {StatService} from './service/stat/stat.service';
 import {SkillService} from "./service/skill/skill.service";
 import {MockService} from "./service/mock/mock.service";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
+import { CharacterStatsComponent } from './character/character-details/character-stats/character-stats.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {InMemoryWebApiModule} from "angular-in-memory-web-api";
     StatsComponent,
     CharactersComponent,
     CharacterDetailsComponent,
+    CharacterStatsComponent
   ],
   imports: [
     BrowserModule,

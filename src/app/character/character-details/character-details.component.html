@@ -1,3 +1,15 @@
-<p>
-  character-details works!
-</p>
+<ngb-tabset class="sub-tabset" type="pill">
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <div class="sub-tab" [class.invalid]="isComponentInvalid('general')">General</div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <div class="sub-tab" [class.invalid]="isComponentInvalid('stats')">Stats</div>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <app-character-stats [(character)]="character"></app-character-stats>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

@@ -24,13 +24,15 @@ export class SkillPrerequisitesComponent implements OnInit {
   constructor(private skillService: SkillService, private router: Router) { }
 
   ngOnInit() {
-    this.skills = this.skillService.getSkills();
-    this.andPrerequisiteTreeNodes = this.buildSkillTreeNodes(null);
-    this.orPrerequisiteTreeNodes = this.buildSkillTreeNodes(null);
+    this.skillService.getSkills().subscribe(skills => {
+      this.skills = skills;
+      this.andPrerequisiteTreeNodes = this.buildSkillTreeNodes(null);
+      this.orPrerequisiteTreeNodes = this.buildSkillTreeNodes(null);
 
-    this.init(this.skill.andPrerequisiteSkillIds, this.andPrerequisiteTreeNodes, this.selectedAndPrerequisiteTreeNodes);
-    this.init(this.skill.orPrerequisiteSkillIds, this.orPrerequisiteTreeNodes, this.selectedOrPrerequisiteTreeNodes);
-    this.updateAllSelections();
+      this.init(this.skill.andPrerequisiteSkillIds, this.andPrerequisiteTreeNodes, this.selectedAndPrerequisiteTreeNodes);
+      this.init(this.skill.orPrerequisiteSkillIds, this.orPrerequisiteTreeNodes, this.selectedOrPrerequisiteTreeNodes);
+      this.updateAllSelections();
+    });
   }
 
   buildSkillTreeNodes(parentId: number) {

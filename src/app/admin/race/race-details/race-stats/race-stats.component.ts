@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UtilService} from "../../../../shared/services/util/util.service";
-import {RaceService} from "../../../../service/race/race.service";
 import {StatService} from "../../../../service/stat/stat.service";
 import {Stat} from "../../../shared/stat";
 import {RaceStat} from "../../../shared/race-stat";
@@ -15,7 +14,7 @@ export class RaceStatsComponent extends RaceGenderBaseComponent implements OnIni
 
   stats: Array<Stat>
 
-  constructor(private statService: StatService, private raceService: RaceService, protected utilService: UtilService) {
+  constructor(private statService: StatService, protected utilService: UtilService) {
     super(utilService);
   }
 
@@ -24,7 +23,6 @@ export class RaceStatsComponent extends RaceGenderBaseComponent implements OnIni
       this.stats = stats;
       this.initRaceStats();
     });
-
   }
 
   initRaceStats() {

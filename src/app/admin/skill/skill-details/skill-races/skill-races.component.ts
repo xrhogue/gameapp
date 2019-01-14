@@ -22,11 +22,13 @@ export class SkillRacesComponent implements OnInit {
   constructor(private raceService: RaceService, private skillService: SkillService, private router: Router) { }
 
   ngOnInit() {
-    this.races = this.raceService.getRacesCache();
-    this.raceTreeNodes = this.buildRaceTreeNodes(null);
+    this.raceService.getRaces().subscribe(races => {
+      this.races = races;
+      this.raceTreeNodes = this.buildRaceTreeNodes(null);
 
-    this.init(this.skill.raceIds, this.raceTreeNodes, this.selectedRaceTreeNodes);
-    this.updateAllSelections();
+      this.init(this.skill.raceIds, this.raceTreeNodes, this.selectedRaceTreeNodes);
+      this.updateAllSelections();
+    });
   }
 
   buildRaceTreeNodes(parentId: number) {

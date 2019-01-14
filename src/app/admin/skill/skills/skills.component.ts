@@ -28,7 +28,7 @@ export class SkillsComponent implements OnInit {
 
   ngOnInit() {
     this.statService.getStats().subscribe(stats => this.stats = stats);
-    this.skills = this.skillService.getSkills();
+    this.skillService.getSkills().subscribe(skills => this.skills = skills);
     this.skillTreeNodes = this.buildSkillTreeNodes(null);
 
     this.cols = [
@@ -52,13 +52,11 @@ export class SkillsComponent implements OnInit {
   }
 
   updateSkill(skill: Skill) {
-    //this.router.navigateByUrl('/skills/' + skill.id);
     this.router.navigate(['admin/skills', skill.id])
-    //return this.skillService.updateSkill(skill);
   }
 
   deleteSkill(skill: Skill) {
-    this.skillService.deleteSkill(skill.id);
+    this.skillService.deleteSkill(skill.id).subscribe();
   }
 
   buildSkillTreeNodes(parentId: number) {

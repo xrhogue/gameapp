@@ -18,6 +18,7 @@ import { NumberComponent } from './components/number/number.component';
 import {FormsModule} from "@angular/forms";
 import {CustomFormsModule} from "ng2-validation";
 import {UniqueGenderDirective} from "./directives/unique-gender/unique-gender.directive";
+import { CharacterBaseComponent } from './components/character-base/character-base.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {UniqueGenderDirective} from "./directives/unique-gender/unique-gender.di
     UniqueGenderDirective,
     BetweenDirective,
     LoginComponent,
-    NumberComponent
+    NumberComponent,
+    CharacterBaseComponent
   ],
   imports: [
     CommonModule,

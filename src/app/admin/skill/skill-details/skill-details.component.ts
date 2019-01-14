@@ -29,23 +29,21 @@ export class SkillDetailsComponent implements OnInit {
 
   ngOnInit() {
     if (this.id > 0) {
-      this.skill = this.skillService.getSkill(this.id);
+      this.skillService.getSkill(this.id).subscribe(skill => this.skill = skill);
     }
     else {
-      this.skill = new Skill(0, "", "", 3, 3, true, null, null, null, null);
+      this.skill = new Skill(0, "", "", 3, 3, true, null, null, null, null, null, null);
     }
-
-    // this.data.getSkill(id).subscribe(data => this.skill = data);
   }
 
   update() {
     if (this.skill.id == 0) {
-      this.skill = this.skillService.addSkill(this.skill);
+      this.skillService.addSkill(this.skill).subscribe(skill => this.skill = skill);
     }
     else {
-      this.skill = this.skillService.updateSkill(this.skill);
+      this.skillService.updateSkill(this.skill).subscribe(skill => this.skill = skill);
     }
-    // this.data.updateSkill(this.skill).subscribe(data => this.skill = data);
+
     this.router.navigate(['/admin/skills']);
   }
 

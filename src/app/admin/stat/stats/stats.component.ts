@@ -12,11 +12,11 @@ export class StatsComponent implements OnInit {
 
   stats: Array<Stat>;
 
-  constructor(private data: StatService, private router: Router) {
+  constructor(private statService: StatService, private router: Router) {
   }
 
   ngOnInit() {
-    this.data.getStats().subscribe(stats => this.stats = stats);
+    this.statService.getStats().subscribe(stats => this.stats = stats);
   }
 
   addStat() {
@@ -28,6 +28,6 @@ export class StatsComponent implements OnInit {
   }
 
   deleteStat(statId: number) {
-    this.data.deleteStat(statId).subscribe(data => this.data.getStats().subscribe(stats => this.stats = stats));
+    this.statService.deleteStat(statId).subscribe(stat => this.statService.getStats().subscribe(stats => this.stats = stats));
   }
 }

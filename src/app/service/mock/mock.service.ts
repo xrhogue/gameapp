@@ -9,6 +9,8 @@ import {SkinColor} from "../../admin/shared/skin-color";
 import {Race} from "../../admin/shared/race";
 import {Gender} from "../../admin/shared/gender";
 import {Stat} from "../../admin/shared/stat";
+import {Skill} from "admin/shared/skill";
+import {Character} from "admin/shared/character";
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +57,18 @@ export class MockService implements InMemoryDbService {
       new Race(3, 'Charr', true, 2)
     ];
 
+    let skills = [
+      new Skill(1, 'Hunting', 'Hunting', 3, 3, true, null, 1, [1],  null, null, null),
+      new Skill(2, 'Targeting', 'Targeting', 3, 3, true, 1, 1, [1,2],  null, null, null),
+      new Skill(3, 'Partying', 'Partying', 3, 3, true, null, 1, [1,2],  null, null, null)
+    ];
+
+    let characters = [
+      new Character(1, 'Bob'),
+      new Character(2, 'Dell'),
+      new Character(3, 'Harriet')
+    ];
+
     return {
       stats: stats,
       genders: genders,
@@ -62,7 +76,9 @@ export class MockService implements InMemoryDbService {
       eyeColors: eyeColors,
       hairColors: hairColors,
       skinColors: skinColors,
-      races: races
+      races: races,
+      skills: skills,
+      characters: characters
     };
   }
 }
