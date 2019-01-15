@@ -12,4 +12,12 @@
       <app-character-stats [(character)]="character"></app-character-stats>
     </ng-template>
   </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>
+      <div class="sub-tab" [class.invalid]="isComponentInvalid('skills')">Skills</div>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <app-character-skills [(character)]="character"></app-character-skills>
+    </ng-template>
+  </ngb-tab>
 </ngb-tabset>

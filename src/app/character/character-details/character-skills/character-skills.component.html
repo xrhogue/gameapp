@@ -1,0 +1,21 @@
+
+<table class="table table-hover table-striped table-sm">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col" class="th-large-width">Name</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let characterSkill of character.skills">
+    <td [routerLink]="[characterSkill.skillId]">{{getSkill(characterSkill).name}}</td>
+    <td>
+      <i class="material-icons" (click)="updateCharacterSkill(characterSkill)" ngbTooltip="Update {{getSkill(characterSkill).name}}">description</i>
+      <i class="material-icons" (click)="deleteCharacterSkill(characterSkill)" ngbTooltip="Delete {{getSkill(characterSkill).name}}">delete</i>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div>
+  <button type="button" class="btn btn-secondary" ngbTooltip="Add a new Skill" placement="top" (click)="addCharacterSkill()"><i class="material-icons">add_box</i>New Skill</button>
+</div>
