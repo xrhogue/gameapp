@@ -1,0 +1,36 @@
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {UtilService} from "../../../shared/services/util/util.service";
+import {CharacterBaseComponent} from "../../../shared/components/character-base/character-base.component";
+import {Character} from "admin/shared/character";
+import {CharacterService} from "../../../service/character/character.service";
+import {RaceService} from "../../../service/race/race.service";
+import {Gender} from "admin/shared/gender";
+
+@Component({
+  selector: 'app-character-general',
+  templateUrl: './character-general.component.html',
+  styleUrls: ['./character-general.component.scss']
+})
+export class CharacterGeneralComponent extends CharacterBaseComponent implements OnInit {
+  id: number;
+  genders: Array<Gender>;
+  @Input() character: Character;
+  @Output() characterChange: EventEmitter<Character> = new EventEmitter<Character>();
+
+  constructor(private raceService: RaceService, private characterService: CharacterService, protected utilService: UtilService) {
+    super(utilService);
+    this.fieldStates['name'] = true;
+  }
+
+  ngOnInit() {
+    this.raceService.getGenders().subscribe(genders => this.genders = genders);
+
+    this.initInvalid();
+  }
+
+  initInvalid() {
+    if (!this.character.name || this.character.name.length === 0) {
+      this.fieldStates['name'] = true;
+    }
+  }
+}

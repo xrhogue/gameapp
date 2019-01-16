@@ -6,6 +6,7 @@ export class Character {
   constructor(
     public id: number,
     public name: string,
+    public genderId: number,
     public stats?: Array<CharacterStat>,
     public races?: Array<CharacterRace>,
     public skills?: Array<CharacterSkill>

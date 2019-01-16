@@ -26,6 +26,7 @@ import {MockService} from "./service/mock/mock.service";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import { CharacterStatsComponent } from './character/character-details/character-stats/character-stats.component';
 import { CharacterSkillsComponent } from './character/character-details/character-skills/character-skills.component';
+import { CharacterGeneralComponent } from './character/character-details/character-general/character-general.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { CharacterSkillsComponent } from './character/character-details/characte
     StatsComponent,
     CharactersComponent,
     CharacterDetailsComponent,
+    CharacterGeneralComponent,
     CharacterStatsComponent,
     CharacterSkillsComponent
   ],

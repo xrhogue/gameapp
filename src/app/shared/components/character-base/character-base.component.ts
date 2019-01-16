@@ -9,11 +9,13 @@ export class CharacterBaseComponent implements OnInit {
   @Input() character: Character;
   @Output() characterChange: EventEmitter<Character> = new EventEmitter<Character>();
   isInteger:(number: string) => boolean;
+  JSON: JSON;
   MAX_VALUE: Number = Number.MAX_VALUE;
   fieldStates: Array<boolean> = [];
 
   constructor(protected utilService: UtilService) {
     this.isInteger = this.utilService.isInteger;
+    this.JSON = JSON;
   }
 
   ngOnInit() {

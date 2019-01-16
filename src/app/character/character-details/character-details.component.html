@@ -3,6 +3,9 @@
     <ng-template ngbTabTitle>
       <div class="sub-tab" [class.invalid]="isComponentInvalid('general')">General</div>
     </ng-template>
+    <ng-template ngbTabContent>
+      <app-character-general [(character)]="character"></app-character-general>
+    </ng-template>
   </ngb-tab>
   <ngb-tab>
     <ng-template ngbTabTitle>
