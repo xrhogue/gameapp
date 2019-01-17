@@ -13,7 +13,6 @@ import {Gender} from "admin/shared/gender";
 })
 export class CharacterGeneralComponent extends CharacterBaseComponent implements OnInit {
   id: number;
-  genders: Array<Gender>;
   @Input() character: Character;
   @Output() characterChange: EventEmitter<Character> = new EventEmitter<Character>();
 
@@ -23,8 +22,6 @@ export class CharacterGeneralComponent extends CharacterBaseComponent implements
   }
 
   ngOnInit() {
-    this.raceService.getGenders().subscribe(genders => this.genders = genders);
-
     this.initInvalid();
   }
 

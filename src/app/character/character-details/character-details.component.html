@@ -9,6 +9,14 @@
   </ngb-tab>
   <ngb-tab>
     <ng-template ngbTabTitle>
+      <div class="sub-tab" [class.invalid]="isComponentInvalid('races')">Races</div>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <app-character-races [(character)]="character"></app-character-races>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle>
       <div class="sub-tab" [class.invalid]="isComponentInvalid('stats')">Stats</div>
     </ng-template>
     <ng-template ngbTabContent>

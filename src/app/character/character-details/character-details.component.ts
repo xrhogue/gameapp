@@ -33,7 +33,7 @@ export class CharacterDetailsComponent implements OnInit {
       });
     }
     else {
-      this.character = new Character(0, "");
+      this.character = new Character(0, "", 0);
     }
   }
 

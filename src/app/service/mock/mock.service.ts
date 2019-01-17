@@ -64,9 +64,9 @@ export class MockService implements InMemoryDbService {
     ];
 
     let characters = [
-      new Character(1, 'Bob'),
-      new Character(2, 'Dell'),
-      new Character(3, 'Harriet')
+      new Character(1, 'Bob', 1),
+      new Character(2, 'Dell', 1),
+      new Character(3, 'Harriet', 2)
     ];
 
     return {
