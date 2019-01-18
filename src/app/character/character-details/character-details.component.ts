@@ -26,7 +26,6 @@ export class CharacterDetailsComponent implements OnInit {
     if (this.id > 0) {
       this.characterService.getCharacter(this.id).subscribe(character => {
         this.character = character;
-
         console.log('initializing character');
 
         this.character = Character.initialize(this.character);

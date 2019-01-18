@@ -3,6 +3,7 @@ import {Race} from "../../../shared/race";
 import {Gender} from "../../../shared/gender";
 import {RaceAttribute} from "../../../shared/race-attribute";
 import {Attribute} from "../../../shared/attribute";
+import {UtilService} from "../../../../shared/services/util/util.service";
 
 @Component({
   selector: 'app-race-attribute-details',
@@ -24,8 +25,7 @@ export class RaceAttributeDetailsComponent implements OnInit {
   showDialog: boolean = false;
   newAttribute: string = "";
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
     if (!!this.raceAttributes) {

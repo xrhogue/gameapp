@@ -10,3 +10,43 @@
     </label>
   </div>
 </div>
+<table class="table table-hover table-striped table-sm">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col" class="th-large-width">Name</th>
+    <th scope="col" class="th-large-width">Percent</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let characterRace of character.races">
+    <td [routerLink]="[characterRace.raceId]">{{getRace(characterRace).name}}</td>
+    <td [routerLink]="[characterRace.raceId]">{{characterRace.percent}}</td>
+    <td>
+      <i class="material-icons" (click)="updateCharacterRace(characterRace)" ngbTooltip="Update {{getRace(characterRace).name}}">description</i>
+      <i class="material-icons" (click)="deleteCharacterRace(characterRace)" ngbTooltip="Delete {{getRace(characterRace).name}}">delete</i>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div>
+  <button type="button" class="btn btn-secondary" ngbTooltip="Add a new Race" placement="top" (click)="newRace=initCharacterRace(); showDialog=true"><i class="material-icons">add_box</i>Add Race</button>
+</div>
+<p-dialog header="New Race" [(visible)]="showDialog">
+  <div class="small-12 medium-6 columns">
+    <div class="input-group">
+      <label class="control-label list-label" for="percent">Percent</label>
+      <app-number [id]="'percent'"
+                  [name]="'percent'"
+                  [(value)]="newRace.percent"
+                  [min]="0"
+                  [max]="getRemainingPercent()"
+                  [decorator]="'%'">
+      </app-number>
+    </div>
+  </div>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" [disabled]="newRace.raceId == 0" (click)="addCharacterRace($event);showDialog=false" label="Add"></button>
+    <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
