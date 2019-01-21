@@ -34,15 +34,8 @@
 </div>
 <p-dialog header="New Race" [(visible)]="showDialog">
   <div class="small-12 medium-6 columns">
-    <div class="input-group">
-      <label class="control-label list-label" for="percent">Percent</label>
-      <app-number [id]="'percent'"
-                  [name]="'percent'"
-                  [(value)]="newRace.percent"
-                  [min]="0"
-                  [max]="getRemainingPercent()"
-                  [decorator]="'%'">
-      </app-number>
+    <div>
+      <app-character-add-race [(character)]="character"></app-character-add-race>
     </div>
   </div>
   <p-footer>

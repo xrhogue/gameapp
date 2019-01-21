@@ -7,7 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {TreeTableModule} from 'primeng/treetable';
 import {ContextMenuModule} from 'primeng/contextmenu';
-import {ButtonModule, DialogModule, MultiSelectModule} from "primeng/primeng";
+import {ButtonModule, DialogModule, MultiSelectModule, TreeModule} from "primeng/primeng";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -30,6 +30,7 @@ import {CharacterGeneralComponent} from './character/character-details/character
 import {CharacterRacesComponent} from './character/character-details/character-races/character-races.component';
 import {RaceService} from "./service/race/race.service";
 import {CharacterService} from "./service/character/character.service";
+import { CharacterAddRaceComponent } from './character/character-details/character-races/character-add-race/character-add-race.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {CharacterService} from "./service/character/character.service";
     CharacterGeneralComponent,
     CharacterRacesComponent,
     CharacterStatsComponent,
-    CharacterSkillsComponent
+    CharacterSkillsComponent,
+    CharacterAddRaceComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,7 @@ import {CharacterService} from "./service/character/character.service";
     BrowserAnimationsModule,
     NgbModule,
     TreeTableModule,
+    TreeModule,
     ContextMenuModule,
     MultiSelectModule,
     ButtonModule,

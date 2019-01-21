@@ -1,0 +1,27 @@
+<div class="ui-g ui-fluid">
+  <div class="ui-g-12 ui-md-3">
+    <h4>Races</h4>
+    <p-tree styleClass="race-tree"
+            [value]="characterRaceTreeNodes"
+            selectionMode="single"
+            [(selection)]="selectedCharacterRaceTreeNode"
+            (selection)="characterChange.emit(character)"
+            [propagateSelectionUp]="false"
+            [propagateSelectionDown]="false"
+            (onNodeSelect)="raceSelected($event)">
+      <ng-template let-node pTemplate="default">
+        {{getRace(node.data).name}}
+      </ng-template>
+    </p-tree>
+  </div>
+  <div class="input-group">
+    <label class="control-label list-label race-label" for="percent">{{getRace(selectedCharacterRaceTreeNode.data).name}}</label>
+    <app-number [id]="'percent'"
+                [name]="'percent'"
+                [(value)]="selectedCharacterRaceTreeNode.data.percent"
+                [min]="0"
+                [max]="getRemainingPercent()"
+                [decorator]="'%'">
+    </app-number>
+  </div>
+</div>
