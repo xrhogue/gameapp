@@ -28,7 +28,8 @@ ngb-tabset.sub-tabset ul li a.active {
 
         ul {
             list-style-type: none;
-            margin:0;padding:0;
+            margin: 0;
+//            padding: 0; this was causing trees to not indent properly
 
             li {
                 background-color: transparent;

@@ -30,16 +30,16 @@
   </tbody>
 </table>
 <div>
-  <button type="button" class="btn btn-secondary" ngbTooltip="Add a new Race" placement="top" (click)="newRace=initCharacterRace(); showDialog=true"><i class="material-icons">add_box</i>Add Race</button>
+  <button type="button" class="btn btn-secondary" ngbTooltip="Add a new Race" placement="top" [disabled]="getRemainingPercent() <= 0" (click)="showDialog=true"><i class="material-icons">add_box</i>Add Race</button>
 </div>
 <p-dialog header="New Race" [(visible)]="showDialog">
   <div class="small-12 medium-6 columns">
     <div>
-      <app-character-add-race [(character)]="character"></app-character-add-race>
+      <app-character-add-race [(character)]="character" [(selectedCharacterRace)]="selectedCharacterRace"></app-character-add-race>
     </div>
   </div>
   <p-footer>
-    <button type="button" pButton icon="pi pi-check" [disabled]="newRace.raceId == 0" (click)="addCharacterRace($event);showDialog=false" label="Add"></button>
+    <button type="button" pButton icon="pi pi-check" [disabled]="selectedCharacterRace.raceId == 0" (click)="addCharacterRace(selectedCharacterRace);showDialog=false" label="Add"></button>
     <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>

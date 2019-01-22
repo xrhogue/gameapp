@@ -6,6 +6,8 @@ export class CharacterRaceTreeNode implements TreeNode {
     public data: CharacterRace,
     public parent: CharacterRaceTreeNode,
     public children?: CharacterRaceTreeNode[],
+    public expandedIcon?: string,
+    public collapsedIcon?: string,
     public leaf?: boolean,
     public expanded?: boolean,
     public selectable?: boolean

@@ -16,7 +16,8 @@ import {Character} from "admin/shared/character";
 export class CharacterRacesComponent extends CharacterBaseComponent implements OnInit {
   races: Array<Race>
   genders: Array<Gender>;
-  newRace: CharacterRace;
+  character: Character;
+  selectedCharacterRace: CharacterRace;
   showDialog: boolean = false;
 
   constructor(private raceService: RaceService, protected utilService: UtilService, private router: Router) {
@@ -31,7 +32,7 @@ export class CharacterRacesComponent extends CharacterBaseComponent implements O
         this.races = races;
 
         this.initCharacterRaces();
-        this.newRace = this.initCharacterRace();
+        this.selectedCharacterRace = this.initCharacterRace();
       });
     });
   }
@@ -50,8 +51,8 @@ export class CharacterRacesComponent extends CharacterBaseComponent implements O
     return Character.getRemainingPercent(this.character);
   }
 
-  addCharacterRace() {
-    this.router.navigateByUrl('/character/race/0');
+  addCharacterRace(characterRace: CharacterRace) {
+    this.character.races.push(characterRace);
   }
 
   updateCharacterRace(characterRace: CharacterRace) {

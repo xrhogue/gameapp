@@ -20,7 +20,7 @@
                 [name]="'percent'"
                 [(value)]="selectedCharacterRaceTreeNode.data.percent"
                 [min]="0"
-                [max]="getRemainingPercent()"
+                [max]="getRemainingPercent() + 1"
                 [decorator]="'%'">
     </app-number>
   </div>

@@ -14,6 +14,8 @@ import {CharacterRace} from "admin/shared/character-race";
 export class CharacterAddRaceComponent implements OnInit {
   @Input() character: Character;
   @Output() characterChange: EventEmitter<Character> = new EventEmitter<Character>();
+  @Input() selectedCharacterRace: CharacterRace;
+  @Output() selectedCharacterRaceChange: EventEmitter<CharacterRace> = new EventEmitter<CharacterRace>();
   races: Array<Race>;
   characterRaceTreeNodes: Array<CharacterRaceTreeNode>;
   selectedCharacterRaceTreeNode: CharacterRaceTreeNode = new CharacterRaceTreeNode(new CharacterRace(0, 0, 0), null);
@@ -25,10 +27,12 @@ export class CharacterAddRaceComponent implements OnInit {
       this.races = races;
       this.characterRaceTreeNodes = this.buildCharacterRaceTreeNodes(null);
     });
+
+    this.selectedCharacterRace = this.selectedCharacterRaceTreeNode.data;
   }
 
   buildCharacterRaceTreeNodes(parentId: number) {
-    let characterRaceTreeNodes: Array<CharacterRaceTreeNode> = this.races.filter(race => race.parentId === parentId && this.character.races.filter(characterRace => characterRace.raceId == race.id).length == 0).map(race => new CharacterRaceTreeNode(new CharacterRace(this.character.id, race.id, this.getRemainingPercent()), null, null, true, false, false));
+    let characterRaceTreeNodes: Array<CharacterRaceTreeNode> = this.races.filter(race => race.parentId === parentId && this.character.races.filter(characterRace => characterRace.raceId == race.id).length == 0).map(race => new CharacterRaceTreeNode(new CharacterRace(this.character.id, race.id, this.getRemainingPercent()), null, null, null, null, true, false, false));
 
     characterRaceTreeNodes.forEach(raceTreeNode => {
       raceTreeNode.children = this.buildCharacterRaceTreeNodes(raceTreeNode.data.raceId);
@@ -42,6 +46,8 @@ export class CharacterAddRaceComponent implements OnInit {
 
   raceSelected(event: {node: CharacterRaceTreeNode}) {
     this.selectedCharacterRaceTreeNode = event.node;
+    this.selectedCharacterRace = this.selectedCharacterRaceTreeNode.data;
+    this.selectedCharacterRaceChange.emit(this.selectedCharacterRace);
   }
 
   getRemainingPercent(): number {
