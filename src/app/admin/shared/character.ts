@@ -30,6 +30,6 @@ export class Character {
       return MAX_PERCENT;
     }
 
-    return MAX_PERCENT - character.races.map(characterRace => characterRace.percent).reduce((totalPercent, percent) => totalPercent + percent);
+    return MAX_PERCENT - character.races.map(characterRace => characterRace.percent).reduce((totalPercent, percent): number => totalPercent + percent);
   }
 }

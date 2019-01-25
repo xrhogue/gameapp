@@ -10,25 +10,46 @@
     </label>
   </div>
 </div>
-<table class="table table-hover table-striped table-sm">
-  <thead class="thead-dark">
-  <tr>
-    <th scope="col" class="th-large-width">Name</th>
-    <th scope="col" class="th-large-width">Percent</th>
-    <th scope="col"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let characterRace of character.races">
-    <td [routerLink]="[characterRace.raceId]">{{getRace(characterRace).name}}</td>
-    <td [routerLink]="[characterRace.raceId]">{{characterRace.percent}}</td>
-    <td>
-      <i class="material-icons" (click)="updateCharacterRace(characterRace)" ngbTooltip="Update {{getRace(characterRace).name}}">description</i>
-      <i class="material-icons" (click)="deleteCharacterRace(characterRace)" ngbTooltip="Delete {{getRace(characterRace).name}}">delete</i>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<p-table [value]="character.races" #characterRaces>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Name</th>
+      <th>Percent</th>
+      <th class="filler-column"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-characterRace>
+    <tr>
+      <td>
+        {{getRace(characterRace).name}}
+      </td>
+      <td class="cell-number" pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <app-number [id]="'percent'"
+                        [name]="'percent'"
+                        [(value)]="characterRace.percent"
+                        (valueChange)="updateRemainingPercent()"
+                        [min]="0"
+                        [max]="getMaxPercent(characterRace)"
+                        (focusLost)="cellFocusLost()"
+                        (invalid)="updateInvalid($event)"
+                        [decorator]="''"
+                        [showError]="false">
+            </app-number>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{characterRace.percent}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <button type="button" (click)="deleteCharacterRace(characterRace.raceId)"><i class="material-icons" ngbTooltip="Delete {{getRace(characterRace).name}}">delete</i></button>
+        <span *ngIf="invalid.length > 0" class="alert alert-danger">{{invalid}}</span>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
 <div>
   <button type="button" class="btn btn-secondary" ngbTooltip="Add a new Race" placement="top" [disabled]="getRemainingPercent() <= 0" (click)="showDialog=true"><i class="material-icons">add_box</i>Add Race</button>
 </div>
@@ -39,7 +60,7 @@
     </div>
   </div>
   <p-footer>
-    <button type="button" pButton icon="pi pi-check" [disabled]="selectedCharacterRace.raceId == 0" (click)="addCharacterRace(selectedCharacterRace);showDialog=false" label="Add"></button>
+    <button type="button" pButton icon="pi pi-check" [disabled]="selectedCharacterRace.raceId == 0 || selectedCharacterRace.percent < 1 || selectedCharacterRace.percent > getRemainingPercent()" (click)="addCharacterRace(selectedCharacterRace);showDialog=false" label="Add"></button>
     <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>

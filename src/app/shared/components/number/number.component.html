@@ -1,10 +1,10 @@
 <div class="input-group">
-  <input type="text"
+  <input type="number"
          class="form-control number-control"
          [style.width.em]="width"
          [id]="id"
          oninput="this.value = this.value.replace(/\D/g, '')"
-         (input)="updateInvalid(number.invalid)"
+         (input)="updateInvalid(number.invalid, number.errors)"
          [name]="name"
          required
          [disabled]="disabled"
@@ -13,11 +13,12 @@
          [pattern]="pattern"
          [(ngModel)]="value"
          (ngModelChange)="valueChange.emit(value)"
+         (focusout)="focusLost.emit(true)"
          #number="ngModel">
-  <div class="decorator">
+  <div [class.decorator]="decorator.length > 0">
     {{decorator.endsWith("s") && this.value == 1 ? decorator.substr(0, decorator.length - 1) : decorator}}
   </div>
-  <div *ngIf="number.invalid" class="alert alert-danger">
+  <div *ngIf="number.invalid && showError" class="alert alert-danger">
     <div *ngIf="number.errors.required">Required</div>
     <div *ngIf="number.errors.gt">Value must be greater than {{min}}</div>
     <div *ngIf="number.errors.lt">Value must be less than {{max}}</div>

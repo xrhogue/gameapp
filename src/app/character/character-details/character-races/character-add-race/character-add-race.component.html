@@ -4,7 +4,7 @@
     <p-tree styleClass="race-tree"
             [value]="characterRaceTreeNodes"
             selectionMode="single"
-            [(selection)]="selectedCharacterRaceTreeNode"
+            [selection]="selectedCharacterRaceTreeNode"
             (selection)="characterChange.emit(character)"
             [propagateSelectionUp]="false"
             [propagateSelectionDown]="false"
@@ -15,10 +15,10 @@
     </p-tree>
   </div>
   <div class="input-group">
-    <label class="control-label list-label race-label" for="percent">{{getRace(selectedCharacterRaceTreeNode.data).name}}</label>
+    <label class="control-label list-label race-label" for="percent">{{getRace(selectedCharacterRace).name}}</label>
     <app-number [id]="'percent'"
                 [name]="'percent'"
-                [(value)]="selectedCharacterRaceTreeNode.data.percent"
+                [(value)]="selectedCharacterRace.percent"
                 [min]="0"
                 [max]="getRemainingPercent() + 1"
                 [decorator]="'%'">
