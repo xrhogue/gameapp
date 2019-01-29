@@ -15,13 +15,17 @@
     </div>
     <div *ngFor="let stat of stats; let statIndex = index">
       <div class="box">
-        <app-number [id]="stat.shortName"
+        <app-number id="{{stat.shortName}}"
+                    [id]="stat.shortName"
                     [name]="stat.shortName"
                     [(value)]="race.stats[getGenderIndex(gender.id)][statIndex].low"
                     [min]="0"
                     [max]="race.stats[getGenderIndex(gender.id)][statIndex].high"
+                    [exclusiveMin]="false"
+                    [exclusiveMax]="false"
                     (invalid)="updateInvalid($event)"
-                    [decorator]="''">
+                    [decorator]="''"
+                    [showError]="false">
         </app-number>
       </div>
     </div>
@@ -37,8 +41,11 @@
                     [(value)]="race.stats[getGenderIndex(gender.id)][statIndex].high"
                     [min]="race.stats[getGenderIndex(gender.id)][statIndex].low"
                     [max]="race.stats[getGenderIndex(gender.id)][statIndex].max"
+                    [exclusiveMin]="false"
+                    [exclusiveMax]="false"
                     (invalid)="updateInvalid($event)"
-                    [decorator]="''">
+                    [decorator]="''"
+                    [showError]="false">
         </app-number>
       </div>
     </div>
@@ -54,9 +61,22 @@
                     [(value)]="race.stats[getGenderIndex(gender.id)][statIndex].max"
                     [min]="race.stats[getGenderIndex(gender.id)][statIndex].high"
                     [max]="MAX_VALUE"
+                    [exclusiveMin]="false"
+                    [exclusiveMax]="false"
                     (invalid)="updateInvalid($event)"
-                    [decorator]="''">
+                    [decorator]="''"
+                    [showError]="false">
         </app-number>
+      </div>
+    </div>
+  </div>
+  <div class="p-col-3">
+    <div class="box box-label">
+      {{'Notes'}}
+    </div>
+    <div *ngFor="let stat of stats; let statIndex = index">
+      <div class="box">
+        {{getErrorDescription(stat.shortName)}}
       </div>
     </div>
   </div>

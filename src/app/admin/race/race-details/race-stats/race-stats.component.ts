@@ -72,4 +72,8 @@ export class RaceStatsComponent extends RaceGenderBaseComponent implements OnIni
 
     return 0;
   }
+
+  getErrorDescription(id: string) {
+    return this.errorDescription[id];
+  }
 }

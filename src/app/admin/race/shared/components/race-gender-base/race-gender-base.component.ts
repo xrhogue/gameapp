@@ -13,6 +13,7 @@ export class RaceGenderBaseComponent implements OnInit {
   isInteger:(number: string) => boolean;
   MAX_VALUE: Number = Number.MAX_VALUE;
   fieldStates: Array<boolean> = [];
+  errorDescription: Array<string> = [];
 
   constructor(protected utilService: UtilService) {
     this.isInteger = this.utilService.isInteger;
@@ -31,7 +32,8 @@ export class RaceGenderBaseComponent implements OnInit {
     return false;
   }
 
-  updateInvalid(event: {id: string, name: string, invalid: boolean}) {
+  updateInvalid(event: {id: string, name: string, invalid: boolean, description: string}) {
     this.fieldStates[event.name] = event.invalid;
+    this.errorDescription[event.id] = event.description;
   }
 }

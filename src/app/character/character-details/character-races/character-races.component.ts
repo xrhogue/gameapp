@@ -29,7 +29,7 @@ export class CharacterRacesComponent extends CharacterBaseComponent implements O
 
   ngOnInit() {
     this.raceService.getGenders().subscribe(genders => {
-      this.genders = genders;
+      this.genders = genders.filter(gender => gender.id != 0);
 
       this.raceService.getRaces().subscribe(races => {
         this.races = races;
@@ -74,6 +74,10 @@ export class CharacterRacesComponent extends CharacterBaseComponent implements O
       this.character.races.splice(index, 1);
       this.selectedCharacterRace.percent = this.getRemainingPercent();
     }
+  }
+
+  updateRaces() {
+    this.character.races = this.character.races.filter(characterRace => this.getRace(characterRace).genders.find(gender => gender.id === this.character.genderId) != null);
   }
 
   getRace(characterRace: CharacterRace): Race {

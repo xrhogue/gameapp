@@ -8,8 +8,10 @@
          [name]="name"
          required
          [disabled]="disabled"
-         [gt]="min"
-         [lt]="max"
+         [gt]="exclusiveMin ? min : getMinValue()"
+         [gte]="!exclusiveMin ? min : getMinValue()"
+         [lt]="exclusiveMax ? max : getMaxValue()"
+         [lte]="!exclusiveMax ? max : getMaxValue()"
          [pattern]="pattern"
          [(ngModel)]="value"
          (ngModelChange)="valueChange.emit(value)"
@@ -21,6 +23,8 @@
   <div *ngIf="number.invalid && showError" class="alert alert-danger">
     <div *ngIf="number.errors.required">Required</div>
     <div *ngIf="number.errors.gt">Value must be greater than {{min}}</div>
+    <div *ngIf="number.errors.gte">Value must be greater than or equal to {{min}}</div>
     <div *ngIf="number.errors.lt">Value must be less than {{max}}</div>
+    <div *ngIf="number.errors.lte">Value must be less than or equal to {{max}}</div>
   </div>
 </div>

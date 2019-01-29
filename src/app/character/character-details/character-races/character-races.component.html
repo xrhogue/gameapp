@@ -3,8 +3,8 @@
   <div class="small-12 medium-6 columns">
     <label class="control-label" for="gender">Gender
       <div class="input-group">
-        <select id="gender" class="form-control" [(ngModel)]="character.genderId" name="gender" required #gender="ngModel">
-          <option *ngFor="let gender of genders" [value]="gender.id">{{gender.name}}</option>
+        <select id="gender" class="form-control" [(ngModel)]="character.genderId" (ngModelChange)="updateRaces()" name="gender" required #gender="ngModel">
+          <option *ngFor="let gender of genders" [ngValue]="gender.id">{{gender.name}}</option>
         </select>
       </div>
     </label>

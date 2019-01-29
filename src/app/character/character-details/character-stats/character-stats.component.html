@@ -20,6 +20,8 @@
                     [(value)]="characterStat.value"
                     [min]="0"
                     [max]="characterStat.max"
+                    [exclusiveMin]="false"
+                    [exclusiveMax]="false"
                     (invalid)="updateInvalid($event)"
                     [decorator]="''">
         </app-number>

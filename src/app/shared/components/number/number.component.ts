@@ -21,6 +21,8 @@ export class NumberComponent implements OnInit {
   @Input() width: string = "5";
   @Input() min: number = Number.MIN_VALUE;
   @Input() max: number = Number.MAX_VALUE;
+  @Input() exclusiveMin: boolean = true;
+  @Input() exclusiveMax: boolean = true;
   @Input() disabled: boolean = false;
   @Input() showError: boolean = true;
 
@@ -35,7 +37,7 @@ export class NumberComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateInvalid(invalid: boolean, errors: {required: boolean, gt: boolean, lt: boolean}) {
+  updateInvalid(invalid: boolean, errors: {required: boolean, gt: boolean, gte: boolean, lt: boolean, lte: boolean}) {
 
     let description: string = '';
 
@@ -46,9 +48,21 @@ export class NumberComponent implements OnInit {
         description = 'Value must be greater than ' + this.min;
       } else if (errors.lt) {
         description = 'Value must be less than ' + this.max;
+      } else if (errors.gte) {
+        description = 'Value must be greater than or equal to ' + this.min;
+      } else if (errors.lte) {
+        description = 'Value must be less than or equal to ' + this.max;
       }
     }
 
     this.invalid.emit({id: this.id, name: this.name, invalid: invalid, description: description});
+  }
+
+  getMinValue(): number {
+    return Number.MIN_VALUE;
+  }
+
+  getMaxValue(): number {
+    return Number.MAX_VALUE;
   }
 }

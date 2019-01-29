@@ -11,6 +11,15 @@ import {Gender} from "../../admin/shared/gender";
 import {Stat} from "../../admin/shared/stat";
 import {Skill} from "admin/shared/skill";
 import {Character} from "admin/shared/character";
+import {RaceStat} from "admin/shared/race-stat";
+import {RaceAge} from "admin/shared/race-age";
+import {RaceMeasurement} from "admin/shared/race-measurement";
+import {RaceComplexion} from "admin/shared/race-complexion";
+import {RaceEyeColor} from "admin/shared/race-eye-color";
+import {RaceHairColor} from "admin/shared/race-hair-color";
+import {RaceSkinColor} from "admin/shared/race-skin-color";
+import {CharacterStat} from "admin/shared/character-stat";
+import {CharacterRace} from "admin/shared/character-race";
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +37,8 @@ export class MockService implements InMemoryDbService {
     let genders = [
       new Gender(0, 'Base'),
       new Gender(1, 'Male'),
-      new Gender(2, 'Female')
+      new Gender(2, 'Female'),
+      new Gender(3, 'Invalid')
     ];
 
     let complexions = [
@@ -52,9 +62,34 @@ export class MockService implements InMemoryDbService {
     ];
 
     let races = [
-      new Race(1, 'Human'),
+      new Race(1,
+        'Human',
+        true,
+        null,
+        [genders[1], genders[2]],
+        [[new RaceStat(1, 1, 70, 100, 150), new RaceStat(2, 1, 70, 100, 150)]],
+        [new RaceAge(1)],
+        [new RaceMeasurement(1)],
+        [new RaceComplexion(1, 1)],
+        [new RaceEyeColor(1, 1)],
+        [new RaceHairColor(1, 1)],
+        [new RaceSkinColor(1, 1)],
+        [100]),
       new Race(2, 'Felisi'),
-      new Race(3, 'Charr', true, 2)
+      new Race(3, 'Charr', true, 2),
+      new Race(4,
+        'Aelvari',
+        true,
+        null,
+        [genders[1], genders[2]],
+        [[new RaceStat(1, 1, 65, 95, 145), new RaceStat(2, 1, 65, 95, 145)]],
+        [new RaceAge(1)],
+        [new RaceMeasurement(1)],
+        [new RaceComplexion(1, 1)],
+        [new RaceEyeColor(1, 1)],
+        [new RaceHairColor(1, 1)],
+        [new RaceSkinColor(1, 1)],
+        [100]),
     ];
 
     let skills = [
@@ -64,7 +99,12 @@ export class MockService implements InMemoryDbService {
     ];
 
     let characters = [
-      new Character(1, 'Bob', 1),
+      new Character(
+        1,
+        'Bob',
+        1,
+        [new CharacterStat(1, 1, 71), new CharacterStat(1, 2, 81)],
+        [new CharacterRace(1, 1, 50), new CharacterRace(1, 4, 50)]),
       new Character(2, 'Dell', 1),
       new Character(3, 'Harriet', 2)
     ];
