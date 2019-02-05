@@ -6,6 +6,8 @@ import {SkillService} from "../../../service/skill/skill.service";
 import {Stat} from "admin/shared/stat";
 import {CharacterSkill} from "admin/shared/character-skill";
 import {Router} from "@angular/router";
+import {CharacterRace} from "admin/shared/character-race";
+import {Character} from "admin/shared/character";
 
 @Component({
   selector: 'app-character-skills',
@@ -13,7 +15,10 @@ import {Router} from "@angular/router";
   styleUrls: ['./character-skills.component.scss']
 })
 export class CharacterSkillsComponent extends CharacterBaseComponent implements OnInit {
-  skills: Array<Skill>
+  skills: Array<Skill>;
+  character: Character;
+  selectedCharacterSkills: Array<CharacterSkill> = [];
+  showDialog: boolean = false;
 
   constructor(private skillService: SkillService, protected utilService: UtilService, private router: Router) {
     super(utilService);
@@ -33,8 +38,8 @@ export class CharacterSkillsComponent extends CharacterBaseComponent implements 
     }
   }
 
-  addCharacterSkill() {
-    this.router.navigateByUrl('/character/skill/0');
+  addCharacterSkills(characterSkills: Array<CharacterSkill>) {
+    characterSkills.forEach(characterSkill => this.character.skills.push(characterSkill));
   }
 
   updateCharacterSkill(characterSkill: CharacterSkill) {
@@ -42,7 +47,17 @@ export class CharacterSkillsComponent extends CharacterBaseComponent implements 
   }
 
   deleteCharacterSkill(skillId: number) {
-    // delete from the character object
+    this.utilService.deleteObjectFromArray(this.character.skills, skillId, this.comparator);
+    //
+    // let index: number = this.character.skills.findIndex(characterSkill => characterSkill.skillId === skillId);
+    //
+    // if (index > -1) {
+    //   this.character.skills.splice(index, 1);
+    // }
+  }
+
+  comparator(characterSkill: CharacterSkill, skillId: number): boolean {
+    return characterSkill.skillId === skillId;
   }
 
   getSkill(characterSkill: CharacterSkill): Skill {

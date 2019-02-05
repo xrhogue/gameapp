@@ -1,0 +1,22 @@
+<div>
+  <h4>Skills</h4>
+  <p-tree styleClass="character-skill-tree"
+          [value]="characterSkillTreeNodes"
+          selectionMode="checkbox"
+          [(selection)]="selectedCharacterSkillTreeNodes"
+          (selection)="characterChange.emit(character)"
+          [propagateSelectionUp]="false"
+          [propagateSelectionDown]="false"
+          (onNodeSelect)="characterSkillSelected($event)"
+          (onNodeUnselect)="characterSkillUnselected($event)">
+    <ng-template let-node pTemplate="default">
+      {{getSkill(node.data).name}}
+    </ng-template>
+  </p-tree>
+  <div>
+    <div>
+      Selected Skills
+    </div>
+    <textarea class="character-skill-area" [ngModel]="selectedSkillNames"></textarea>
+  </div>
+</div>

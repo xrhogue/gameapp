@@ -95,7 +95,11 @@ export class MockService implements InMemoryDbService {
     let skills = [
       new Skill(1, 'Hunting', 'Hunting', 3, 3, true, null, 1, [1],  null, null, null),
       new Skill(2, 'Targeting', 'Targeting', 3, 3, true, 1, 1, [1,2],  null, null, null),
-      new Skill(3, 'Partying', 'Partying', 3, 3, true, null, 1, [1,2],  null, null, null)
+      new Skill(3, 'Partying', 'Partying', 3, 3, true, null, 1, [1,2],  [3], null, null),
+      new Skill(4, 'Prerequisite Skill 1', 'PS1', 3, 3, true, null, 1, [1,2],  null, null, null),
+      new Skill(5, 'Prerequisite Skill 2', 'PS2', 3, 3, true, null, 1, [1,2],  [1], null, null),
+      new Skill(6, 'Prerequisite Skill 3', 'PS3', 3, 3, true, null, 1, [1,2],  [2,4], null, null),
+      new Skill(7, 'Prerequisite Skill 4', 'PS4', 3, 3, true, null, 1, [1,2],  null, null, null)
     ];
 
     let characters = [

@@ -32,6 +32,7 @@ import {RaceService} from "./service/race/race.service";
 import {CharacterService} from "./service/character/character.service";
 import { CharacterAddRaceComponent } from './character/character-details/character-races/character-add-race/character-add-race.component';
 import {TableModule} from "primeng/table";
+import { CharacterAddSkillComponent } from './character/character-details/character-skills/character-add-skill/character-add-skill.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {TableModule} from "primeng/table";
     CharacterRacesComponent,
     CharacterStatsComponent,
     CharacterSkillsComponent,
-    CharacterAddRaceComponent
+    CharacterAddRaceComponent,
+    CharacterAddSkillComponent
   ],
   imports: [
     BrowserModule,

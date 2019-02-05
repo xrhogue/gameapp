@@ -16,5 +16,16 @@
   </tbody>
 </table>
 <div>
-  <button type="button" class="btn btn-secondary" ngbTooltip="Add a new Skill" placement="top" (click)="addCharacterSkill()"><i class="material-icons">add_box</i>New Skill</button>
+  <button type="button" class="btn btn-secondary" ngbTooltip="Add a new Skill" placement="top" (click)="showDialog=true"><i class="material-icons">add_box</i>New Skill</button>
 </div>
+<p-dialog header="New Skills" [(visible)]="showDialog">
+  <div class="small-12 medium-6 columns">
+    <div>
+      <app-character-add-skill [(character)]="character" [(selectedCharacterSkills)]="selectedCharacterSkills"></app-character-add-skill>
+    </div>
+  </div>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" [disabled]="selectedCharacterSkills.length == 0" (click)="addCharacterSkills(selectedCharacterSkills);showDialog=false" label="Add"></button>
+    <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>

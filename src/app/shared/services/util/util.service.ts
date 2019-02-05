@@ -18,4 +18,18 @@ export class UtilService {
   capitalize(value: string): string {
     return value.toLowerCase().replace(/^\w/, c => c.toUpperCase());
   }
+
+  deleteObjectFromArray(array: Array<Object>, id: number,  comparator: (object: Object, id: number) => boolean) {
+    if (!array || array.length === 0 || !id || !comparator) {
+      return;
+    }
+
+    let index: number = array.findIndex(object => comparator(object, id));
+
+    if (index > -1) {
+      return array.splice(index, 1)[0];
+    }
+
+    return null;
+  }
 }
