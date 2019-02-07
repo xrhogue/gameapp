@@ -6,6 +6,11 @@
       </a>
     </li>
     <li>
+      <a routerLink="admin/campaigns" [class.activated]="currentUrl == '/admin/campaigns'" ngbTooltip="Campaigns" placement="right">
+        <i class="material-icons">list</i>
+      </a>
+    </li>
+    <li>
       <a routerLink="admin/stats" [class.activated]="currentUrl == '/admin/stats'" ngbTooltip="Stats" placement="right">
         <i class="material-icons">list</i>
       </a>

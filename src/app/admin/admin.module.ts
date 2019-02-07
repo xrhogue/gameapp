@@ -29,12 +29,13 @@ import { RaceGeneralComponent } from './race/race-details/race-general/race-gene
 import { RaceGenderComponent } from './race/race-details/race-gender/race-gender.component';
 import { RaceAttributesComponent } from './race/race-details/race-attributes/race-attributes.component';
 import { RaceAttributeDetailsComponent } from './race/race-details/race-attribute-details/race-attribute-details.component';
-import {NumberComponent} from "../shared/components/number/number.component";
 import { RaceStatsComponent } from './race/race-details/race-stats/race-stats.component';
 import { RaceAgesComponent } from './race/race-details/race-ages/race-ages.component';
 import { RaceMeasurementsComponent } from './race/race-details/race-measurements/race-measurements.component';
 import { RaceGenderBaseComponent } from './race/shared/components/race-gender-base/race-gender-base.component';
 import { SkillRacesComponent } from './skill/skill-details/skill-races/skill-races.component';
+import { DeitiesComponent } from './deity/deities/deities.component';
+import { CampaignsComponent } from './campaign/campaigns/campaigns.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,9 @@ import { SkillRacesComponent } from './skill/skill-details/skill-races/skill-rac
     RaceStatsComponent,
     RaceAgesComponent,
     RaceMeasurementsComponent,
-    RaceGenderBaseComponent
+    RaceGenderBaseComponent,
+    DeitiesComponent,
+    CampaignsComponent
   ],
   imports: [
     CommonModule,

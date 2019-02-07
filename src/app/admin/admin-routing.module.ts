@@ -9,6 +9,7 @@ import {DeactivateGuard} from "../shared/guards/deactivate-guard/deactivate-guar
 import {RacesComponent} from "./race/races/races.component";
 import {RaceDetailsComponent} from "./race/race-details/race-details.component";
 import {AttributesComponent} from "./race/attributes/attributes.component";
+import {CampaignsComponent} from "admin/campaign/campaigns/campaigns.component";
 
 const adminRoutes: Routes = [
   {
@@ -19,6 +20,10 @@ const adminRoutes: Routes = [
         path: '',
         canActivateChild: [AuthGuard],
         children: [
+          {
+            path: 'campaigns',
+            component: CampaignsComponent
+          },
           {
             path: 'stats',
             component: StatsComponent
