@@ -11,6 +11,16 @@
       </a>
     </li>
     <li>
+      <a routerLink="admin/deities" [class.activated]="currentUrl == '/admin/deities'" ngbTooltip="Deities" placement="right">
+        <i class="material-icons">list</i>
+      </a>
+    </li>
+    <li>
+      <a routerLink="admin/locations" [class.activated]="currentUrl == '/admin/locations'" ngbTooltip="Locations" placement="right">
+        <i class="material-icons">list</i>
+      </a>
+    </li>
+    <li>
       <a routerLink="admin/stats" [class.activated]="currentUrl == '/admin/stats'" ngbTooltip="Stats" placement="right">
         <i class="material-icons">list</i>
       </a>

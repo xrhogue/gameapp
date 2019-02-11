@@ -20,6 +20,6 @@ export class UniqueNameDirective {
 
 export function uniqueNameValidator(uniqueName: UniqueName): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    return uniqueName.attributes.filter(attribute=>attribute.name === control.value).length == 0 ? null : {'uniqueName': {value: control.value, description: "'" + control.value + "' is not unique"}};
+    return !uniqueName.idNameValues || uniqueName.idNameValues.filter(idNameValue=>idNameValue.name === control.value).length == 0 ? null : {'uniqueName': {value: control.value, description: "'" + control.value + "' is not unique"}};
   };
 }

@@ -33,6 +33,9 @@ import {CharacterService} from "./service/character/character.service";
 import { CharacterAddRaceComponent } from './character/character-details/character-races/character-add-race/character-add-race.component';
 import {TableModule} from "primeng/table";
 import { CharacterAddSkillComponent } from './character/character-details/character-skills/character-add-skill/character-add-skill.component';
+import {CampaignService} from "./service/campaign/campaign.service";
+import {LocationService} from "./service/location/location.service";
+import {DeityService} from "./service/deity/deity.service";
 
 @NgModule({
   declarations: [
@@ -67,6 +70,9 @@ import { CharacterAddSkillComponent } from './character/character-details/charac
     InMemoryWebApiModule.forRoot(MockService, {delay: 0})
   ],
   providers: [
+    CampaignService,
+    DeityService,
+    LocationService,
     StatService,
     RaceService,
     SkillService,

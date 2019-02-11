@@ -1,3 +1,11 @@
-<p>
-  campaigns works!
-</p>
+<div>
+  <div class="campaign-title">
+    Campaigns
+  </div>
+  <div>
+    <input id="campaign-name" type="text" class="campaign-name" pInputText placeholder="Add Campaign" (input)="check($event.target.value)" [appUniqueName]="{idNameValues: this.campaigns}" (keyup.enter)="addName()" [(ngModel)]="name" #campaign="ngModel"/>
+    <div *ngIf="!!campaign.errors && campaign.errors['uniqueName']">{{campaign.errors['uniqueName'].description}}</div>
+    <p-listbox styleClass="campaign-list" [listStyle]="{'max-height': '200px'}" [options]="campaigns" optionLabel="name" multiple="false" showToggleAll="false" checkbox="true" [(ngModel)]="selectedCampaigns"></p-listbox>
+    <p-button label="Delete Selected" [disabled]="selectedCampaigns.length == 0" (onClick)="deleteNames($event)"></p-button>
+  </div>
+</div>

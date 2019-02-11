@@ -20,6 +20,7 @@ import {RaceHairColor} from "admin/shared/race-hair-color";
 import {RaceSkinColor} from "admin/shared/race-skin-color";
 import {CharacterStat} from "admin/shared/character-stat";
 import {CharacterRace} from "admin/shared/character-race";
+import {Campaign} from "admin/shared/campaign";
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,12 @@ export class MockService implements InMemoryDbService {
   constructor() { }
 
   createDb(reqInfo?: RequestInfo): {} | Observable<{}> | Promise<{}> {
+//    let campaigns: Campaign[] = [];
+    let campaigns = [
+      new Campaign(1,0,'test'),
+      new Campaign(2,0,'test2')
+    ];
+
     let stats = [
       new Stat(1, 'Strength', 'STR', 'S',1),
       new Stat(2, 'Intelligence', 'INT', 'I', 1)
@@ -114,6 +121,7 @@ export class MockService implements InMemoryDbService {
     ];
 
     return {
+      campaigns: campaigns,
       stats: stats,
       genders: genders,
       complexions: complexions,

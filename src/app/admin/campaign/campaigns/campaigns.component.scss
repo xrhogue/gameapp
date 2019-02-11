@@ -1,0 +1,15 @@
+.campaign-title {
+  font-size: larger;
+  font-weight: bold;
+}
+
+:host ::ng-deep .campaign-name {
+  width: 200px;
+  margin-right: 20px;
+}
+:host ::ng-deep .campaign-list {
+  height: 250px;
+  max-height: 250px;
+  width: 200px;
+  margin-right: 20px;
+}

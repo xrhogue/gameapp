@@ -36,6 +36,7 @@ import { RaceGenderBaseComponent } from './race/shared/components/race-gender-ba
 import { SkillRacesComponent } from './skill/skill-details/skill-races/skill-races.component';
 import { DeitiesComponent } from './deity/deities/deities.component';
 import { CampaignsComponent } from './campaign/campaigns/campaigns.component';
+import { LocationsComponent } from './location/locations/locations.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { CampaignsComponent } from './campaign/campaigns/campaigns.component';
     RaceMeasurementsComponent,
     RaceGenderBaseComponent,
     DeitiesComponent,
-    CampaignsComponent
+    CampaignsComponent,
+    LocationsComponent
   ],
   imports: [
     CommonModule,

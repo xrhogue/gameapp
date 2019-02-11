@@ -1,8 +1,8 @@
-import {Attribute} from "./attribute";
+import {IdNameValue} from "admin/shared/id-name-value";
 
 export class UniqueName {
   constructor(
-    public attributes: Array<Attribute>,
+    public idNameValues: Array<IdNameValue>,
     public name: string
   ) {}
 }

@@ -10,6 +10,8 @@ import {RacesComponent} from "./race/races/races.component";
 import {RaceDetailsComponent} from "./race/race-details/race-details.component";
 import {AttributesComponent} from "./race/attributes/attributes.component";
 import {CampaignsComponent} from "admin/campaign/campaigns/campaigns.component";
+import {LocationsComponent} from "admin/location/locations/locations.component";
+import {DeitiesComponent} from "admin/deity/deities/deities.component";
 
 const adminRoutes: Routes = [
   {
@@ -23,6 +25,14 @@ const adminRoutes: Routes = [
           {
             path: 'campaigns',
             component: CampaignsComponent
+          },
+          {
+            path: 'deities',
+            component: DeitiesComponent
+          },
+          {
+            path: 'locations',
+            component: LocationsComponent
           },
           {
             path: 'stats',

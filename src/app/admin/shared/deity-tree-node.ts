@@ -1,8 +1,9 @@
 import {TreeNode} from "primeng/api";
+import {Deity} from "admin/shared/deity";
 
 export class DeityTreeNode implements TreeNode {
   constructor(
-    public data: Race,
+    public data: Deity,
     public parent: DeityTreeNode,
     public children?: DeityTreeNode[],
     public leaf?: boolean,
