@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {} from 'jasmine';
 import { CampaignsComponent } from './campaigns.component';
 
 describe('CampaignsComponent', () => {
