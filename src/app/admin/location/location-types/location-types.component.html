@@ -1,0 +1,11 @@
+<div>
+  <div class="location-type-title">
+    Campaigns
+  </div>
+  <div>
+    <input id="location-type-name" type="text" class="location-type-name" pInputText placeholder="Add Location Type" (input)="check($event.target.value)" [appUniqueName]="{idNameValues: this.campaigns}" (keyup.enter)="addName()" [(ngModel)]="name" #locationType="ngModel"/>
+    <div *ngIf="!!locationType.errors && locationType.errors['uniqueName']">{{locationType.errors['uniqueName'].description}}</div>
+    <p-listbox styleClass="location-type-list" [listStyle]="{'max-height': '200px'}" [options]="locationTypes" optionLabel="name" multiple="false" showToggleAll="false" checkbox="true" [(ngModel)]="selectedLocationTypes"></p-listbox>
+    <p-button label="Delete Selected" [disabled]="selectedLocationTypes.length == 0" (onClick)="deleteNames($event)"></p-button>
+  </div>
+</div>

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {LocationDetailsComponent} from "admin/location/location-details/location-details.component";
+import {LocationTypesComponent} from "admin/location/location-types/location-types.component";
 import { StatsComponent } from './stat/stats/stats.component';
 import { StatDetailsComponent } from './stat/stat-details/stat-details.component';
 import {SkillDetailsComponent} from "./skill/skill-details/skill-details.component";
@@ -33,6 +35,18 @@ const adminRoutes: Routes = [
           {
             path: 'locations',
             component: LocationsComponent
+          },
+          {
+            path: 'locations/0',
+            component: LocationDetailsComponent
+          },
+          {
+            path: 'locations/:id',
+            component: LocationDetailsComponent
+          },
+          {
+            path: 'locationTypes',
+            component: LocationTypesComponent
           },
           {
             path: 'stats',

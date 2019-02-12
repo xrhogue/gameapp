@@ -37,6 +37,8 @@ import { SkillRacesComponent } from './skill/skill-details/skill-races/skill-rac
 import { DeitiesComponent } from './deity/deities/deities.component';
 import { CampaignsComponent } from './campaign/campaigns/campaigns.component';
 import { LocationsComponent } from './location/locations/locations.component';
+import { LocationTypesComponent } from './location/location-types/location-types.component';
+import { LocationDetailsComponent } from './location/location-details/location-details.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { LocationsComponent } from './location/locations/locations.component';
     RaceGenderBaseComponent,
     DeitiesComponent,
     CampaignsComponent,
-    LocationsComponent
+    LocationsComponent,
+    LocationTypesComponent,
+    LocationDetailsComponent
   ],
   imports: [
     CommonModule,

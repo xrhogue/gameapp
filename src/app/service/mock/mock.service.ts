@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {LocationType} from "admin/shared/location-type";
 import {InMemoryDbService} from 'angular-in-memory-web-api';
 import {Observable} from "rxjs/internal/Observable";
 import {RequestInfo} from "angular-in-memory-web-api/interfaces";
@@ -21,6 +22,8 @@ import {RaceSkinColor} from "admin/shared/race-skin-color";
 import {CharacterStat} from "admin/shared/character-stat";
 import {CharacterRace} from "admin/shared/character-race";
 import {Campaign} from "admin/shared/campaign";
+import {Deity} from "admin/shared/deity";
+import {Location} from "admin/shared/location";
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +32,17 @@ export class MockService implements InMemoryDbService {
 
   constructor() { }
 
-  createDb(reqInfo?: RequestInfo): {} | Observable<{}> | Promise<{}> {
-//    let campaigns: Campaign[] = [];
-    let campaigns = [
-      new Campaign(1,0,'test'),
-      new Campaign(2,0,'test2')
+  // elements must contain as least one element or the mock service is unable to determine the type when adding the an element
+  createDb(reqInfo?: RequestInfo): {} | Observable<{}> {
+    let campaigns: Campaign[] = [
+      new Campaign(0,0,'System')
     ];
+
+    let locations: Location[] = [new Location(0, 0, null, 0,"System", null)];
+
+    let locationTypes: LocationType[] = [new LocationType(0, "World")];
+
+    let deities: Deity[] = [new Deity(0, 0, null, "System")];
 
     let stats = [
       new Stat(1, 'Strength', 'STR', 'S',1),
@@ -122,6 +130,9 @@ export class MockService implements InMemoryDbService {
 
     return {
       campaigns: campaigns,
+      locations: locations,
+      locationTypes: locationTypes,
+      deities: deities,
       stats: stats,
       genders: genders,
       complexions: complexions,
