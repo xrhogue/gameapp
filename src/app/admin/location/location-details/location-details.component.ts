@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "admin/shared/location";
 import {LocationType} from "admin/shared/location-type";
 import {Observable} from "rxjs";
 import {LocationService} from "../../../service/location/location.service";
+import {AddNameComponent} from "../../../shared/components/add-name/add-name.component";
 import {DialogService} from "../../../shared/services/dialog/dialog.service";
 
 @Component({
@@ -15,6 +16,8 @@ export class LocationDetailsComponent implements OnInit {
   id: number;
   location: Location;
   types: Array<LocationType>;
+  showDialog: boolean = false;
+  locationTypeName: string = "";
   ignoreDirty: boolean = false;
   JSON: JSON;
 
@@ -59,5 +62,12 @@ export class LocationDetailsComponent implements OnInit {
     }
 
     return this.dialogService.confirm('Discard changes?');
+  }
+
+  addLocationType() {
+    this.locationService.addLocationType(new LocationType(null, this.locationTypeName)).subscribe(locationType => {
+      this.locationTypeName = '';
+      this.locationService.getLocationTypes().subscribe(locationTypes => this.types = locationTypes.filter(locationType => locationType.id !== 0));
+    });
   }
 }

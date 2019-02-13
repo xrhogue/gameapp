@@ -1,0 +1,16 @@
+<input id="name"
+       type="text"
+       [name]="name"
+       [type]="type"
+       autofocus
+       oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())"
+       pInputText
+       placeholder="Add {{type}}"
+       (keyup.enter)="emitIfValid()"
+       [appUniqueName]="{idNameValues: this.idNameValues}"
+       [(ngModel)]="name"
+       (ngModelChange)="nameChange.emit(name)"
+       #nameInput="ngModel"/>
+<div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="alert alert-danger">
+  <div *ngIf="!!nameInput.errors && nameInput.errors['uniqueName']">{{nameInput.errors['uniqueName'].description}}</div>
+</div>

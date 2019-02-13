@@ -19,6 +19,7 @@ import {FormsModule} from "@angular/forms";
 import {CustomFormsModule} from "ng2-validation";
 import {UniqueGenderDirective} from "./directives/unique-gender/unique-gender.directive";
 import { CharacterBaseComponent } from './components/character-base/character-base.component';
+import { AddNameComponent } from './components/add-name/add-name.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CharacterBaseComponent } from './components/character-base/character-ba
     BetweenDirective,
     LoginComponent,
     NumberComponent,
-    CharacterBaseComponent
+    CharacterBaseComponent,
+    AddNameComponent
   ],
   imports: [
     CommonModule,
@@ -43,6 +45,7 @@ import { CharacterBaseComponent } from './components/character-base/character-ba
   exports: [
     PageNotFoundComponent,
     NumberComponent,
+    AddNameComponent,
     UniqueStatDirective,
     UniqueRaceDirective,
     UniqueSkillDirective,

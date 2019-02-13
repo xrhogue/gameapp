@@ -19,9 +19,17 @@
 <div class="row">
   <div class="small-12 medium-6 columns">
     <label class="control-label" for="type">Type
-      <select id="type" class="form-control" [(ngModel)]="location.type" name="type" required #type="ngModel">
-        <option *ngFor="let type of types" [value]="type.name">{{type}}</option>
-      </select>
+        <select id="type" class="form-control" [(ngModel)]="location.type" name="type" required #type="ngModel">
+          <option *ngFor="let type of types" [value]="type">{{type.name}}</option>
+        </select>
     </label>
+    <p-button label="New" (onClick)="showDialog=true"></p-button>
   </div>
 </div>
+<p-dialog header="New Location Type" [(visible)]="showDialog" (onShow)="type.focus()">
+  <app-add-name [(name)]="locationTypeName" [type]="'Location Type'" [idNameValues]="types" (enter)="addLocationType();showDialog=false" #type></app-add-name>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" [disabled]="locationTypeName?.length == 0 || !!type.invalid()" (click)="addLocationType();showDialog=false" label="Add"></button>
+    <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
