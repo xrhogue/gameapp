@@ -7,8 +7,8 @@ import {IdNameValue} from "admin/shared/id-name-value";
   styleUrls: ['./add-name.component.scss']
 })
 export class AddNameComponent implements OnInit {
-  @Input() type: string = "Type";
   @Input() name: string;
+  @Input() label: string = "Type";
   @Input() idNameValues: Array<IdNameValue>;
   @Output() enter: EventEmitter<string> = new EventEmitter<string>();
   @Output() nameChange: EventEmitter<string> = new EventEmitter<string>();

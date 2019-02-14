@@ -1,11 +1,9 @@
 <input id="name"
        type="text"
-       [name]="name"
-       [type]="type"
        autofocus
        oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())"
        pInputText
-       placeholder="Add {{type}}"
+       placeholder="Add {{label}}"
        (keyup.enter)="emitIfValid()"
        [appUniqueName]="{idNameValues: this.idNameValues}"
        [(ngModel)]="name"

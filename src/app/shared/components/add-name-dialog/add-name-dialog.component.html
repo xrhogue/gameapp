@@ -1,0 +1,7 @@
+<p-dialog [header]="header" [(visible)]="visible" (onShow)="type.focus()">
+  <app-add-name [(name)]="name" [label]="label" [idNameValues]="idNameValues" (enter)="addName()" #type></app-add-name>
+  <p-footer>
+    <p-button icon="pi pi-check" [disabled]="name?.length == 0 || !!type.invalid()" (click)="addName()" label="Add"></p-button>
+    <p-button icon="pi pi-close" (click)="cancel()" label="Cancel" class="ui-button-secondary"></p-button>
+  </p-footer>
+</p-dialog>

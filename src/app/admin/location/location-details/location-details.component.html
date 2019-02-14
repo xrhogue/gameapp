@@ -23,13 +23,14 @@
           <option *ngFor="let type of types" [value]="type">{{type.name}}</option>
         </select>
     </label>
-    <p-button label="New" (onClick)="showDialog=true"></p-button>
+    <p-button icon="pi pi-plus" (onClick)="showDialog=true"></p-button>
   </div>
 </div>
-<p-dialog header="New Location Type" [(visible)]="showDialog" (onShow)="type.focus()">
-  <app-add-name [(name)]="locationTypeName" [type]="'Location Type'" [idNameValues]="types" (enter)="addLocationType();showDialog=false" #type></app-add-name>
-  <p-footer>
-    <button type="button" pButton icon="pi pi-check" [disabled]="locationTypeName?.length == 0 || !!type.invalid()" (click)="addLocationType();showDialog=false" label="Add"></button>
-    <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
-  </p-footer>
-</p-dialog>
+<app-add-name-dialog
+  [header]="'New Location Type'"
+  [(visible)]="showDialog"
+  [(name)]="locationTypeName"
+  (nameChange)="addLocationType()"
+  [label]="'Location Type'"
+  [idNameValues]="types">
+</app-add-name-dialog>
