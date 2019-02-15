@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "admin/shared/location";
 import {LocationType} from "admin/shared/location-type";
@@ -14,11 +14,13 @@ import {DialogService} from "../../../shared/services/dialog/dialog.service";
 })
 export class LocationDetailsComponent implements OnInit {
   id: number;
-  location: Location;
-  types: Array<LocationType>;
-  showDialog: boolean = false;
+  @Input() location: Location;
+  locationTypes: Array<LocationType>;
   locationTypeName: string = "";
-  ignoreDirty: boolean = false;
+  @Input() modal: boolean = false;
+  @Output() locationChange: EventEmitter<Location> = new EventEmitter<Location>();
+  @ViewChild('name') nameInput: any;
+  dirty: boolean = false;
   JSON: JSON;
 
   constructor(private route: ActivatedRoute, private router: Router, private locationService: LocationService, private dialogService: DialogService) {
@@ -27,11 +29,21 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.id > 0) {
-      this.locationService.getLocation(this.id).subscribe(location => this.location = location);
-    }
-    else {
-      this.location = new Location(null,null,null,null,"");
+    this.locationService.getLocationTypes().subscribe(locationTypes => {
+      this.locationTypes = locationTypes.filter(locationType => locationType.id !== 0);
+
+      if (this.id > 0) {
+        this.locationService.getLocation(this.id).subscribe(location => this.location = location);
+      }
+      else if (!this.location) {
+        this.location = new Location(null, null, null, !!this.locationTypes && this.locationTypes.length > 0 ? this.locationTypes[0].id : null, "");
+      }
+    });
+  }
+
+  focus() {
+    if (!!this.nameInput) {
+      this.nameInput.valueAccessor._elementRef.nativeElement.focus();
     }
   }
 
@@ -39,35 +51,49 @@ export class LocationDetailsComponent implements OnInit {
     if (!this.location.id) {
       this.locationService.addLocation(this.location).subscribe(location => {
         this.location = location;
-        this.ignoreDirty = true;
-        this.router.navigate(['/admin/locations']);
+        this.dirty = false;
+        this.finalize();
       });
     }
     else {
       this.locationService.updateLocation(this.location).subscribe(location => {
         this.location = location;
-        this.ignoreDirty = true;
-        this.router.navigate(['/admin/locations']);
+        this.dirty = false;
+        this.finalize();
       });
     }
   }
 
   cancel() {
-    this.router.navigate(['/admin/locations']);
-  }
-
-  canDeactivate(): Observable<boolean> | boolean {
-    if (this.ignoreDirty) {
+    if (!this.dirty) {
       return true;
     }
 
-    return this.dialogService.confirm('Discard changes?');
+    this.dialogService.confirm('Discard changes?').subscribe(exit => {
+      if (exit) {
+        this.finalize();
+      }
+    });
   }
 
   addLocationType() {
     this.locationService.addLocationType(new LocationType(null, this.locationTypeName)).subscribe(locationType => {
       this.locationTypeName = '';
-      this.locationService.getLocationTypes().subscribe(locationTypes => this.types = locationTypes.filter(locationType => locationType.id !== 0));
+      this.locationService.getLocationTypes().subscribe(locationTypes => {
+        this.locationTypes = locationTypes.filter(locationType => locationType.id !== 0);
+        if (!this.location.typeId) {
+          this.location.typeId = !!this.locationTypes && this.locationTypes.length > 0 ? this.locationTypes[0].id : null;
+        }
+      });
     });
+  }
+
+  finalize() {
+    if (!this.modal) {
+      this.router.navigate(['/admin/locations']).catch(/*display an error message?*/);
+    }
+    else {
+      this.locationChange.emit(this.location);
+    }
   }
 }

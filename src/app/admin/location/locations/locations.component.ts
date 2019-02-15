@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LocationType} from "admin/shared/location-type";
 import {MenuItem} from 'primeng/api';
 import {Location} from 'admin/shared/location';
 import {LocationService} from '../../../service/location/location.service';
@@ -13,23 +14,28 @@ import {Column} from 'admin/shared/column';
 })
 export class LocationsComponent implements OnInit {
   locations: Array<Location>;
+  locationTypes: Array<LocationType>;
   locationTreeNodes: Array<LocationTreeNode>;
   selectedLocationTreeNode: LocationTreeNode;
   selectedLocationTreeNodes: Array<LocationTreeNode>;
-  cols: Array<Column>;
+  columns: Array<Column>;
   items: Array<MenuItem>;
   draggedLocationTreeNode: LocationTreeNode;
+  location: Location;
+  showDialog: boolean = false;
 
   constructor(private locationService: LocationService, private router: Router) { }
 
   ngOnInit() {
-    this.cols = [
+    this.columns = [
       { field: 'name', header: 'Name'},
+      { field: 'typeId', header: 'Type'},
       { field: 'selectable', header: 'Selectable' },
       { field: 'actions', header: '' }
     ];
 
     this.items = [
+      {label: 'Add', command: (event: any) => {this.addChildLocation(this.selectedLocationTreeNode.data)}},
       {label: 'Update', command: (event: any) => {this.updateLocation(this.selectedLocationTreeNode.data)}},
       {label: 'Delete', command: (event: any) => {this.deleteLocation(this.selectedLocationTreeNode.data)}}];
 
@@ -37,14 +43,23 @@ export class LocationsComponent implements OnInit {
       this.locations = locations;
       this.locationTreeNodes = this.buildLocationTreeNodes(null);
     });
+
+    this.locationService.getLocationTypes().subscribe(locationTypes => {
+      this.locationTypes = locationTypes;
+    });
   }
 
   addLocation() {
-    this.router.navigateByUrl('/admin/locations/0');
+    this.router.navigateByUrl('/admin/locations/0').catch();
+  }
+
+  addChildLocation(location: Location) {
+    this.location = new Location(null, location.campaignId, location.id, location.typeId, '');
+    this.showDialog = true;
   }
 
   updateLocation(location: Location) {
-    this.router.navigate(['admin/locations', location.id])
+    this.router.navigate(['admin/locations', location.id]).catch()
   }
 
   deleteLocation(location: Location) {
@@ -71,6 +86,14 @@ export class LocationsComponent implements OnInit {
     return 0;
   }
 
+  getLocationTypeName(locationTypeId: number): string {
+    if (!!this.locationTypes && this.locationTypes.length > 0) {
+      return this.locationTypes.find(locationType => locationType.id == locationTypeId).name;
+    }
+
+    return "Unknown";
+  }
+
   disableDroppable(object: {node: LocationTreeNode, parent: LocationTreeNode}) {
     if (this.draggedLocationTreeNode == null) {
       return false;
@@ -78,6 +101,7 @@ export class LocationsComponent implements OnInit {
 
     return true;
   }
+
   dragStart(event: DragEvent, object: {node: LocationTreeNode, parent: LocationTreeNode}) {
     console.log("starting drag. event: " + event + ", object: " + object + ", location name: " + (object.node != undefined ? object.node.data.name : "undefined"))
     this.draggedLocationTreeNode = object.node;

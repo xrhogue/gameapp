@@ -39,6 +39,7 @@ import { CampaignsComponent } from './campaign/campaigns/campaigns.component';
 import { LocationsComponent } from './location/locations/locations.component';
 import { LocationTypesComponent } from './location/location-types/location-types.component';
 import { LocationDetailsComponent } from './location/location-details/location-details.component';
+import { LocationDlgComponent } from './location/location-dlg/location-dlg.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { LocationDetailsComponent } from './location/location-details/location-d
     CampaignsComponent,
     LocationsComponent,
     LocationTypesComponent,
-    LocationDetailsComponent
+    LocationDetailsComponent,
+    LocationDlgComponent
   ],
   imports: [
     CommonModule,

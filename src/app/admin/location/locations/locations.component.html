@@ -1,5 +1,13 @@
 <h1>Locations</h1>
-<p-treeTable [value]="locationTreeNodes" [columns]="cols" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" selectionMode="checkbox" [(selection)]="selectedLocationTreeNodes" [contextMenu]="cm" [(contextMenuSelection)]="selectedLocationTreeNode">
+<p-treeTable [value]="locationTreeNodes"
+             [columns]="columns"
+             [scrollable]="true"
+             scrollHeight="200px"
+             [resizableColumns]="true"
+             selectionMode="checkbox"
+             [(selection)]="selectedLocationTreeNodes"
+             [contextMenu]="cm"
+             [(contextMenuSelection)]="selectedLocationTreeNode">
   <ng-template pTemplate="caption">
     <div style="text-align:left">
       <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
@@ -8,7 +16,7 @@
   </ng-template>
   <ng-template pTemplate="header" let-columns>
     <tr>
-      <th *ngFor="let col of cols" [ngClass]="{'center-cell' : col.field == 'selectable'}">
+      <th *ngFor="let col of columns" [ngClass]="{'center-cell' : col.field == 'selectable'}">
         {{col.header}}
       </th>
     </tr>
@@ -21,23 +29,27 @@
         (onDragEnter)="dragEnter($event, rowNode)"
         (onDragLeave)="dragLeave($event)"
         (onDrop)="drop($event, rowNode)">
-      <td *ngFor="let col of cols; let i = index" ttEditableColumn [ngClass]="{'center-cell' : col.field == 'selectable'}">
+      <td *ngFor="let column of columns; let i = index" ttEditableColumn [ngClass]="{'center-cell' : column.field == 'selectable'}">
         <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
         <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
-        <p-treeTableCellEditor *ngIf="col.field == 'selectable'">
+        <p-treeTableCellEditor *ngIf="column.field == 'selectable'">
           <ng-template pTemplate="input">
-            <input type="checkbox" [(ngModel)]="rowData[col.field]">
+            <input type="checkbox" [(ngModel)]="rowData[column.field]">
           </ng-template>
           <ng-template pTemplate="output">
-            <input type="checkbox" [(ngModel)]="rowData[col.field]">
+            <input type="checkbox" [(ngModel)]="rowData[column.field]">
           </ng-template>
         </p-treeTableCellEditor>
-        <span *ngIf="col.field == 'actions'">
+        <span *ngIf="column.field == 'actions'">
+          <i class="material-icons" (click)="addChildLocation(rowData)" ngbTooltip="Add Child to {{rowData.name}}">add</i>
           <i class="material-icons" (click)="updateLocation(rowData)" ngbTooltip="Update {{rowData.name}}">description</i>
-          <i class="material-icons"(click)="deleteLocation(rowData.id)" ngbTooltip="Delete {{rowData.name}}">delete</i>
+          <i class="material-icons" (click)="deleteLocation(rowData.id)" ngbTooltip="Delete {{rowData.name}}">delete</i>
         </span>
-        <span *ngIf="col.field != 'selectable' && col.field != 'actions'">
-          {{rowData[col.field]}}
+        <span *ngIf="column.field == 'typeId'">
+          {{getLocationTypeName(rowData[column.field])}}
+        </span>
+        <span *ngIf="column.field != 'typeId' && column.field != 'selectable' && column.field != 'actions'">
+          {{rowData[column.field]}}
         </span>
       </td>
     </tr>
@@ -49,3 +61,4 @@
 </div>
 
 <p-contextMenu #cm [model]="items"></p-contextMenu>
+<app-location-dlg [header]="'New Location'" [(visible)]="showDialog" [(location)]="location"></app-location-dlg>
