@@ -2,9 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "admin/shared/location";
 import {LocationType} from "admin/shared/location-type";
-import {Observable} from "rxjs";
 import {LocationService} from "../../../service/location/location.service";
-import {AddNameComponent} from "../../../shared/components/add-name/add-name.component";
 import {DialogService} from "../../../shared/services/dialog/dialog.service";
 
 @Component({
@@ -20,6 +18,8 @@ export class LocationDetailsComponent implements OnInit {
   @Input() modal: boolean = false;
   @Output() locationChange: EventEmitter<Location> = new EventEmitter<Location>();
   @ViewChild('name') nameInput: any;
+  @ViewChild('type') typeOption: any;
+  showDialog: boolean = false;
   dirty: boolean = false;
   JSON: JSON;
 
@@ -39,6 +39,10 @@ export class LocationDetailsComponent implements OnInit {
         this.location = new Location(null, null, null, !!this.locationTypes && this.locationTypes.length > 0 ? this.locationTypes[0].id : null, "");
       }
     });
+  }
+
+  invalid() {
+    return this.nameInput.invalid || this.typeOption.invalid;
   }
 
   focus() {
@@ -66,14 +70,15 @@ export class LocationDetailsComponent implements OnInit {
 
   cancel() {
     if (!this.dirty) {
-      return true;
+      this.finalize();
     }
-
-    this.dialogService.confirm('Discard changes?').subscribe(exit => {
-      if (exit) {
-        this.finalize();
-      }
-    });
+    else {
+      this.dialogService.confirm('Discard changes?').subscribe(exit => {
+        if (exit) {
+          this.finalize();
+        }
+      });
+    }
   }
 
   addLocationType() {

@@ -17,7 +17,8 @@ export class LocationDlgComponent implements OnInit {
   ngOnInit() {
   }
 
-  close() {
+  close(location: Location) {
+    this.locationChange.emit(location);
     this.visibleChange.emit(false);
   }
 }

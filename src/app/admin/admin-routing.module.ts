@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LocationDetailsComponent} from "admin/location/location-details/location-details.component";
+import {LocationPageComponent} from "admin/location/location-page/location-page.component";
 import {LocationTypesComponent} from "admin/location/location-types/location-types.component";
 import { StatsComponent } from './stat/stats/stats.component';
 import { StatDetailsComponent } from './stat/stat-details/stat-details.component';
@@ -38,11 +39,11 @@ const adminRoutes: Routes = [
           },
           {
             path: 'locations/0',
-            component: LocationDetailsComponent
+            component: LocationPageComponent
           },
           {
             path: 'locations/:id',
-            component: LocationDetailsComponent
+            component: LocationPageComponent
           },
           {
             path: 'locationTypes',

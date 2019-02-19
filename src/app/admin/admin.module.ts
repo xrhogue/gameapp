@@ -40,6 +40,7 @@ import { LocationsComponent } from './location/locations/locations.component';
 import { LocationTypesComponent } from './location/location-types/location-types.component';
 import { LocationDetailsComponent } from './location/location-details/location-details.component';
 import { LocationDlgComponent } from './location/location-dlg/location-dlg.component';
+import { LocationPageComponent } from './location/location-page/location-page.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { LocationDlgComponent } from './location/location-dlg/location-dlg.compo
     LocationsComponent,
     LocationTypesComponent,
     LocationDetailsComponent,
-    LocationDlgComponent
+    LocationDlgComponent,
+    LocationPageComponent
   ],
   imports: [
     CommonModule,

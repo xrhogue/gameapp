@@ -58,6 +58,17 @@ export class LocationsComponent implements OnInit {
     this.showDialog = true;
   }
 
+  updateLocations(location: Location) {
+    this.locationService.getLocations().subscribe(locations => {
+      this.locations = locations;
+      this.locationTreeNodes = this.buildLocationTreeNodes(null);
+    });
+
+    this.locationService.getLocationTypes().subscribe(locationTypes => {
+      this.locationTypes = locationTypes;
+    });
+  }
+
   updateLocation(location: Location) {
     this.router.navigate(['admin/locations', location.id]).catch()
   }

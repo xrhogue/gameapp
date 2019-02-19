@@ -61,4 +61,4 @@
 </div>
 
 <p-contextMenu #cm [model]="items"></p-contextMenu>
-<app-location-dlg [header]="'New Location'" [(visible)]="showDialog" [(location)]="location"></app-location-dlg>
+<app-location-dlg [header]="'New Location'" [(visible)]="showDialog" [(location)]="location" (locationChange)="updateLocations(location)"></app-location-dlg>
