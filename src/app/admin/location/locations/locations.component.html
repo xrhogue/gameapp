@@ -2,7 +2,7 @@
 <p-treeTable [value]="locationTreeNodes"
              [columns]="columns"
              [scrollable]="true"
-             scrollHeight="200px"
+             scrollHeight="400px"
              [resizableColumns]="true"
              selectionMode="checkbox"
              [(selection)]="selectedLocationTreeNodes"
@@ -22,7 +22,8 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-    <tr pDraggable="treeTable" pDroppable="treeTable" [pDroppableDisabled]="disableDroppable(rowNode)"
+    <tr pDraggable="treeTable"
+        pDroppable="treeTable"
         [ttContextMenuRow]="rowNode"
         (onDragStart)="dragStart($event, rowNode)"
         (onDragEnd)="dragEnd($event)"

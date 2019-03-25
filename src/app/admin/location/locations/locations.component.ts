@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {CharacterSkillTreeNode} from "admin/shared/character-skill-tree-node";
 import {LocationType} from "admin/shared/location-type";
 import {MenuItem} from 'primeng/api';
 import {Location} from 'admin/shared/location';
@@ -6,6 +7,7 @@ import {LocationService} from '../../../service/location/location.service';
 import {Router} from '@angular/router';
 import {LocationTreeNode} from 'admin/shared/location-tree-node';
 import {Column} from 'admin/shared/column';
+import {UtilService} from "../../../shared/services/util/util.service";
 
 @Component({
   selector: 'app-locations',
@@ -24,7 +26,7 @@ export class LocationsComponent implements OnInit {
   location: Location;
   showDialog: boolean = false;
 
-  constructor(private locationService: LocationService, private router: Router) { }
+  constructor(private locationService: LocationService, private router: Router, private utilService: UtilService) { }
 
   ngOnInit() {
     this.columns = [
@@ -35,9 +37,11 @@ export class LocationsComponent implements OnInit {
     ];
 
     this.items = [
-      {label: 'Add', command: (event: any) => {this.addChildLocation(this.selectedLocationTreeNode.data)}},
+      {label: 'Add Child', command: (event: any) => {this.addChildLocation(this.selectedLocationTreeNode.data)}},
+      {label: 'Duplicate', command: (event: any) => {this.duplicateLocation(this.selectedLocationTreeNode.data)}},
       {label: 'Update', command: (event: any) => {this.updateLocation(this.selectedLocationTreeNode.data)}},
-      {label: 'Delete', command: (event: any) => {this.deleteLocation(this.selectedLocationTreeNode.data)}}];
+      {label: 'Delete', command: (event: any) => {this.deleteLocation(this.selectedLocationTreeNode.data)}},
+      {label: 'Move to Root', command: (event: any) => {this.moveLocation(this.selectedLocationTreeNode.data)}}];
 
     this.locationService.getLocations().subscribe(locations => {
       this.locations = locations;
@@ -53,15 +57,30 @@ export class LocationsComponent implements OnInit {
     this.router.navigateByUrl('/admin/locations/0').catch();
   }
 
+  duplicateLocation(location: Location) {
+    this.location = new Location(null, location.campaignId, location.parentId, location.typeId, '');
+    this.showDialog = true;
+  }
+
   addChildLocation(location: Location) {
     this.location = new Location(null, location.campaignId, location.id, location.typeId, '');
     this.showDialog = true;
   }
 
   updateLocations(location: Location) {
+    if (location.parentId == null) {
+      this.locationTreeNodes.push(new LocationTreeNode(location, null, null, true, false));
+    }
+    else {
+      let locationTreeNode: LocationTreeNode = this.locationTreeNodes.find(locationTreeNode => locationTreeNode.data.id === location.parentId);
+
+      locationTreeNode.children.push(new LocationTreeNode(location, locationTreeNode, null, true, false));
+      locationTreeNode.leaf = false;
+      locationTreeNode.expanded = true;
+    }
+
     this.locationService.getLocations().subscribe(locations => {
       this.locations = locations;
-      this.locationTreeNodes = this.buildLocationTreeNodes(null);
     });
 
     this.locationService.getLocationTypes().subscribe(locationTypes => {
@@ -77,6 +96,26 @@ export class LocationsComponent implements OnInit {
     this.locationService.deleteLocation(location.id).subscribe();
   }
 
+  moveLocation(location: Location) {
+    let locationTreeNode: LocationTreeNode = this.findLocationTreeNode(this.locationTreeNodes, location.id);
+    let parentLocationTreeNode: LocationTreeNode = locationTreeNode.parent;
+
+    if (!!parentLocationTreeNode) {
+      this.utilService.deleteObjectFromArray(parentLocationTreeNode.children, location.id, this.comparator);
+
+      if (parentLocationTreeNode.children.length == 0) {
+        parentLocationTreeNode.leaf = true;
+      }
+
+      parentLocationTreeNode.expanded = false;
+      locationTreeNode.data.parentId = null;
+      locationTreeNode.parent = null;
+    }
+
+    this.locationTreeNodes.push(locationTreeNode);
+    this.locationTreeNodes = [...this.locationTreeNodes];
+  }
+
   buildLocationTreeNodes(parentId: number) {
     let locationTreeNodes: LocationTreeNode[] = this.locations.filter(location => location.parentId === parentId).map(location => new LocationTreeNode(location, null, null, true, false));
 
@@ -87,6 +126,24 @@ export class LocationsComponent implements OnInit {
     });
 
     return locationTreeNodes;
+  }
+
+  findLocationTreeNode(locationTreeNodes: Array<LocationTreeNode>, id: number): LocationTreeNode {
+    let foundLocationTreeNode: LocationTreeNode = locationTreeNodes.find((locationTreeNode) => locationTreeNode.data.id === id);
+
+    if (!!foundLocationTreeNode) {
+      return foundLocationTreeNode;
+    }
+
+    locationTreeNodes.forEach(locationTreeNode => {
+      let childLocationTreeNode: LocationTreeNode = this.findLocationTreeNode(locationTreeNode.children, id);
+
+      if (!!childLocationTreeNode) {
+        foundLocationTreeNode = childLocationTreeNode;
+      }
+    });
+
+    return foundLocationTreeNode;
   }
 
   getSelectedLocationTreeNodeDataId(selectedLocationTreeNode: LocationTreeNode) {
@@ -105,53 +162,75 @@ export class LocationsComponent implements OnInit {
     return "Unknown";
   }
 
-  disableDroppable(object: {node: LocationTreeNode, parent: LocationTreeNode}) {
-    if (this.draggedLocationTreeNode == null) {
-      return false;
-    }
-
-    return true;
-  }
-
-  dragStart(event: DragEvent, object: {node: LocationTreeNode, parent: LocationTreeNode}) {
-    console.log("starting drag. event: " + event + ", object: " + object + ", location name: " + (object.node != undefined ? object.node.data.name : "undefined"))
+  dragStart(event: DragEvent, object: {node: LocationTreeNode}) {
+    console.log("starting drag. location name: " + (object.node != undefined ? object.node.data.name : "undefined"));
     this.draggedLocationTreeNode = object.node;
-    event.dataTransfer.effectAllowed = "move";
   }
 
   dragEnter(event: DragEvent, object: {node: LocationTreeNode, parent: LocationTreeNode}) {
-    console.log("entering drag. event: " + event)
-
-    // this currently DOES NOT WORK!!!
-    event.dataTransfer.dropEffect = (this.draggedLocationTreeNode.data.id == object.node.data.id) ? "none" : "move";
-    event.dataTransfer.effectAllowed = event.dataTransfer.dropEffect;
+    console.log("entering drag (node: " + (!!object.node ? object.node.data.name : "null") + ", parent: " + (!!object.parent ? object.parent.data.name : "null") + ")");
   }
 
   dragLeave(event: DragEvent) {
-    console.log("leaving drag. event: " + event)
+    console.log("leaving drag");
   }
 
   dragEnd(event: DragEvent) {
-    console.log("ending drag. event: " + event)
+    console.log("ending drag");
     this.draggedLocationTreeNode = null;
   }
 
-  drop(event: DragEvent, object: {node: LocationTreeNode, parent: LocationTreeNode}) {
-    console.log("dropping. event: " + event)
+  drop(event: DragEvent, object: {node: LocationTreeNode}) {
+    console.log("dropping on parent: " + object.node.data.name);
 
-    if (object.node.leaf) {
-      console.log("cannot drop on a leaf!")
+    let dropParentLocationTreeNode: LocationTreeNode = object.node;
+    let draggedLocation: Location = this.draggedLocationTreeNode.data;
+    let previousParentId: number = draggedLocation.parentId;
+
+    if (draggedLocation.id == dropParentLocationTreeNode.data.id || draggedLocation.parentId == dropParentLocationTreeNode.data.id || dropParentLocationTreeNode.data.id == 0) {
+      return;
     }
-    else {
-      let draggedLocation: Location = this.draggedLocationTreeNode.data;
 
-      draggedLocation.parentId = object.node.data.id;
+    draggedLocation.parentId = dropParentLocationTreeNode.data.id;
 
-      this.locationService.updateLocation(draggedLocation);
-      this.locationTreeNodes = this.buildLocationTreeNodes(null);
-      this.locationTreeNodes.filter((locationTreeNode) => locationTreeNode.data.id == object.node.data.id)
-          .forEach(locationTreeNode => locationTreeNode.expanded = object.node.expanded);
-      // TODO: don't forget to remove from previous parent node (if necessary)
-    }
+    this.locationService.updateLocation(draggedLocation).subscribe(location => {
+      // remove references from previous parent
+      if (!!previousParentId) {
+        let previousParentLocationTreeNode: LocationTreeNode = this.findLocationTreeNode(this.locationTreeNodes, previousParentId);
+
+        this.utilService.deleteObjectFromArray(previousParentLocationTreeNode.children, draggedLocation.id, this.comparator);
+
+        if (previousParentLocationTreeNode.children.length === 0) {
+          previousParentLocationTreeNode.leaf = true;
+          previousParentLocationTreeNode.expanded = false;
+        }
+      }
+      else {
+        this.utilService.deleteObjectFromArray(this.locationTreeNodes, draggedLocation.id, this.comparator);
+      }
+
+      if (dropParentLocationTreeNode.leaf) {
+        dropParentLocationTreeNode.leaf = false;
+      }
+
+      dropParentLocationTreeNode.expanded = true;
+
+      dropParentLocationTreeNode.children.push(this.draggedLocationTreeNode);
+      this.draggedLocationTreeNode.parent = dropParentLocationTreeNode;
+
+      // let parentLocationTreeNode: LocationTreeNode = this.locationTreeNodes.find((locationTreeNode) => locationTreeNode.data.id === dropParentLocationTreeNode.data.id);
+      //
+      // if (parentLocationTreeNode.children.length === 0) {
+      //   parentLocationTreeNode.leaf = true;
+      //   parentLocationTreeNode.expanded = false;
+      // }
+
+      // this is to refresh the UI after all the node updates; may be specific to the PrimeNG treetable (they may need to fix something on their side)
+      this.locationTreeNodes = [...this.locationTreeNodes];
+    });
+  }
+
+  comparator(locationTreeNode: LocationTreeNode, locationId: number): boolean {
+    return locationTreeNode.data.id === locationId;
   }
 }

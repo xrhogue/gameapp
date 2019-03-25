@@ -39,10 +39,12 @@ export class MockService implements InMemoryDbService {
     ];
 
     let locations: Location[] = [new Location(0, 0, null, 0,"System", null),
-                                 new Location(1, 0, null, 1,"Big Sky", null)];
+                                 new Location(1, 0, null, 1,"Big Sky", null),
+                                 new Location(2, 0, 1, 2,"Small Land", null)];
 
     let locationTypes: LocationType[] = [new LocationType(0, "World"),
-                                         new LocationType(1, "Continent")];
+                                         new LocationType(1, "Continent"),
+                                         new LocationType(2, "Kingdom")];
 
     let deities: Deity[] = [new Deity(0, 0, null, "System")];
 
