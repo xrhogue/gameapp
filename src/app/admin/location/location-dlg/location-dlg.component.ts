@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Location} from "admin/shared/location";
 
 @Component({
   selector: 'app-location-dlg',

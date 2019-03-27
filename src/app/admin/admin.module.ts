@@ -41,6 +41,9 @@ import { LocationTypesComponent } from './location/location-types/location-types
 import { LocationDetailsComponent } from './location/location-details/location-details.component';
 import { LocationDlgComponent } from './location/location-dlg/location-dlg.component';
 import { LocationPageComponent } from './location/location-page/location-page.component';
+import { DeityDlgComponent } from './deity/deity-dlg/deity-dlg.component';
+import { DeityDetailsComponent } from './deity/deity-details/deity-details.component';
+import { DeityTypesComponent } from './deity/deity-types/deity-types.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,10 @@ import { LocationPageComponent } from './location/location-page/location-page.co
     LocationTypesComponent,
     LocationDetailsComponent,
     LocationDlgComponent,
-    LocationPageComponent
+    LocationPageComponent,
+    DeityDlgComponent,
+    DeityDetailsComponent,
+    DeityTypesComponent
   ],
   imports: [
     CommonModule,

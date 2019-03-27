@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {DeityType} from "admin/shared/deity-type";
 import {LocationType} from "admin/shared/location-type";
 import {InMemoryDbService} from 'angular-in-memory-web-api';
 import {Observable} from "rxjs/internal/Observable";
@@ -46,7 +47,11 @@ export class MockService implements InMemoryDbService {
                                          new LocationType(1, "Continent"),
                                          new LocationType(2, "Kingdom")];
 
-    let deities: Deity[] = [new Deity(0, 0, null, "System")];
+    let deities: Deity[] = [new Deity(1, 0, null, 2,"Joe")];
+
+    let deityTypes: DeityType[] = [new DeityType(0, "World"),
+                                   new DeityType(1, "Pantheon"),
+                                   new DeityType(2, "Demi-god")];
 
     let stats = [
       new Stat(1, 'Strength', 'STR', 'S',1),
