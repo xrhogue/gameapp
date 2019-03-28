@@ -142,6 +142,7 @@ export class MockService implements InMemoryDbService {
       locations: locations,
       locationTypes: locationTypes,
       deities: deities,
+      deityTypes: deityTypes,
       stats: stats,
       genders: genders,
       complexions: complexions,

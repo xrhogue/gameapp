@@ -1,0 +1,15 @@
+.deity-type-title {
+  font-size: larger;
+  font-weight: bold;
+}
+
+:host ::ng-deep .deity-type-name {
+  width: 200px;
+  margin-right: 20px;
+}
+:host ::ng-deep .deity-type-list {
+  height: 250px;
+  max-height: 250px;
+  width: 200px;
+  margin-right: 20px;
+}

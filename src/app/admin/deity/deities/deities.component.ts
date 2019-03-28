@@ -217,13 +217,6 @@ export class DeitiesComponent implements OnInit {
       dropParentDeityTreeNode.children.push(this.draggedDeityTreeNode);
       this.draggedDeityTreeNode.parent = dropParentDeityTreeNode;
 
-      // let parentDeityTreeNode: DeityTreeNode = this.deityTreeNodes.find((deityTreeNode) => deityTreeNode.data.id === dropParentDeityTreeNode.data.id);
-      //
-      // if (parentDeityTreeNode.children.length === 0) {
-      //   parentDeityTreeNode.leaf = true;
-      //   parentDeityTreeNode.expanded = false;
-      // }
-
       // this is to refresh the UI after all the node updates; may be specific to the PrimeNG treetable (they may need to fix something on their side)
       this.deityTreeNodes = [...this.deityTreeNodes];
     });
