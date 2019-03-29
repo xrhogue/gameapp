@@ -44,6 +44,7 @@ import { LocationPageComponent } from './location/location-page/location-page.co
 import { DeityDlgComponent } from './deity/deity-dlg/deity-dlg.component';
 import { DeityDetailsComponent } from './deity/deity-details/deity-details.component';
 import { DeityTypesComponent } from './deity/deity-types/deity-types.component';
+import { LocationsDlgComponent } from './location/locations-dlg/locations-dlg.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { DeityTypesComponent } from './deity/deity-types/deity-types.component';
     DeitiesComponent,
     CampaignsComponent,
     LocationsComponent,
+    LocationsDlgComponent,
     LocationTypesComponent,
     LocationDetailsComponent,
     LocationDlgComponent,
@@ -92,6 +94,9 @@ import { DeityTypesComponent } from './deity/deity-types/deity-types.component';
     ButtonModule,
     DialogModule,
     AdminRoutingModule
+  ],
+  exports: [
+    LocationsDlgComponent
   ],
   providers: [
     TreeDragDropService

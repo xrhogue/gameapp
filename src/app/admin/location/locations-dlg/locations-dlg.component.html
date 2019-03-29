@@ -1,0 +1,10 @@
+<p-dialog [header]="header" [(visible)]="visible" (onShow)="select()">
+  <p-tree [value]="locationTreeNodes"
+          selectionMode="single"
+          [(selection)]="selectedLocationTreeNode">
+  </p-tree>
+  <p-footer>
+    <p-button icon="pi pi-check" [disabled]="selectedLocationTreeNode == undefined" (click)="visible = false" label="Choose"></p-button>
+    <p-button icon="pi pi-close" (click)="visible = false" label="Cancel" class="ui-button-secondary"></p-button>
+  </p-footer>
+</p-dialog>

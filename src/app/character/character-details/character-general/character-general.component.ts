@@ -4,7 +4,7 @@ import {CharacterBaseComponent} from "../../../shared/components/character-base/
 import {Character} from "admin/shared/character";
 import {CharacterService} from "../../../service/character/character.service";
 import {RaceService} from "../../../service/race/race.service";
-import {Gender} from "admin/shared/gender";
+import {Location} from "admin/shared/location";
 
 @Component({
   selector: 'app-character-general',
@@ -15,6 +15,8 @@ export class CharacterGeneralComponent extends CharacterBaseComponent implements
   id: number;
   @Input() character: Character;
   @Output() characterChange: EventEmitter<Character> = new EventEmitter<Character>();
+  birthplace: Location;
+  showDialog: boolean = false;
 
   constructor(private raceService: RaceService, private characterService: CharacterService, protected utilService: UtilService) {
     super(utilService);
@@ -29,5 +31,10 @@ export class CharacterGeneralComponent extends CharacterBaseComponent implements
     if (!this.character.name || this.character.name.length === 0) {
       this.fieldStates['name'] = true;
     }
+  }
+
+  updateBirthplace(birthplace: Location) {
+    this.character.locationId = birthplace.id;
+    this.characterChange.emit(this.character);
   }
 }
