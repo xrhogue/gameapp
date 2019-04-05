@@ -45,6 +45,7 @@ import { DeityDlgComponent } from './deity/deity-dlg/deity-dlg.component';
 import { DeityDetailsComponent } from './deity/deity-details/deity-details.component';
 import { DeityTypesComponent } from './deity/deity-types/deity-types.component';
 import { LocationsDlgComponent } from './location/locations-dlg/locations-dlg.component';
+import { SelectLocationDlgComponent } from './location/select-location-dlg/select-location-dlg.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { LocationsDlgComponent } from './location/locations-dlg/locations-dlg.co
     LocationPageComponent,
     DeityDlgComponent,
     DeityDetailsComponent,
-    DeityTypesComponent
+    DeityTypesComponent,
+    SelectLocationDlgComponent
   ],
   imports: [
     CommonModule,

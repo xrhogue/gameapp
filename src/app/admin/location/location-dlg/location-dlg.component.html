@@ -1,7 +1,7 @@
 <p-dialog [header]="header" [(visible)]="visible" (onShow)="locationDetails.focus()">
   <app-location-details [modal]="true" [(location)]="location" (locationChange)="close(location)" #locationDetails></app-location-details>
   <p-footer>
-    <p-button icon="pi pi-check" [disabled]="locationDetails.invalid()" (click)="locationDetails.update()" label="Add"></p-button>
+    <p-button icon="pi pi-check" [disabled]="invalid() || locationDetails.invalid()" (click)="locationDetails.update()" label="Add"></p-button>
     <p-button icon="pi pi-close" (click)="locationDetails.cancel()" label="Cancel" class="ui-button-secondary"></p-button>
   </p-footer>
 </p-dialog>

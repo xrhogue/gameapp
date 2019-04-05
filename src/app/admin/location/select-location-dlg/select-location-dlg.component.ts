@@ -5,11 +5,11 @@ import {LocationService} from "../../../service/location/location.service";
 import {UtilService} from "../../../shared/services/util/util.service";
 
 @Component({
-  selector: 'app-locations-dlg',
-  templateUrl: './locations-dlg.component.html',
-  styleUrls: ['./locations-dlg.component.scss']
+  selector: 'app-select-location-dlg',
+  templateUrl: './select-location-dlg.component.html',
+  styleUrls: ['./select-location-dlg.component.scss']
 })
-export class LocationsDlgComponent implements OnInit {
+export class SelectLocationDlgComponent implements OnInit {
   @Input() header: string = "Select Location";
   @Input() visible: boolean = false;
   @Input() location: Location;
@@ -28,8 +28,10 @@ export class LocationsDlgComponent implements OnInit {
 
   show() {
     this.locationService.getLocations().subscribe(locations => {
-      this.locations = locations;
+      this.locations = locations.filter(location => !!location.id);
       this.locationTreeNodes = this.buildLocationTreeNodes(null);
+      // add the ability to move a location to the top level
+      this.locationTreeNodes.unshift(new LocationTreeNode(new Location(null, null, null, null, "(None)"), null, null, "(None)", true))
     });
   }
 
@@ -56,19 +58,5 @@ export class LocationsDlgComponent implements OnInit {
 
   updateLocations(location: Location) {
     this.show();
-    // if (location.parentId == null) {
-    //   this.locationTreeNodes.push(new LocationTreeNode(location, null, null, null, true, false));
-    // }
-    // else {
-    //   let locationTreeNode: LocationTreeNode = this.locationTreeNodes.find(locationTreeNode => locationTreeNode.data.id === location.parentId);
-    //
-    //   locationTreeNode.children.push(new LocationTreeNode(location, locationTreeNode, null,null, true, false));
-    //   locationTreeNode.leaf = false;
-    //   locationTreeNode.expanded = true;
-    // }
-    //
-    // this.locationService.getLocations().subscribe(locations => {
-    //   this.locations = locations;
-    // });
   }
 }

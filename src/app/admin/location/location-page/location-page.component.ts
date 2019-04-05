@@ -15,7 +15,7 @@ export class LocationPageComponent implements OnInit {
   id: number;
   @Input() location: Location;
   locationTypes: Array<LocationType>;
-  @Output() locationChange: EventEmitter<Location> = new EventEmitter<Location>();
+//  @Output() locationChange: EventEmitter<Location> = new EventEmitter<Location>();
   @ViewChild('details') locationDetails: LocationDetailsComponent;
 
   constructor(private route: ActivatedRoute, private locationService: LocationService) {

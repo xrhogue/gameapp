@@ -38,10 +38,6 @@ const adminRoutes: Routes = [
             component: LocationsComponent
           },
           {
-            path: 'locations/0',
-            component: LocationPageComponent
-          },
-          {
             path: 'locations/:id',
             component: LocationPageComponent
           },

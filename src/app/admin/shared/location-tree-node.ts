@@ -6,6 +6,7 @@ export class LocationTreeNode implements TreeNode {
     public data: Location,
     public parent: LocationTreeNode,
     public children?: LocationTreeNode[],
+    public label?: string,
     public leaf?: boolean,
     public expanded?: boolean
   ) {}

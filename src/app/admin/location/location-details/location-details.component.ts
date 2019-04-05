@@ -1,4 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "admin/shared/location";
 import {LocationType} from "admin/shared/location-type";
@@ -13,13 +20,16 @@ import {DialogService} from "../../../shared/services/dialog/dialog.service";
 export class LocationDetailsComponent implements OnInit {
   id: number;
   @Input() location: Location;
-  locationTypes: Array<LocationType>;
-  locationTypeName: string = "";
   @Input() modal: boolean = false;
   @Output() locationChange: EventEmitter<Location> = new EventEmitter<Location>();
   @ViewChild('name') nameInput: any;
   @ViewChild('type') typeOption: any;
+  locations: Array<Location>;
+  locationTypes: Array<LocationType>;
+  locationTypeName: string = "";
+  parent: Location = new Location(0, 0, 0, 0, "(None)");
   showDialog: boolean = false;
+  selectParent: boolean = false;
   dirty: boolean = false;
   JSON: JSON;
 
@@ -29,6 +39,18 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.locationService.getLocations().subscribe(locations => {
+      this.locations = locations;
+
+      if (!!this.location && !!this.location.parentId) {
+        this.parent = this.locations.find(location => location.id === this.location.parentId);
+
+        if (!this.parent) {
+          this.parent = new Location(0, 0, 0, 0, "(None)");
+        }
+      }
+    });
+
     this.locationService.getLocationTypes().subscribe(locationTypes => {
       this.locationTypes = locationTypes.filter(locationType => locationType.id !== 0);
 
@@ -42,6 +64,16 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   invalid() {
+    // if this is a new record, then it is always invalid
+    if (this.id == 0 && !this.nameInput.dirty) {
+      return true;
+    }
+
+    // if this is an existing record, wait until it is ready for checking (e.g. value has been set)
+    if (!!this.location && !!this.location.name && !this.nameInput.control.value) {
+      return false;
+    }
+
     return this.nameInput.invalid || this.typeOption.invalid;
   }
 
@@ -52,6 +84,13 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   update() {
+    if (!!this.parent && !!this.parent.id) {
+      this.location.parentId = this.parent.id;
+    }
+    else {
+      this.location.parentId = null;
+    }
+
     if (!this.location.id) {
       this.locationService.addLocation(this.location).subscribe(location => {
         this.location = location;
@@ -65,6 +104,12 @@ export class LocationDetailsComponent implements OnInit {
         this.dirty = false;
         this.finalize();
       });
+    }
+  }
+
+  updateParent(parent: Location) {
+    if (!!parent && !!parent.id) {
+      this.parent = parent;
     }
   }
 
@@ -83,12 +128,19 @@ export class LocationDetailsComponent implements OnInit {
 
   addLocationType() {
     this.locationService.addLocationType(new LocationType(null, this.locationTypeName)).subscribe(locationType => {
-      this.locationTypeName = '';
       this.locationService.getLocationTypes().subscribe(locationTypes => {
         this.locationTypes = locationTypes.filter(locationType => locationType.id !== 0);
+        let newLocationType: LocationType = this.locationTypes.find(locationType => locationType.name === this.locationTypeName);
+
+        if (!!newLocationType) {
+          this.location.typeId = newLocationType.id;
+        }
+
         if (!this.location.typeId) {
           this.location.typeId = !!this.locationTypes && this.locationTypes.length > 0 ? this.locationTypes[0].id : null;
         }
+
+        this.locationTypeName = '';
       });
     });
   }

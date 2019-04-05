@@ -44,7 +44,7 @@ export class LocationsComponent implements OnInit {
       {label: 'Move to Root', command: (event: any) => {this.moveLocation(this.selectedLocationTreeNode.data)}}];
 
     this.locationService.getLocations().subscribe(locations => {
-      this.locations = locations;
+      this.locations = locations.filter(location => !!location.id);
       this.locationTreeNodes = this.buildLocationTreeNodes(null);
     });
 
@@ -69,12 +69,12 @@ export class LocationsComponent implements OnInit {
 
   updateLocations(location: Location) {
     if (location.parentId == null) {
-      this.locationTreeNodes.push(new LocationTreeNode(location, null, null, true, false));
+      this.locationTreeNodes.push(new LocationTreeNode(location, null, null, null, true, false));
     }
     else {
       let locationTreeNode: LocationTreeNode = this.locationTreeNodes.find(locationTreeNode => locationTreeNode.data.id === location.parentId);
 
-      locationTreeNode.children.push(new LocationTreeNode(location, locationTreeNode, null, true, false));
+      locationTreeNode.children.push(new LocationTreeNode(location, locationTreeNode, null,null, true, false));
       locationTreeNode.leaf = false;
       locationTreeNode.expanded = true;
     }
@@ -117,7 +117,7 @@ export class LocationsComponent implements OnInit {
   }
 
   buildLocationTreeNodes(parentId: number) {
-    let locationTreeNodes: LocationTreeNode[] = this.locations.filter(location => location.parentId === parentId).map(location => new LocationTreeNode(location, null, null, true, false));
+    let locationTreeNodes: LocationTreeNode[] = this.locations.filter(location => location.parentId === parentId).map(location => new LocationTreeNode(location, null, null, null, true, false));
 
     locationTreeNodes.forEach(locationTreeNode => {
       locationTreeNode.children = this.buildLocationTreeNodes(locationTreeNode.data.id);
@@ -217,13 +217,6 @@ export class LocationsComponent implements OnInit {
 
       dropParentLocationTreeNode.children.push(this.draggedLocationTreeNode);
       this.draggedLocationTreeNode.parent = dropParentLocationTreeNode;
-
-      // let parentLocationTreeNode: LocationTreeNode = this.locationTreeNodes.find((locationTreeNode) => locationTreeNode.data.id === dropParentLocationTreeNode.data.id);
-      //
-      // if (parentLocationTreeNode.children.length === 0) {
-      //   parentLocationTreeNode.leaf = true;
-      //   parentLocationTreeNode.expanded = false;
-      // }
 
       // this is to refresh the UI after all the node updates; may be specific to the PrimeNG treetable (they may need to fix something on their side)
       this.locationTreeNodes = [...this.locationTreeNodes];

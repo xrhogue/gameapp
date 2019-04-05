@@ -3,12 +3,8 @@
           selectionMode="single"
           [(selection)]="selectedLocationTreeNode">
   </p-tree>
-  <button type="button" class="btn btn-secondary" ngbTooltip="Create a New Location" placement="top" (click)="showDialog = true"><i class="material-icons">add_box</i>New Location</button>
   <p-footer>
     <p-button icon="pi pi-check" [disabled]="selectedLocationTreeNode == undefined" (click)="close()" label="Choose"></p-button>
     <p-button icon="pi pi-close" (click)="cancel()" label="Cancel" class="ui-button-secondary"></p-button>
   </p-footer>
 </p-dialog>
-
-<app-location-dlg [header]="'New Location'" [(visible)]="showDialog" [(location)]="location" (locationChange)="updateLocations(location)"></app-location-dlg>
-
