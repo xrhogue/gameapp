@@ -19,7 +19,9 @@ export class DeityDetailsComponent implements OnInit {
   @Output() deityChange: EventEmitter<Deity> = new EventEmitter<Deity>();
   @ViewChild('name') nameInput: any;
   @ViewChild('type') typeOption: any;
+  parent: Deity = new Deity(0, 0, null, null, "(None)");
   showDialog: boolean = false;
+  selectParent: boolean = false;
   dirty: boolean = false;
   JSON: JSON;
 
@@ -65,6 +67,12 @@ export class DeityDetailsComponent implements OnInit {
         this.dirty = false;
         this.finalize();
       });
+    }
+  }
+
+  updateParent(parent: Deity) {
+    if (!!parent && !!parent.id) {
+      this.parent = parent;
     }
   }
 

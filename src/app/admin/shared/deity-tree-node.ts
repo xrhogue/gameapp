@@ -6,6 +6,7 @@ export class DeityTreeNode implements TreeNode {
     public data: Deity,
     public parent: DeityTreeNode,
     public children?: DeityTreeNode[],
+    public label?: string,
     public leaf?: boolean,
     public expanded?: boolean
   ) {}

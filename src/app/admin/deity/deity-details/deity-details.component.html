@@ -26,18 +26,19 @@
     <p-button icon="pi pi-plus" (onClick)="showDialog=true"></p-button>
   </div>
 </div>
-<!-- div class="row align-center">
-  <div class="small-12 columns">
-    <div class="expanded button-group">
-      <button class="success btn btn-secondary" type="button"
-              [disabled]="name.invalid || type.invalid"
-              (click)="update()">
-        {{deity.id > 0 ? 'Update' : 'Add'}}
-      </button>
-      <button class="cancel btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
-    </div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="parentName">Parent
+      <div class="input-group">
+        <input type="text" class="form-control" id="parentName" [(ngModel)]="parent.name" name="parentName" required  #parentName="ngModel">
+        <div *ngIf="parentName.invalid && (parentName.dirty || parentName.touched)" class="alert alert-danger">
+          <div *ngIf="parentName.errors.required">Required</div>
+        </div>
+      </div>
+    </label>
+    <p-button icon="pi pi-arrow-circle-left" (onClick)="selectParent=true"></p-button>
   </div>
-</div-->
+</div>
 <app-add-name-dialog
   [header]="'New Deity Type'"
   [(visible)]="showDialog"
@@ -46,3 +47,11 @@
   [label]="'Deity Type'"
   [idNameValues]="deityTypes">
 </app-add-name-dialog>
+<app-select-deity-dlg
+  [header]="'Select Parent'"
+  [(visible)]="selectParent"
+  [(deity)] = "parent"
+  [ignoreDeity]="deity"
+  (locationChange)="updateParent($event)">
+</app-select-deity-dlg>
+

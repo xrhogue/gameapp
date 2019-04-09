@@ -1,0 +1,10 @@
+<p-dialog [header]="header" [(visible)]="visible" (onShow)="show()">
+  <p-tree [value]="deityTreeNodes"
+          selectionMode="single"
+          [(selection)]="selectedDeityTreeNode">
+  </p-tree>
+  <p-footer>
+    <p-button icon="pi pi-check" [disabled]="selectedDeityTreeNode == undefined" (click)="close()" label="Choose"></p-button>
+    <p-button icon="pi pi-close" (click)="cancel()" label="Cancel" class="ui-button-secondary"></p-button>
+  </p-footer>
+</p-dialog>

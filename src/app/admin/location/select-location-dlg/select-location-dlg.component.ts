@@ -13,6 +13,7 @@ export class SelectLocationDlgComponent implements OnInit {
   @Input() header: string = "Select Location";
   @Input() visible: boolean = false;
   @Input() location: Location;
+  @Input() ignoreLocation: Location;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() locationChange: EventEmitter<Location> = new EventEmitter<Location>();
   locations: Array<Location>;
@@ -45,7 +46,7 @@ export class SelectLocationDlgComponent implements OnInit {
   }
 
   buildLocationTreeNodes(parentId: number) {
-    let locationTreeNodes: LocationTreeNode[] = this.locations.filter(location => location.parentId === parentId).map(location => new LocationTreeNode(location, null, null, location.name, true, false));
+    let locationTreeNodes: LocationTreeNode[] = this.locations.filter(location => location.parentId === parentId && this.ignoreLocation.id !== location.id).map(location => new LocationTreeNode(location, null, null, location.name, true, false));
 
     locationTreeNodes.forEach(locationTreeNode => {
       locationTreeNode.children = this.buildLocationTreeNodes(locationTreeNode.data.id);
