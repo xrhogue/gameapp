@@ -15,7 +15,7 @@ export class CharacterGeneralComponent extends CharacterBaseComponent implements
   id: number;
   @Input() character: Character;
   @Output() characterChange: EventEmitter<Character> = new EventEmitter<Character>();
-  birthplace: Location;
+  birthplace: Location = new Location(null, null, null, null, "(None)");
   showDialog: boolean = false;
 
   constructor(private raceService: RaceService, private characterService: CharacterService, protected utilService: UtilService) {

@@ -68,12 +68,12 @@ export class DeitiesComponent implements OnInit {
 
   updateDeities(deity: Deity) {
     if (deity.parentId == null) {
-      this.deityTreeNodes.push(new DeityTreeNode(deity, null, null, true, false));
+      this.deityTreeNodes.push(new DeityTreeNode(deity, null, null, "(None)", true, false));
     }
     else {
       let deityTreeNode: DeityTreeNode = this.deityTreeNodes.find(deityTreeNode => deityTreeNode.data.id === deity.parentId);
 
-      deityTreeNode.children.push(new DeityTreeNode(deity, deityTreeNode, null, true, false));
+      deityTreeNode.children.push(new DeityTreeNode(deity, deityTreeNode, null, "(None)", true, false));
       deityTreeNode.leaf = false;
       deityTreeNode.expanded = true;
     }
@@ -116,7 +116,7 @@ export class DeitiesComponent implements OnInit {
   }
 
   buildDeityTreeNodes(parentId: number) {
-    let deityTreeNodes: DeityTreeNode[] = this.deities.filter(deity => deity.parentId === parentId).map(deity => new DeityTreeNode(deity, null, null, true, false));
+    let deityTreeNodes: DeityTreeNode[] = this.deities.filter(deity => deity.parentId === parentId).map(deity => new DeityTreeNode(deity, null, null, "(None)", true, false));
 
     deityTreeNodes.forEach(deityTreeNode => {
       deityTreeNode.children = this.buildDeityTreeNodes(deityTreeNode.data.id);

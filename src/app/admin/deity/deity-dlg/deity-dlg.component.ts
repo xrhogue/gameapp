@@ -18,6 +18,10 @@ export class DeityDlgComponent implements OnInit {
   ngOnInit() {
   }
 
+  invalid() {
+    return !this.deity || !this.deity.name || !this.deity.typeId;
+  }
+
   close(deity: Deity) {
     this.deityChange.emit(deity);
     this.visibleChange.emit(false);

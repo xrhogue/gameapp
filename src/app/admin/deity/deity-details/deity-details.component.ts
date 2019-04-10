@@ -44,6 +44,16 @@ export class DeityDetailsComponent implements OnInit {
   }
 
   invalid() {
+    // if this is a new record, then it is always invalid
+    if (this.id == 0 && !this.nameInput.dirty) {
+      return true;
+    }
+
+    // if this is an existing record, wait until it is ready for checking (e.g. value has been set)
+    if (!!this.deity && !!this.deity.name && !this.nameInput.control.value) {
+      return false;
+    }
+
     return this.nameInput.invalid || this.typeOption.invalid;
   }
 
