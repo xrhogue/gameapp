@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from "@angular/forms";
+import {SelectDeitiesDlgComponent} from "admin/deity/select-deities-dlg/select-deities-dlg.component";
 
 import {
   ContextMenuModule,
@@ -47,6 +48,7 @@ import { DeityTypesComponent } from './deity/deity-types/deity-types.component';
 import { LocationsDlgComponent } from './location/locations-dlg/locations-dlg.component';
 import { SelectLocationDlgComponent } from './location/select-location-dlg/select-location-dlg.component';
 import { SelectDeityDlgComponent } from './deity/select-deity-dlg/select-deity-dlg.component';
+import { DeitiesDlgComponent } from './deity/deities-dlg/deities-dlg.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { SelectDeityDlgComponent } from './deity/select-deity-dlg/select-deity-d
     DeityDetailsComponent,
     DeityTypesComponent,
     SelectLocationDlgComponent,
-    SelectDeityDlgComponent
+    SelectDeityDlgComponent,
+    SelectDeitiesDlgComponent,
+    DeitiesDlgComponent
   ],
   imports: [
     CommonModule,
@@ -100,7 +104,8 @@ import { SelectDeityDlgComponent } from './deity/select-deity-dlg/select-deity-d
     AdminRoutingModule
   ],
   exports: [
-    LocationsDlgComponent
+    LocationsDlgComponent,
+    DeitiesDlgComponent
   ],
   providers: [
     TreeDragDropService

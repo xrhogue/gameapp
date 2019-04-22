@@ -53,7 +53,7 @@ export class DeitiesComponent implements OnInit {
   }
 
   addDeity() {
-    this.router.navigateByUrl('/admin/deities/0').catch();
+    this.router.navigateByUrl('/admin/characterDeities/0').catch();
   }
 
   duplicateDeity(deity: Deity) {
@@ -88,7 +88,7 @@ export class DeitiesComponent implements OnInit {
   }
 
   updateDeity(deity: Deity) {
-    this.router.navigate(['admin/deities', deity.id]).catch()
+    this.router.navigate(['admin/characterDeities', deity.id]).catch()
   }
 
   deleteDeity(deity: Deity) {

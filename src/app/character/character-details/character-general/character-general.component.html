@@ -33,7 +33,7 @@
                name="location"
                required
                #location="ngModel">
-        <button type="button" class="btn btn-secondary" ngbTooltip="Select a Birthplace" placement="top" (click)="showDialog = true">. . .</button>
+        <button type="button" class="btn btn-secondary" ngbTooltip="Select a Birthplace" placement="top" (click)="selectBirthplace = true">. . .</button>
         <div *ngIf="location.invalid" class="alert alert-danger">
           <div *ngIf="location.errors.required">Required</div>
         </div>
@@ -41,5 +41,37 @@
     </label>
   </div>
 </div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label">Deities
+      <div class="input-group">
+        <p-listbox
+          styleClass="deity-list"
+          [options]="characterDeities"
+          dataKey="id"
+          optionLabel="name"
+          multiple="true"
+          name="deities"
+          [(ngModel)]="selectedDeities"
+          (ngModelChange)="characterChange.emit(character)"
+          #deitiesList=ngModel>
+        </p-listbox>
+        <div *ngIf="deitiesList.invalid" class="alert alert-danger">
+          <div *ngIf="deitiesList.errors.required">Required</div>
+        </div>
+      </div>
+    </label>
+    <button type="button" class="btn btn-secondary" ngbTooltip="Select a Deity" placement="top" (click)="selectDeities = true">. . .</button>
+  </div>
+</div>
 
-<app-locations-dlg [header]="'Select Birthplace'" [(visible)]="showDialog" [(location)]="birthplace" (locationChange)="updateBirthplace(birthplace)"></app-locations-dlg>
+<app-locations-dlg [header]="'Select Birthplace'" [(visible)]="selectBirthplace" [(location)]="birthplace" (locationChange)="updateBirthplace(birthplace)"></app-locations-dlg>
+<app-deities-dlg [header]="'Select Deities'" [(visible)]="selectDeities" [(deities)]="characterDeities" (deitiesChange)="updateDeities(characterDeities)"></app-deities-dlg>
+
+<!--
+          styleClass="deity-list"
+          [listStyle]="{'max-height': '200px'}"
+          dataKey="id"
+          multiple="true"
+          name="characterDeities"
+-->

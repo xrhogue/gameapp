@@ -34,11 +34,12 @@ export class DeityDetailsComponent implements OnInit {
     this.deityService.getDeityTypes().subscribe(deityTypes => {
       this.deityTypes = deityTypes.filter(deityType => deityType.id !== 0);
 
-      if (this.id > 0) {
-        this.deityService.getDeity(this.id).subscribe(deity => this.deity = deity);
-      }
-      else if (!this.deity) {
-        this.deity = new Deity(null, null, null, !!this.deityTypes && this.deityTypes.length > 0 ? this.deityTypes[0].id : null, "");
+      if (!this.deity) {
+        if (this.id > 0) {
+          this.deityService.getDeity(this.id).subscribe(deity => this.deity = deity);
+        } else {
+          this.deity = new Deity(null, null, null, !!this.deityTypes && this.deityTypes.length > 0 ? this.deityTypes[0].id : null, "");
+        }
       }
     });
   }
@@ -113,7 +114,7 @@ export class DeityDetailsComponent implements OnInit {
 
   finalize() {
     if (!this.modal) {
-      this.router.navigate(['/admin/deitys']).catch(/*display an error message?*/);
+      this.router.navigate(['/admin/deities']).catch(/*display an error message?*/);
     }
     else {
       this.deityChange.emit(this.deity);

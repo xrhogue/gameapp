@@ -8,6 +8,7 @@ export class Character {
     public name: string,
     public genderId: number,
     public locationId: number,
+    public deityIds?: Array<number>,
     public stats?: Array<CharacterStat>,
     public races?: Array<CharacterRace>,
     public skills?: Array<CharacterSkill>

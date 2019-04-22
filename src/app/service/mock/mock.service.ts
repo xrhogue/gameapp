@@ -132,6 +132,7 @@ export class MockService implements InMemoryDbService {
         'Bob',
         1,
         1,
+         [1],
         [new CharacterStat(1, 1, 71), new CharacterStat(1, 2, 81)],
         [new CharacterRace(1, 1, 50), new CharacterRace(1, 4, 50)]),
       new Character(2, 'Dell', 1, 1),

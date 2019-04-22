@@ -56,19 +56,5 @@ export class LocationsDlgComponent implements OnInit {
 
   updateLocations(location: Location) {
     this.show();
-    // if (location.parentId == null) {
-    //   this.locationTreeNodes.push(new LocationTreeNode(location, null, null, null, true, false));
-    // }
-    // else {
-    //   let locationTreeNode: LocationTreeNode = this.locationTreeNodes.find(locationTreeNode => locationTreeNode.data.id === location.parentId);
-    //
-    //   locationTreeNode.children.push(new LocationTreeNode(location, locationTreeNode, null,null, true, false));
-    //   locationTreeNode.leaf = false;
-    //   locationTreeNode.expanded = true;
-    // }
-    //
-    // this.locationService.getLocations().subscribe(locations => {
-    //   this.locations = locations;
-    // });
   }
 }

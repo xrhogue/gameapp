@@ -7,7 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {TreeTableModule} from 'primeng/treetable';
 import {ContextMenuModule} from 'primeng/contextmenu';
-import {ButtonModule, DialogModule, MultiSelectModule, TreeModule} from "primeng/primeng";
+import {ButtonModule, DialogModule, ListboxModule, MultiSelectModule, TreeModule} from "primeng/primeng";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -65,6 +65,7 @@ import {DeityService} from "./service/deity/deity.service";
     TreeModule,
     ContextMenuModule,
     MultiSelectModule,
+    ListboxModule,
     ButtonModule,
     DialogModule,
     InMemoryWebApiModule.forRoot(MockService, {delay: 0})

@@ -30,11 +30,11 @@ const adminRoutes: Routes = [
             component: CampaignsComponent
           },
           {
-            path: 'deities',
+            path:      'characterDeities',
             component: DeitiesComponent
           },
           {
-            path: 'deities/:id',
+            path: 'characterDeities/:id',
             component: DeityDetailsComponent
           },
           {
