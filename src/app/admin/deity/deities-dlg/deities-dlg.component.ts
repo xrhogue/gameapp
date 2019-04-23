@@ -55,6 +55,7 @@ export class DeitiesDlgComponent implements OnInit {
   }
 
   updateDeities(deity: Deity) {
+    this.deity = new Deity(null, null, null, null, null);
     this.show();
   }
 }

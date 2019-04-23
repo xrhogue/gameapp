@@ -46,7 +46,7 @@ export class SelectDeityDlgComponent implements OnInit {
   }
 
   buildDeityTreeNodes(parentId: number) {
-    let deityTreeNodes: DeityTreeNode[] = this.deities.filter(deity => deity.parentId === parentId && this.ignoreDeity.id !== deity.id).map(deity => new DeityTreeNode(deity, null, null, "(None)",false));
+    let deityTreeNodes: DeityTreeNode[] = this.deities.filter(deity => deity.parentId === parentId && this.ignoreDeity.id !== deity.id).map(deity => new DeityTreeNode(deity, null, null, deity.name,false));
 
     deityTreeNodes.forEach(deityTreeNode => {
       deityTreeNode.children = this.buildDeityTreeNodes(deityTreeNode.data.id);
