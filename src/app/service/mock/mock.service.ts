@@ -36,7 +36,8 @@ export class MockService implements InMemoryDbService {
   // elements must contain as least one element or the mock service is unable to determine the type when adding the an element
   createDb(reqInfo?: RequestInfo): {} | Observable<{}> {
     let campaigns: Campaign[] = [
-      new Campaign(0,0,'System')
+      new Campaign(0,0,'System'),
+      new Campaign(1,1,'Boo')
     ];
 
     let locations: Location[] = [new Location(0, 0, null, 0,"System", null),
@@ -132,11 +133,12 @@ export class MockService implements InMemoryDbService {
         'Bob',
         1,
         1,
+        1,
          [1],
         [new CharacterStat(1, 1, 71), new CharacterStat(1, 2, 81)],
         [new CharacterRace(1, 1, 50), new CharacterRace(1, 4, 50)]),
-      new Character(2, 'Dell', 1, 1),
-      new Character(3, 'Harriet', 2, 2)
+      new Character(2, 'Dell', 1, 1, 1),
+      new Character(3, 'Harriet', 2, 1, 2)
     ];
 
     return {

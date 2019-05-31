@@ -72,7 +72,11 @@ export class LocationsComponent implements OnInit {
       this.locationTreeNodes.push(new LocationTreeNode(location, null, null, null, true, false));
     }
     else {
-      let locationTreeNode: LocationTreeNode = this.locationTreeNodes.find(locationTreeNode => locationTreeNode.data.id === location.parentId);
+      let locationTreeNode: LocationTreeNode = this.findLocationTreeNode(this.locationTreeNodes, location.parentId);
+
+      if (!locationTreeNode.children) {
+        locationTreeNode.children = [];
+      }
 
       locationTreeNode.children.push(new LocationTreeNode(location, locationTreeNode, null,null, true, false));
       locationTreeNode.leaf = false;
@@ -86,6 +90,9 @@ export class LocationsComponent implements OnInit {
     this.locationService.getLocationTypes().subscribe(locationTypes => {
       this.locationTypes = locationTypes;
     });
+
+    // this is to refresh the UI after all the node updates; may be specific to the PrimeNG treetable (they may need to fix something on their side)
+    this.locationTreeNodes = [...this.locationTreeNodes];
   }
 
   updateLocation(location: Location) {

@@ -22,6 +22,20 @@
 </div>
 <div class="row">
   <div class="small-12 medium-6 columns">
+    <label class="control-label" for="campaign">Campaign
+      <div class="input-group">
+        <select id="campaign" class="form-control" [(ngModel)]="character.campaignId" name="campaign" required #campaign="ngModel">
+          <option *ngFor="let campaign of campaigns" [value]="campaign.id">{{campaign.name}}</option>
+        </select>
+        <div *ngIf="campaign.invalid" class="alert alert-danger">
+          <div *ngIf="campaign.errors.required">Required</div>
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 medium-6 columns">
     <label class="control-label" for="location">Birthplace
       <div class="input-group">
         <input type="text"

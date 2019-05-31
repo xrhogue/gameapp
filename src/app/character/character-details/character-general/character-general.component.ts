@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Campaign} from "admin/shared/campaign";
 import {Deity} from "admin/shared/deity";
+import {CampaignService} from "../../../service/campaign/campaign.service";
 import {DeityService} from "../../../service/deity/deity.service";
 import {LocationService} from "../../../service/location/location.service";
 import {UtilService} from "../../../shared/services/util/util.service";
@@ -18,13 +20,16 @@ export class CharacterGeneralComponent extends CharacterBaseComponent implements
   id: number;
   @Input() character: Character;
   @Output() characterChange: EventEmitter<Character> = new EventEmitter<Character>();
+  campaigns: Array<Campaign> = [];
   birthplace: Location = new Location(null, null, null, null, "(None)");
   characterDeities: Array<Deity> = [];
   selectedDeities: Array<Deity> = [];
+  selectCampaign: boolean = false;
   selectBirthplace: boolean = false;
   selectDeities: boolean = false;
 
-  constructor(private locationService: LocationService,
+  constructor(private campaignService: CampaignService,
+              private locationService: LocationService,
               private deityService: DeityService,
               private raceService: RaceService,
               private characterService: CharacterService,
@@ -35,6 +40,10 @@ export class CharacterGeneralComponent extends CharacterBaseComponent implements
 
   ngOnInit() {
     this.initInvalid();
+
+    this.campaignService.getCampaigns().subscribe(campaigns => {
+      this.campaigns = campaigns;
+    });
 
     this.locationService.getLocations().subscribe(locations => {
       if (!!locations) {
@@ -57,6 +66,11 @@ export class CharacterGeneralComponent extends CharacterBaseComponent implements
     if (!this.character.name || this.character.name.length === 0) {
       this.fieldStates['name'] = true;
     }
+  }
+
+  updateCampaign(campaign: Campaign) {
+    this.character.campaignId = campaign.id;
+    this.characterChange.emit(this.character);
   }
 
   updateBirthplace(birthplace: Location) {

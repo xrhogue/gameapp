@@ -39,6 +39,10 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.init();
+  }
+
+  init() {
     this.locationService.getLocations().subscribe(locations => {
       this.locations = locations;
 
@@ -78,6 +82,8 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   focus() {
+    this.init();
+
     if (!!this.nameInput) {
       this.nameInput.valueAccessor._elementRef.nativeElement.focus();
     }

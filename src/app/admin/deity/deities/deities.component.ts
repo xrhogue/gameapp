@@ -71,7 +71,11 @@ export class DeitiesComponent implements OnInit {
       this.deityTreeNodes.push(new DeityTreeNode(deity, null, null, "(None)", true, false));
     }
     else {
-      let deityTreeNode: DeityTreeNode = this.deityTreeNodes.find(deityTreeNode => deityTreeNode.data.id === deity.parentId);
+      let deityTreeNode: DeityTreeNode = this.findDeityTreeNode(this.deityTreeNodes, deity.parentId);
+
+      if (!deityTreeNode.children) {
+        deityTreeNode.children = [];
+      }
 
       deityTreeNode.children.push(new DeityTreeNode(deity, deityTreeNode, null, "(None)", true, false));
       deityTreeNode.leaf = false;
@@ -85,6 +89,8 @@ export class DeitiesComponent implements OnInit {
     this.deityService.getDeityTypes().subscribe(deityTypes => {
       this.deityTypes = deityTypes;
     });
+
+    this.deityTreeNodes = [...this.deityTreeNodes];
   }
 
   updateDeity(deity: Deity) {
