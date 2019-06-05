@@ -44,11 +44,11 @@ export class SkillDetailsComponent implements OnInit {
       this.skillService.updateSkill(this.skill).subscribe(skill => this.skill = skill);
     }
 
-    this.router.navigate(['/admin/skills']);
+    this.router.navigate(['/admin/skills']).catch(/*handle error here */);
   }
 
   cancel() {
-    this.router.navigate(['/admin/skills']);
+    this.router.navigate(['/admin/skills']).catch(/*handle error here */);
   }
 
   isInvalid() {

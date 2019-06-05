@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {CharacterSkill} from "admin/shared/character-skill";
 import {DeityType} from "admin/shared/deity-type";
 import {LocationType} from "admin/shared/location-type";
 import {InMemoryDbService} from 'angular-in-memory-web-api';
@@ -136,7 +137,8 @@ export class MockService implements InMemoryDbService {
         1,
          [1],
         [new CharacterStat(1, 1, 71), new CharacterStat(1, 2, 81)],
-        [new CharacterRace(1, 1, 50), new CharacterRace(1, 4, 50)]),
+        [new CharacterRace(1, 1, 50), new CharacterRace(1, 4, 50)],
+        [new CharacterSkill(1, 7, 5)]),
       new Character(2, 'Dell', 1, 1, 1),
       new Character(3, 'Harriet', 2, 1, 2)
     ];

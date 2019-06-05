@@ -18,7 +18,6 @@ export class CharacterRacesComponent extends CharacterBaseComponent implements O
   @ViewChild(Table) characterRaces: Table;
   races: Array<Race>
   genders: Array<Gender>;
-  character: Character;
   selectedCharacterRace: CharacterRace;
   showDialog: boolean = false;
   invalid: string = '';

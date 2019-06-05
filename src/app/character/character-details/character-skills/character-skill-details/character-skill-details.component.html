@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="small-12 medium-6 columns">
+    <label class="control-label" for="level">Level
+      <div class="input-group">
+        <input type="text"
+               class="form-control number"
+               id="level"
+               oninput="this.value = this.value.replace(/\D/g, '')"
+               [(ngModel)]="characterSkill.level"
+               (ngModelChange)="characterSkillChange.emit(characterSkill)"
+               name="level"
+               required
+               min="1"
+               pattern="[1-9]+[0-9]*"
+               #level="ngModel">
+        <div *ngIf="level.invalid" class="alert alert-danger">
+          <div *ngIf="level.errors.required">Required</div>
+          <div *ngIf="level.errors.pattern && isInteger(level.errors.pattern.actualValue)">Value must be greater than '0'</div>
+          <div *ngIf="level.errors.pattern && !isInteger(level.errors.pattern.actualValue)">Value is not an integer</div>
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
+<div class="expanded button-group">
+  <button class="success btn btn-secondary" type="button"
+          [disabled]="level.invalid"
+          (click)="close()">
+    {{'Close'}}
+  </button>
+</div>

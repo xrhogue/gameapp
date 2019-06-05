@@ -16,7 +16,6 @@ import {Character} from "admin/shared/character";
 })
 export class CharacterSkillsComponent extends CharacterBaseComponent implements OnInit {
   skills: Array<Skill>;
-  character: Character;
   selectedCharacterSkills: Array<CharacterSkill> = [];
   showDialog: boolean = false;
 
@@ -43,11 +42,11 @@ export class CharacterSkillsComponent extends CharacterBaseComponent implements 
   }
 
   updateCharacterSkill(characterSkill: CharacterSkill) {
-    this.router.navigateByUrl('/character/skills/' + characterSkill.skillId);
+    this.router.navigateByUrl('/characters/skills/' + characterSkill.skillId).catch(/*handle exception here*/);
   }
 
-  deleteCharacterSkill(skillId: number) {
-    this.utilService.deleteObjectFromArray(this.character.skills, skillId, this.comparator);
+  deleteCharacterSkill(characterSkill: CharacterSkill) {
+    this.utilService.deleteObjectFromArray(this.character.skills, characterSkill.skillId, this.comparator);
     //
     // let index: number = this.character.skills.findIndex(characterSkill => characterSkill.skillId === skillId);
     //

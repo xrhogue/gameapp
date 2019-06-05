@@ -1,25 +1,25 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Character} from "admin/shared/character";
+import {CharacterBaseComponent} from "../../shared/components/character-base/character-base.component";
+import {UtilService} from "../../shared/services/util/util.service";
+import {CharacterGeneralComponent} from "./character-general/character-general.component";
 import {CharacterStatsComponent} from "./character-stats/character-stats.component";
 import {CharacterService} from "../../service/character/character.service";
-import {Race} from "admin/shared/race";
 
 @Component({
   templateUrl: './character-details.component.html',
   styleUrls: ['./character-details.component.scss']
 })
-export class CharacterDetailsComponent implements OnInit {
+export class CharacterDetailsComponent extends CharacterBaseComponent implements OnInit {
   id: number;
-  character: Character;
-  JSON: JSON;
-  componentStates: Array<boolean> = [];
 
+  @ViewChild(CharacterGeneralComponent) private characterGeneralComponent: CharacterGeneralComponent;
   @ViewChild(CharacterStatsComponent) private characterStatsComponent: CharacterStatsComponent;
 
-  constructor(private route: ActivatedRoute, private router: Router, private characterService: CharacterService) {
+  constructor(private route: ActivatedRoute, private router: Router, private characterService: CharacterService, protected utilService: UtilService) {
+    super(utilService);
     this.route.params.subscribe( params => this.id = params.id );
-    this.JSON = JSON;
   }
 
   ngOnInit() {
@@ -37,6 +37,17 @@ export class CharacterDetailsComponent implements OnInit {
   }
 
   isComponentInvalid(name: string) {
-    return this.componentStates[name];
+     return Character.isInvalid(this.character, name);
+  }
+
+  update() {
+    this.characterService.updateCharacter(this.character).subscribe(character => {
+      this.characterChange.emit(character);
+      this.router.navigateByUrl('/characters').catch(/*handle error here*/);
+    })
+  }
+
+  cancel() {
+    this.router.navigateByUrl('/characters').catch(/*handle error here*/);
   }
 }

@@ -36,6 +36,7 @@ import { CharacterAddSkillComponent } from './character/character-details/charac
 import {CampaignService} from "./service/campaign/campaign.service";
 import {LocationService} from "./service/location/location.service";
 import {DeityService} from "./service/deity/deity.service";
+import { CharacterSkillDetailsComponent } from './character/character-details/character-skills/character-skill-details/character-skill-details.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {DeityService} from "./service/deity/deity.service";
     CharacterStatsComponent,
     CharacterSkillsComponent,
     CharacterAddRaceComponent,
-    CharacterAddSkillComponent
+    CharacterAddSkillComponent,
+    CharacterSkillDetailsComponent
   ],
   imports: [
     BrowserModule,
