@@ -20,8 +20,8 @@ export class RaceDetailsComponent implements OnInit {
   JSON: JSON;
   componentStates: Array<boolean> = [];
 
-  @ViewChild(RaceGeneralComponent) private raceGeneralComponent: RaceGeneralComponent;
-  @ViewChild(RaceGenderComponent) private raceGenderComponent: RaceGenderComponent;
+  @ViewChild(RaceGeneralComponent, { static: false }) private raceGeneralComponent: RaceGeneralComponent;
+  @ViewChild(RaceGenderComponent, { static: false }) private raceGenderComponent: RaceGenderComponent;
 
   constructor(private route: ActivatedRoute, private router: Router, private statService: StatService, private raceService: RaceService) {
     this.route.params.subscribe( params => this.id = params.id );

@@ -14,8 +14,8 @@ import {CharacterService} from "../../service/character/character.service";
 export class CharacterDetailsComponent extends CharacterBaseComponent implements OnInit {
   id: number;
 
-  @ViewChild(CharacterGeneralComponent) private characterGeneralComponent: CharacterGeneralComponent;
-  @ViewChild(CharacterStatsComponent) private characterStatsComponent: CharacterStatsComponent;
+  @ViewChild(CharacterGeneralComponent, { static: false }) private characterGeneralComponent: CharacterGeneralComponent;
+  @ViewChild(CharacterStatsComponent, { static: false }) private characterStatsComponent: CharacterStatsComponent;
 
   constructor(private route: ActivatedRoute, private router: Router, private characterService: CharacterService, protected utilService: UtilService) {
     super(utilService);

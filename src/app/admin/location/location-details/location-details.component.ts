@@ -9,21 +9,21 @@ import {
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "admin/shared/location";
 import {LocationType} from "admin/shared/location-type";
-import {LocationService} from "../../../service/location/location.service";
-import {DialogService} from "../../../shared/services/dialog/dialog.service";
+import {LocationService} from "service/location/location.service";
+import {DialogService} from "shared/services/dialog/dialog.service";
 
 @Component({
-  selector: 'app-location-details',
-  templateUrl: './location-details.component.html',
-  styleUrls: ['./location-details.component.scss']
-})
+             selector:    'app-location-details',
+             templateUrl: './location-details.component.html',
+             styleUrls:   ['./location-details.component.scss']
+           })
 export class LocationDetailsComponent implements OnInit {
   id: number;
   @Input() location: Location;
   @Input() modal: boolean = false;
   @Output() locationChange: EventEmitter<Location> = new EventEmitter<Location>();
-  @ViewChild('name') nameInput: any;
-  @ViewChild('type') typeOption: any;
+  @ViewChild('name', {static: true}) nameInput: any;
+  @ViewChild('type', {static: false}) typeOption: any;
   locations: Array<Location>;
   locationTypes: Array<LocationType>;
   locationTypeName: string = "";
@@ -43,15 +43,22 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   init() {
+    if (!!this.location) {
+      this.id = this.location.id;
+    }
+    else {
+      this.id = null;
+    }
+
     this.locationService.getLocations().subscribe(locations => {
       this.locations = locations;
 
       if (!!this.location && !!this.location.parentId) {
         this.parent = this.locations.find(location => location.id === this.location.parentId);
+      }
 
-        if (!this.parent) {
-          this.parent = new Location(0, 0, 0, 0, "(None)");
-        }
+      if (!this.parent) {
+        this.parent = new Location(0, 0, 0, 0, "(None)");
       }
     });
 
@@ -60,25 +67,27 @@ export class LocationDetailsComponent implements OnInit {
 
       if (this.id > 0) {
         this.locationService.getLocation(this.id).subscribe(location => this.location = location);
-      }
-      else if (!this.location) {
+      } else if (!this.location) {
         this.location = new Location(null, null, null, !!this.locationTypes && this.locationTypes.length > 0 ? this.locationTypes[0].id : null, "");
+      }
+      else {
+        this.location.typeId = !!this.locationTypes && this.locationTypes.length > 0 ? this.locationTypes[0].id : null;
       }
     });
   }
 
   invalid() {
     // if this is a new record, then it is always invalid
-    if (this.id == 0 && !this.nameInput.dirty) {
+    if (!!this.location && this.location.id == 0 && !!this.nameInput && !this.nameInput.dirty) {
       return true;
     }
 
     // if this is an existing record, wait until it is ready for checking (e.g. value has been set)
-    if (!!this.location && !!this.location.name && !this.nameInput.control.value) {
+    if (!!this.location && !!this.location.name && !!this.nameInput && !!this.nameInput.control && !this.nameInput.control.value) {
       return false;
     }
 
-    return this.nameInput.invalid || this.typeOption.invalid;
+    return (!!this.nameInput && this.nameInput.invalid) || (!!this.typeOption && this.typeOption.invalid);
   }
 
   focus() {
@@ -92,19 +101,18 @@ export class LocationDetailsComponent implements OnInit {
   update() {
     if (!!this.parent && !!this.parent.id) {
       this.location.parentId = this.parent.id;
-    }
-    else {
+    } else {
       this.location.parentId = null;
     }
 
     if (!this.location.id) {
+      this.location.id = null;
       this.locationService.addLocation(this.location).subscribe(location => {
         this.location = location;
         this.dirty = false;
         this.finalize();
       });
-    }
-    else {
+    } else {
       this.locationService.updateLocation(this.location).subscribe(location => {
         this.location = location;
         this.dirty = false;
@@ -122,8 +130,7 @@ export class LocationDetailsComponent implements OnInit {
   cancel() {
     if (!this.dirty) {
       this.finalize();
-    }
-    else {
+    } else {
       this.dialogService.confirm('Discard changes?').subscribe(exit => {
         if (exit) {
           this.finalize();
@@ -154,9 +161,12 @@ export class LocationDetailsComponent implements OnInit {
   finalize() {
     if (!this.modal) {
       this.router.navigate(['/admin/locations']).catch(/*display an error message?*/);
+    } else {
+      this.emit();
     }
-    else {
-      this.locationChange.emit(this.location);
-    }
+  }
+
+  emit() {
+    this.locationChange.emit(this.location);
   }
 }

@@ -8,6 +8,10 @@ export class UtilService {
   constructor() { }
 
   isInteger(number: string): boolean {
+    if (typeof number == 'number') {
+      return true;
+    }
+
     if (number.match('.*[^0-9]+.*')) {
       return false;
     }

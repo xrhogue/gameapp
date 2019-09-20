@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {SkillService} from "../../../service/skill/skill.service";
 import {NgForm} from "@angular/forms";
-import {Skill} from "../../shared/skill";
+import {SkillService} from "app/service/skill/skill.service";
+import {Skill} from "admin/shared/skill";
 import {SkillGeneralComponent} from "./skill-general/skill-general.component";
 import {SkillPrerequisitesComponent} from "./skill-prerequisites/skill-prerequisites.component";
 
@@ -18,9 +18,9 @@ export class SkillDetailsComponent implements OnInit {
   JSON: JSON;
   invalid: boolean = true;
 
-  @ViewChild('form') ngForm: NgForm;
-  @ViewChild(SkillGeneralComponent) private skillGeneralComponent: SkillGeneralComponent;
-  @ViewChild(SkillPrerequisitesComponent) private skillPrerequisitesComponent: SkillPrerequisitesComponent;
+  @ViewChild('form', { static: true }) ngForm: NgForm;
+  @ViewChild(SkillGeneralComponent, { static: false }) private skillGeneralComponent: SkillGeneralComponent;
+  @ViewChild(SkillPrerequisitesComponent, { static: false }) private skillPrerequisitesComponent: SkillPrerequisitesComponent;
 
   constructor(private route: ActivatedRoute, private router: Router, private skillService: SkillService) {
     this.route.params.subscribe( params => this.id = params.id );

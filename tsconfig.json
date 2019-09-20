@@ -19,9 +19,42 @@
       "dom"
     ],
     "paths": {
+      "shared/*": [
+        "app/shared/*"
+      ],
+      "service/*": [
+        "app/service/*"
+      ],
       "admin/*": [
         "app/admin/*"
+      ],
+      "campaign/*": [
+        "app/admin/campaign/*"
+      ],
+      "deity/*": [
+        "app/admin/deity/*"
+      ],
+      "location/*": [
+        "app/admin/location/*"
+      ],
+      "race/*": [
+        "app/admin/race/*"
+      ],
+      "skill/*": [
+        "app/admin/skill/*"
+      ],
+      "stat/*": [
+        "app/admin/stat/*"
+      ],
+      "character/*": [
+        "app/character/*"
+      ],
+      "sidebar/*": [
+        "app/sidebar/*"
       ]
     }
-  }
+  }/*,
+  "angularCompilerOptions": {
+    "enableIvy": true
+  }*/
 }

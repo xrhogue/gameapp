@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Skill} from "../../admin/shared/skill";
 import {Observable} from "rxjs/internal/Observable";
-import {Race} from "admin/shared/race";
 
 @Injectable({
-  providedIn: 'root'
-})
+              providedIn: 'root'
+            })
 export class SkillService {
 
   skills: Array<Skill>;
@@ -42,8 +41,8 @@ export class SkillService {
   isUnique(skill: Skill, fieldName: String, value: String) {
     for (let skillKey in this.skills) {
       if (this.skills[skillKey].id != skill.id &&
-        ((fieldName === "name" && this.skills[skillKey].name === value) ||
-          (fieldName === "shortName" && this.skills[skillKey].shortName == value))) {
+          ((fieldName === "name" && this.skills[skillKey].name === value) ||
+           (fieldName === "shortName" && this.skills[skillKey].shortName == value))) {
         return false;
       }
     }

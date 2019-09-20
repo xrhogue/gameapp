@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {SkillService} from "../../../../service/skill/skill.service";
+import {SkillService} from "app/service/skill/skill.service";
 import {NgForm} from "@angular/forms";
-import {Skill} from "../../../shared/skill";
+import {Skill} from "admin/shared/skill";
 import {Subscription} from "rxjs/internal/Subscription";
-import {StatService} from "../../../../service/stat/stat.service";
-import {Stat} from "../../../shared/stat";
-import {UtilService} from "../../../../shared/services/util/util.service";
+import {StatService} from "app/service/stat/stat.service";
+import {Stat} from "admin/shared/stat";
+import {UtilService} from "shared/services/util/util.service";
 
 @Component({
   selector: 'app-skill-general',

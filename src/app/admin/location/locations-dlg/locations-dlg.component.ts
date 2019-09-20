@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Location} from "admin/shared/location";
 import {LocationTreeNode} from "admin/shared/location-tree-node";
-import {LocationService} from "../../../service/location/location.service";
-import {UtilService} from "../../../shared/services/util/util.service";
+import {LocationService} from "service/location/location.service";
+import {UtilService} from "shared/services/util/util.service";
 
 @Component({
   selector: 'app-locations-dlg',
@@ -18,18 +18,20 @@ export class LocationsDlgComponent implements OnInit {
   locations: Array<Location>;
   locationTreeNodes: Array<LocationTreeNode>;
   selectedLocationTreeNode: LocationTreeNode;
+  newLocation: Location;
   showDialog: boolean = false;
 
   constructor(private locationService: LocationService, private utilService: UtilService) { }
 
   ngOnInit() {
-    this.show()
+    this.newLocation = new Location(0, this.location.campaignId, 0, 0, '');
+    this.show(this.location)
   }
 
-  show() {
+  show(location: Location) {
     this.locationService.getLocations().subscribe(locations => {
       this.locations = locations;
-      this.locationTreeNodes = this.buildLocationTreeNodes(null);
+      this.locationTreeNodes = this.buildLocationTreeNodes(location, null);
     });
   }
 
@@ -42,19 +44,23 @@ export class LocationsDlgComponent implements OnInit {
     this.visibleChange.emit(false);
   }
 
-  buildLocationTreeNodes(parentId: number) {
+  buildLocationTreeNodes(selectedLocation: Location, parentId: number) {
     let locationTreeNodes: LocationTreeNode[] = this.locations.filter(location => location.parentId === parentId).map(location => new LocationTreeNode(location, null, null, location.name, true, false));
 
     locationTreeNodes.forEach(locationTreeNode => {
-      locationTreeNode.children = this.buildLocationTreeNodes(locationTreeNode.data.id);
+      locationTreeNode.children = this.buildLocationTreeNodes(selectedLocation, locationTreeNode.data.id);
 
       locationTreeNode.leaf = (locationTreeNode.children == undefined || locationTreeNode.children == null || locationTreeNode.children.length == 0);
+
+      if (!!selectedLocation && locationTreeNode.data.id == selectedLocation.id) {
+        this.selectedLocationTreeNode = locationTreeNode;
+      }
     });
 
     return locationTreeNodes;
   }
 
   updateLocations(location: Location) {
-    this.show();
+    this.show(location);
   }
 }

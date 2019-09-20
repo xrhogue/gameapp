@@ -57,7 +57,9 @@ export class CharacterStatsComponent extends CharacterBaseComponent implements O
   }
 
   updateStats(characterRace: CharacterRace) {
-    this.getRace(characterRace).stats.find(raceStats => raceStats[0].genderId === this.character.genderId).forEach(raceStat => this.updateStat(raceStat, characterRace.percent));
+    if (!!this.getRace(characterRace) && !!this.getRace(characterRace).stats) {
+      this.getRace(characterRace).stats.find(raceStats => raceStats[0].genderId === this.character.genderId).forEach(raceStat => this.updateStat(raceStat, characterRace.percent));
+    }
   }
 
   updateStat(raceStat: RaceStat, percent: number) {

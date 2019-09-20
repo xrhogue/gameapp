@@ -10,7 +10,7 @@ import {Attribute} from "../../admin/shared/attribute";
 import {Gender} from "../../admin/shared/gender";
 import {Race} from "../../admin/shared/race";
 
-import {catchError, map} from 'rxjs/operators'
+import {map} from 'rxjs/operators'
 import {throwError} from "rxjs/internal/observable/throwError";
 
 @Injectable({

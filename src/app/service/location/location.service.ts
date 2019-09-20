@@ -60,19 +60,19 @@ export class LocationService {
   }
 
   addLocationType(locationType: LocationType): Observable<LocationType> {
-    setTimeout(this.updateCache, 500);
+    setTimeout(this.updateTypeCache, 500);
 
     return this.http.post<LocationType>("http://localhost:8888/admin/locationTypes", locationType);
   }
 
   updateLocationType(locationType: LocationType): Observable<LocationType> {
-    setTimeout(this.updateCache, 500);
+    setTimeout(this.updateTypeCache, 500);
 
     return this.http.put<LocationType>("http://localhost:8888/admin/locationTypes", locationType);
   }
 
   deleteLocationType(locationTypeId: number): Observable<LocationType> {
-    setTimeout(this.updateCache, 500);
+    setTimeout(this.updateTypeCache, 500);
 
     return this.http.delete<LocationType>("http://localhost:8888/admin/locationTypes/" + locationTypeId);
   }

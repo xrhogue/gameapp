@@ -15,7 +15,7 @@ import {Table} from "primeng/table";
   styleUrls: ['./character-races.component.scss']
 })
 export class CharacterRacesComponent extends CharacterBaseComponent implements OnInit {
-  @ViewChild(Table) characterRaces: Table;
+  @ViewChild(Table, { static: false }) characterRaces: Table;
   races: Array<Race>
   genders: Array<Gender>;
   selectedCharacterRace: CharacterRace;
@@ -88,6 +88,6 @@ export class CharacterRacesComponent extends CharacterBaseComponent implements O
   }
 
   cellFocusLost() {
-    this.characterRaces.closeCellEdit();
+    //this.characterRaces.closeCellEdit();
   }
 }

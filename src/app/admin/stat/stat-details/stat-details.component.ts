@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, CanDeactivate, Router} from '@angular/router';
 import {StatService} from '../../../service/stat/stat.service';
+import {UtilService} from "../../../shared/services/util/util.service";
 import {Stat} from '../../shared/stat';
 import {NgForm} from "@angular/forms";
 import {Subscription} from "rxjs/internal/Subscription";
@@ -17,27 +18,31 @@ export class StatDetailsComponent implements OnInit, OnDestroy, CanDeactivate<Ob
   id: number;
   stat: Stat;
   statCodes: Array<String>;
+  isInteger:(number: string) => boolean;
   JSON: JSON;
   formChangesSubscription: Subscription;
   ignoreDirty: boolean = false;
 
-  @ViewChild('form') ngForm: NgForm;
+  @ViewChild('form', { static: true }) ngForm: NgForm;
 
-  constructor(private route: ActivatedRoute, private router: Router, private data: StatService, private dialogService: DialogService) {
+  constructor(private route: ActivatedRoute, private router: Router, private data: StatService, private dialogService: DialogService, protected utilService: UtilService) {
     this.route.params.subscribe(params => this.id = params.id);
     this.JSON = JSON;
+    this.isInteger = this.utilService.isInteger;
   }
 
   ngOnInit() {
-    this.formChangesSubscription = this.ngForm.form.valueChanges.subscribe(stat => {
-      if (stat.name !== undefined && stat.code !== undefined && stat.name.length >= 1 && stat.code.length == 0 && this.data.isUnique(this.stat, "code", stat.name.charAt(0))) {
-        this.stat.code = stat.name.charAt(0);
-      }
+    if (!!this.ngForm) {
+      this.formChangesSubscription = this.ngForm.form.valueChanges.subscribe(stat => {
+        if (stat.name !== undefined && stat.code !== undefined && stat.name.length >= 1 && stat.code.length == 0 && this.data.isUnique(this.stat, "code", stat.name.charAt(0))) {
+          this.stat.code = stat.name.charAt(0);
+        }
 
-      if (stat.name !== undefined && stat.shortName !== undefined && stat.name.length >= 3 && stat.shortName.length == 0 && this.data.isUnique(this.stat, "shortName", stat.name.substr(0, 3).toUpperCase())) {
-        this.stat.shortName = stat.name.substr(0, 3).toUpperCase();
-      }
-    })
+        if (stat.name !== undefined && stat.shortName !== undefined && stat.name.length >= 3 && stat.shortName.length == 0 && this.data.isUnique(this.stat, "shortName", stat.name.substr(0, 3).toUpperCase())) {
+          this.stat.shortName = stat.name.substr(0, 3).toUpperCase();
+        }
+      })
+    }
 
     if (this.id > 0) {
       this.data.getStat(this.id).subscribe(stat => this.stat = stat);
@@ -66,7 +71,9 @@ export class StatDetailsComponent implements OnInit, OnDestroy, CanDeactivate<Ob
   }
 
   ngOnDestroy() {
-    this.formChangesSubscription.unsubscribe();
+    if (!!this.formChangesSubscription) {
+      this.formChangesSubscription.unsubscribe();
+    }
   }
 
   update() {
@@ -88,14 +95,6 @@ export class StatDetailsComponent implements OnInit, OnDestroy, CanDeactivate<Ob
 
   cancel() {
     this.router.navigate(['/admin/stats']);
-  }
-
-  isInteger(number: string) {
-    if (number.match('.*[^0-9]+.*')) {
-      return false;
-    }
-
-    return Number.isInteger(Number.parseInt(number))
   }
 
   canDeactivate(): Observable<boolean> | boolean {

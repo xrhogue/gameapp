@@ -1,12 +1,11 @@
 import {Stat} from '../../admin/shared/stat';
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from "rxjs/internal/Observable";
-import {RequestOptions} from "@angular/http";
 
 @Injectable({
-  providedIn: 'root'
-})
+              providedIn: 'root'
+            })
 export class StatService {
 
   stats: Array<Stat>
@@ -51,9 +50,9 @@ export class StatService {
     if (!!this.stats) {
       for (let statKey in this.stats) {
         if (this.stats[statKey].id != stat.id &&
-          ((fieldName === "name" && this.stats[statKey].name === value) ||
-            (fieldName === "shortName" && this.stats[statKey].shortName == value) ||
-            (fieldName === "code" && this.stats[statKey].code == value))) {
+            ((fieldName === "name" && this.stats[statKey].name === value) ||
+             (fieldName === "shortName" && this.stats[statKey].shortName == value) ||
+             (fieldName === "code" && this.stats[statKey].code == value))) {
           return false;
         }
       }

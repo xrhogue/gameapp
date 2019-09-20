@@ -3,7 +3,7 @@
     Campaigns
   </div>
   <div>
-    <input id="deity-type-name" type="text" class="deity-type-name" pInputText placeholder="Add Deity Type" (input)="check($event.target.value)" [appUniqueName]="{idNameValues: this.campaigns}" (keyup.enter)="addName()" [(ngModel)]="name" #deityType="ngModel"/>
+    <input id="deity-type-name" type="text" class="deity-type-name" pInputText placeholder="Add Deity Type" (input)="check($event.target.value)" [appUniqueName]="{idNameValues: this.deityTypes}" (keyup.enter)="addName()" [(ngModel)]="name" #deityType="ngModel"/>
     <div *ngIf="!!deityType.errors && deityType.errors['uniqueName']">{{deityType.errors['uniqueName'].description}}</div>
     <p-listbox styleClass="deity-type-list" [listStyle]="{'max-height': '200px'}" [options]="deityTypes" optionLabel="name" multiple="false" showToggleAll="false" checkbox="true" [(ngModel)]="selectedDeityTypes"></p-listbox>
     <p-button label="Delete Selected" [disabled]="selectedDeityTypes.length == 0" (onClick)="deleteNames($event)"></p-button>

@@ -31,13 +31,13 @@
          pInputText
          placeholder="Add {{attributeName}}"
          oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())"
-         (keyup.enter)="addAttribute($event)"
+         (keyup.enter)="addAttribute()"
          [appUniqueName]="{attributes: this.attributes}"
          [(ngModel)]="newAttribute"
          #attributeDlg="ngModel"/>
   <div *ngIf="!!attributeDlg.errors && attributeDlg.errors['uniqueName']">{{attributeDlg.errors['uniqueName'].description}}</div>
   <p-footer>
-    <button type="button" pButton icon="pi pi-check" [disabled]="newAttribute?.length == 0 || !!attributeDlg.errors" (click)="addAttribute($event);showDialog=false" label="Add"></button>
+    <button type="button" pButton icon="pi pi-check" [disabled]="newAttribute?.length == 0 || !!attributeDlg.errors" (click)="addAttribute();showDialog=false" label="Add"></button>
     <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>

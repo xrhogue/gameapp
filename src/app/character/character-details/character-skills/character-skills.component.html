@@ -6,11 +6,11 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let characterSkill of character.skills">
-    <td [routerLink]="[characterSkill.skillId]">{{getSkill(characterSkill).name}}</td>
+  <tr *ngFor="let selectedCharacterSkill of character.skills">
+    <td [routerLink]="[selectedCharacterSkill.skillId]">{{getSkill(selectedCharacterSkill).name}}</td>
     <td>
-      <i class="material-icons" (click)="updateCharacterSkill(characterSkill)" ngbTooltip="Update {{getSkill(characterSkill).name}}">description</i>
-      <i class="material-icons" (click)="deleteCharacterSkill(characterSkill)" ngbTooltip="Delete {{getSkill(characterSkill).name}}">delete</i>
+      <i class="material-icons" (click)="updateCharacterSkill(selectedCharacterSkill)" ngbTooltip="Update {{getSkill(selectedCharacterSkill).name}}">description</i>
+      <i class="material-icons" (click)="deleteCharacterSkill(selectedCharacterSkill)" ngbTooltip="Delete {{getSkill(selectedCharacterSkill).name}}">delete</i>
     </td>
   </tr>
   </tbody>
@@ -29,3 +29,5 @@
     <button type="button" pButton icon="pi pi-close" (click)="showDialog=false" label="Cancel" class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>
+
+<app-character-skill-details-dlg header="'Update {{getSkill(characterSkill).name}}'" [(visible)]="showDetails" [(characterSkill)]="characterSkill"></app-character-skill-details-dlg>

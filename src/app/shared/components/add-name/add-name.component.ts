@@ -12,7 +12,7 @@ export class AddNameComponent implements OnInit {
   @Input() idNameValues: Array<IdNameValue>;
   @Output() enter: EventEmitter<string> = new EventEmitter<string>();
   @Output() nameChange: EventEmitter<string> = new EventEmitter<string>();
-  @ViewChild('nameInput') nameInput: any; // should be NgModel, but _elementRef is supposed not part of that (but it is).
+  @ViewChild('nameInput', { static: false }) nameInput: any; // should be NgModel, but _elementRef is supposed not part of that (but it is).
 
   constructor() { }
 

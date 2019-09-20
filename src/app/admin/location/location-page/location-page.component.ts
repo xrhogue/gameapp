@@ -16,7 +16,7 @@ export class LocationPageComponent implements OnInit {
   @Input() location: Location;
   locationTypes: Array<LocationType>;
 //  @Output() locationChange: EventEmitter<Location> = new EventEmitter<Location>();
-  @ViewChild('details') locationDetails: LocationDetailsComponent;
+  @ViewChild('details', { static: true }) locationDetails: LocationDetailsComponent;
 
   constructor(private route: ActivatedRoute, private locationService: LocationService) {
     this.route.params.subscribe(params => this.id = params.id);

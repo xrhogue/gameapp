@@ -17,7 +17,9 @@ import {Character} from "admin/shared/character";
 export class CharacterSkillsComponent extends CharacterBaseComponent implements OnInit {
   skills: Array<Skill>;
   selectedCharacterSkills: Array<CharacterSkill> = [];
+  characterSkill: CharacterSkill = new CharacterSkill(0, 0, 0);
   showDialog: boolean = false;
+  showDetails: boolean = false;
 
   constructor(private skillService: SkillService, protected utilService: UtilService, private router: Router) {
     super(utilService);
@@ -42,7 +44,8 @@ export class CharacterSkillsComponent extends CharacterBaseComponent implements 
   }
 
   updateCharacterSkill(characterSkill: CharacterSkill) {
-    this.router.navigateByUrl('/characters/skills/' + characterSkill.skillId).catch(/*handle exception here*/);
+    this.showDetails = true;
+    this.characterSkill = characterSkill;
   }
 
   deleteCharacterSkill(characterSkill: CharacterSkill) {
@@ -60,6 +63,12 @@ export class CharacterSkillsComponent extends CharacterBaseComponent implements 
   }
 
   getSkill(characterSkill: CharacterSkill): Skill {
-    return this.skills.find(skill => skill.id === characterSkill.skillId); // TODO: propagate this to other filters where findFirst is needed
+    let skill: Skill = this.skills.find(skill => skill.id === characterSkill.skillId); // TODO: propagate this to other filters where findFirst is needed
+
+    if (!!skill) {
+      return skill;
+    }
+
+    return new Skill(0, "", "", 0, 0, false, 0, 0, [0]);
   }
 }

@@ -1,41 +1,41 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {CharacterSkillDetailsComponent} from "./character/character-details/character-skills/character-skill-details/character-skill-details.component";
-import {CharactersComponent} from './character/characters/characters.component';
-import {CharacterDetailsComponent} from "./character/character-details/character-details.component";
-import {PageNotFoundComponent} from "./shared/components/page-not-found/page-not-found.component";
+import {CharacterSkillDetailsComponent} from "app/character/character-details/character-skills/character-skill-details/character-skill-details.component";
+import {CharactersComponent} from 'app/character/characters/characters.component';
+import {CharacterDetailsComponent} from "app/character/character-details/character-details.component";
+import {PageNotFoundComponent} from "app/shared/components/page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path:       '',
     redirectTo: '/characters',
-    pathMatch: 'full'
+    pathMatch:  'full'
   },
   {
-    path: 'characters',
+    path:      'characters',
     component: CharactersComponent
   },
   {
-    path: 'characters/0',
+    path:      'characters/0',
     component: CharacterDetailsComponent
   },
   {
-    path: 'characters/:id',
+    path:      'characters/:id',
     component: CharacterDetailsComponent
   },
   {
-    path: 'characters/skills/:id',
+    path:      'characters/skills/:id',
     component: CharacterSkillDetailsComponent
   },
   {
-    path: '**',
+    path:      '**',
     component: PageNotFoundComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
+            imports: [RouterModule.forRoot(routes)],
+            exports: [RouterModule]
+          })
 export class AppRoutingModule {
 }

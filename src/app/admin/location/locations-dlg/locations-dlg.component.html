@@ -1,4 +1,4 @@
-<p-dialog [header]="header" [(visible)]="visible" (onShow)="show()">
+<p-dialog [header]="header" [(visible)]="visible" (onShow)="show(this.location)">
   <p-tree [value]="locationTreeNodes"
           selectionMode="single"
           [(selection)]="selectedLocationTreeNode">
@@ -10,5 +10,5 @@
   </p-footer>
 </p-dialog>
 
-<app-location-dlg [header]="'New Location'" [(visible)]="showDialog" [(location)]="location" (locationChange)="updateLocations(location)"></app-location-dlg>
+<app-location-dlg [header]="'New Location'" [(visible)]="showDialog" [(location)]="newLocation" (locationChange)="updateLocations(newLocation)"></app-location-dlg>
 

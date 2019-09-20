@@ -19,10 +19,10 @@ export class RaceGenderComponent implements OnInit {
   @Input() gender: Gender;
   @Input() race: Race;
   @Output() raceChange: EventEmitter<Race> = new EventEmitter<Race>();
-  @ViewChild(RaceAgesComponent) private raceAgesComponent: RaceAgesComponent;
-  @ViewChild(RaceStatsComponent) private raceStatsComponent: RaceStatsComponent;
-  @ViewChild(RaceAttributesComponent) private raceAttributesComponent: RaceAttributesComponent;
-  @ViewChild(RaceMeasurementsComponent) private raceMeasurementsComponent: RaceMeasurementsComponent;
+  @ViewChild(RaceAgesComponent, { static: false }) private raceAgesComponent: RaceAgesComponent;
+  @ViewChild(RaceStatsComponent, { static: false }) private raceStatsComponent: RaceStatsComponent;
+  @ViewChild(RaceAttributesComponent, { static: false }) private raceAttributesComponent: RaceAttributesComponent;
+  @ViewChild(RaceMeasurementsComponent, { static: false }) private raceMeasurementsComponent: RaceMeasurementsComponent;
   componentStates: Array<boolean> = [];
   isInteger:(number: string)=>boolean;
 

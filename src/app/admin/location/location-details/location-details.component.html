@@ -8,7 +8,7 @@
   <div class="small-12 medium-6 columns">
     <label class="control-label" for="name">Name
       <div class="input-group">
-        <input type="text" class="form-control" id="name" oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())" [(ngModel)]="location.name" name="name" required  #name="ngModel">
+        <input type="text" class="form-control" id="name" oninput="this.value = this.value.toLowerCase().replace(/^\w/, c => c.toUpperCase())" [(ngModel)]="location.name" name="name" required #name="ngModel">
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
           <div *ngIf="name.errors.required">Required</div>
         </div>
@@ -30,7 +30,7 @@
   <div class="small-12 medium-6 columns">
     <label class="control-label" for="parentName">Parent
       <div class="input-group">
-        <input type="text" class="form-control" id="parentName" [(ngModel)]="parent.name" name="parentName" required  #parentName="ngModel">
+        <input type="text" class="form-control" id="parentName" [(ngModel)]="parent.name" name="parentName" required #parentName="ngModel">
         <div *ngIf="parentName.invalid && (parentName.dirty || parentName.touched)" class="alert alert-danger">
           <div *ngIf="parentName.errors.required">Required</div>
         </div>

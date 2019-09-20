@@ -17,8 +17,8 @@ export class DeityDetailsComponent implements OnInit {
   deityTypeName: string = "";
   @Input() modal: boolean = false;
   @Output() deityChange: EventEmitter<Deity> = new EventEmitter<Deity>();
-  @ViewChild('name') nameInput: any;
-  @ViewChild('type') typeOption: any;
+  @ViewChild('name', { static: false }) nameInput: any;
+  @ViewChild('type', { static: false }) typeOption: any;
   parent: Deity = new Deity(0, 0, null, null, "(None)");
   showDialog: boolean = false;
   selectParent: boolean = false;
